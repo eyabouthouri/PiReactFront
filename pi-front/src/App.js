@@ -1,17 +1,40 @@
-import React from 'react';
-import Footer from './components/Footer'
-import Sidebar from './components/Sidebar';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import React, { Component } from 'react';
 
-function App() {
+import Library from './Library';
+import Home  from './Home';
+import Event from './Event';
+import Course from './Course';
+import { BrowserRouter as Router, Route,Switch,Link } from 'react-router-dom';
+import NavbarModule from './components/NavbarModule';
+
+function App()  {
   return (
-   <div className='container'> 
-    <Sidebar/>
-    <div className='container'> 
-<Footer/>
-    </div>
- 
-  </div>
+
+ <Router>
+      <div>
+       
+
+        {/* A <Switch> looks through its children <Route>s and
+            renders the first one that matches the current URL. */}
+        <Switch>
+        <Route path="/Home">
+            <Home />
+          </Route>
+          <Route path="/library">
+            <Library />
+          </Route>
+          <Route path="/event">
+            <Event />
+          </Route>
+          <Route path="/course">
+            <Course />
+          </Route>
+        </Switch>
+      </div>
+    </Router> 
+   
+
+  
   );
 }
 
