@@ -1,6 +1,6 @@
 import React from 'react';
-import ContenuLibrary from './components/NavbarModule';
-import Topnav from './components/Topnav';
+import ContenuLibrary from '../../components/NavbarModule';
+import Topnav from '../../components/Topnav';
 
 function Library() {
     return (

@@ -1,7 +1,7 @@
 import React from 'react';
-import Navbarback from './components/Navbarback';
-import SideBar from './components/SideBar';
-function ShowEvent(props) {
+import Navbarback from '../../components/Navbarback';
+import SideBar from '../../components/SideBar';
+function ShowLiabrary(props) {
     return (
         <div id="content-page" class="content-page">          
 
@@ -11,6 +11,7 @@ function ShowEvent(props) {
             <SideBar/>
             </div>
             </div>
+           
             <div class="row">
                   <div class="col-sm-12">
                         <div class="inner-page-title">
@@ -106,7 +107,8 @@ function ShowEvent(props) {
                               </table>
                            </div> </div></div> </div></div>
                      </div>
+
     );
 }
 
-export default ShowEvent;
+export default ShowLiabrary;

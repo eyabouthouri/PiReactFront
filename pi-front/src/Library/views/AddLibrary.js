@@ -1,8 +1,8 @@
 import React from 'react';
-import Fildest from './components/Fildest';
-import Navbarback from './components/Navbarback';
-import SideBar from './components/SideBar';
-import StepDeux from './components/StepDeux';
+import Fildest from '../../components/Fildest';
+import Navbarback from '../../components/Navbarback';
+import SideBar from '../../components/SideBar';
+import StepDeux from '../../components/StepDeux';
 function AddLibrary(props) {
     return (
         <div id="content-page" class="content-page">          

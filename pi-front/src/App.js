@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
 
-import Library from './Library';
-import Home  from './Home';
-import Event from './Event';
-import Course from './Course';
+import Library from './Library/views/Library';
+import Home  from './Home/Home';
+import Event from './event/views/Event';
+import Course from './course/views/Course';
 import { BrowserRouter as Router, Route,Switch,Link } from 'react-router-dom';
 import NavbarModule from './components/NavbarModule';
-import SignIn from './SignIn';
-import SignUp from './SignUp';
-import AddLibrary from './AddLibrary';
-import AddEvent from './AddEvent';
-import AddCoach from './AddCoach';
-import AddCourse from './AddCourse';
-import ShowLiabrary from './ShowLiabrary';
-import ShowCoach from './ShowCoach';
-import ShowCourse from './ShowCourse';
-import ShowEvent from './ShowEvent';
+import SignIn from './Home/SignIn';
+import SignUp from './Home/SignUp';
+import AddLibrary from './Library/views/AddLibrary';
+import AddEvent from './event/views/AddEvent';
+import AddCoach from './coach/views/AddCoach';
+import AddCourse from './course/views/AddCourse';
+import ShowLiabrary from './Library/views/ShowLiabrary';
+import ShowCoach from './coach/views/ShowCoach';
+import ShowCourse from './course/views/ShowCourse';
+import ShowEvent from './event/views/ShowEvent';
 
 function App()  {
   return (
