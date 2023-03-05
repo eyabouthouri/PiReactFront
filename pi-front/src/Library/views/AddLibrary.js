@@ -1,9 +1,45 @@
-import React from 'react';
-import Fildest from '../../components/Fildest';
+import React ,{useState} from "react";
+import axios from "axios";
 import Navbarback from '../../components/Navbarback';
 import SideBar from '../../components/SideBar';
-import StepDeux from '../../components/StepDeux';
+import { useHistory,useLocation } from "react-router-dom";
+import {toast} from "react-toastify";
+axios.defaults.withCredentials = true;
+const initialState= {
+   name:"",
+   adresse:"",
+   email:"",
+   tel:""
+}
 function AddLibrary(props) {
+
+
+   const [state, setState] = useState(initialState);
+
+   const { name, adresse, email, tel}=initialState;
+   const history = useHistory();
+   const addL = async (data)=> {
+      const response = await axios.post("http://localhost:5000/library/addl",data)
+      toast.sucess(response.data);
+   }
+    
+   const Handelsubmit=(e)=>{
+          
+      e.preventDefault();
+     
+         addL(state);
+         history.push("/Showlibrary");
+      
+    
+   };
+      const  handleInputChange=(e) =>{
+         let{name, value}=e.target;
+         setState({...state, [name]:value });
+    };
+  
+   
+   
+      
     return (
         <div id="content-page" class="content-page">          
           <div id="root"> 
@@ -11,9 +47,9 @@ function AddLibrary(props) {
             <div id="root">
                 <SideBar/>
                 </div>
-    </div>  
+              </div>  
        
-        <div class="container">
+             <div class="container">
        
               <div class="col-sm-12 col-lg-12">
                  <div class="iq-card">
@@ -23,7 +59,6 @@ function AddLibrary(props) {
                        </div>
                     </div>
                     <div class="iq-card-body">
-                       <form id="form-wizard1" class="text-center mt-4">
                           <ul id="top-tab-list" class="p-0">
                              <li class="active" id="account">
                                 <a href="javascript:void();">
@@ -46,85 +81,45 @@ function AddLibrary(props) {
                                 </a>
                              </li>
                           </ul>
-                          <fieldset>
-        <div class="form-card text-left">
-           <div class="row">
-              <div class="col-7">
-                 <h3 class="mb-4">Library  Information:</h3>
-              </div>
-            
-           </div>
-           <div class="row">
+            <form onSubmit={Handelsubmit}>
+  
+              <div class="row">
+              <div class="col-md-6">
+
+                 <div class="form-group">
+                    <label htmlFor="tel" >tel: * </label>
+                    <input type="text" className="form-control" id="tel " name="tel"  placeholder="tel"   onChange={handleInputChange} value={tel} />
+                 </div>
               <div class="col-md-6">
                  <div class="form-group">
-                    <label>Email: *</label>
-                    <input type="email" class="form-control" name="email" placeholder="Email Id" />
+                    <label htmlFor="name" >nom: *</label>
+                    <input type="text" className="form-control"  id="name" name="name"  placeholder="name"   onChange={handleInputChange}  value={name}/>
                  </div>
               </div>
               <div class="col-md-6">
                  <div class="form-group">
-                    <label>Username: *</label>
-                    <input type="text" class="form-control" name="uname" placeholder="UserName" />
+                    <label htmlFor="adresse">adresse: *</label>
+                    <input type="text" className="form-control" id="adresse" name="adresse"  placeholder="adresse"  onChange={handleInputChange}  value={adresse}/>
                  </div>
               </div>
               <div class="col-md-6">
                  <div class="form-group">
-                    <label>Password: *</label>
-                    <input type="password" class="form-control" name="pwd" placeholder="Password" />
+                    <label htmlFor="email">Email: *</label>
+                    <input type="email" className="form-control"  id="email" name="email" placeholder="email"   onChange={handleInputChange}  value={email}/>
                  </div>
               </div>
-              <div class="col-md-6">
-                 <div class="form-group">
-                    <label>Confirm Password: *</label>
-                    <input type="password" class="form-control" name="cpwd" placeholder="Confirm Password" />
-                 </div>
-              </div>
-              <div class="col-md-6">
-                 <div class="form-group">
-                    <label>First Name: *</label>
-                    <input type="text" class="form-control" name="fname" placeholder="First Name" />
-                 </div>
-              </div>
-              <div class="col-md-6">
-                 <div class="form-group">
-                    <label>Last Name: *</label>
-                    <input type="text" class="form-control" name="lname" placeholder="Last Name" />
-                 </div>
-              </div>
-              <div class="col-md-6">
-                 <div class="form-group">
-                    <label>Contact No.: *</label>
-                    <input type="text" class="form-control" name="phno" placeholder="Contact No." />
-                 </div>
-              </div>
-              <div class="col-md-6">
-                 <div class="form-group">
-                    <label>Alternate Contact No.: *</label>
-                    <input type="text" class="form-control" name="phno_2" placeholder="Alternate Contact No." />
-                 </div>
-              </div>
-           </div>
-           <div class="col-7">
-                 <h3 class="mb-4">Image Upload:</h3>
-              </div>
-          
-           </div>
-           <div class="form-group">
-              <label>Upload Library  Photo:</label>
-              <input type="file" class="form-control" name="pic" accept="image/*"/>
-           </div>
-           
-        <button type="button" name="next" class="btn btn-primary next action-button float-right"  >Ajouter</button>
-     </fieldset>
-     
-   
-                
-                      
-                       </form>
+                </div>
+        </div>
+      
+
+               <button type="submit" className="btn btn-primary btn-lg"
+                    >Ajouter</button>     
+             </form>
+             </div>
                     <div/>
-       </div></div></div></div></div>
+       </div></div></div></div>
    
-    
+   
     );
 }
 
