@@ -5,7 +5,6 @@ import Home  from './Home/Home';
 import Event from './event/views/Event';
 import Course from './course/views/Course';
 import { BrowserRouter as Router, Route,Switch,Link } from 'react-router-dom';
-import NavbarModule from './components/NavbarModule';
 import SignIn from './Home/SignIn';
 import SignUp from './Home/SignUp';
 import AddLibrary from './Library/views/AddLibrary';
@@ -66,6 +65,8 @@ function App()  {
           <Route path="/ShowEvent">
             <ShowEvent />
           </Route>
+          <Route path="/updateL/:id" component={AddLibrary} />
+          
         </Switch>
       </div>
     </Router> 

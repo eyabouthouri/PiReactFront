@@ -1,33 +1,60 @@
-import React ,{useState} from "react";
+import React, { useEffect, useState } from 'react';
 import axios from "axios";
 import Navbarback from '../../components/Navbarback';
 import SideBar from '../../components/SideBar';
+import { useParams } from 'react-router-dom';
 import { useHistory,useLocation } from "react-router-dom";
 import {toast} from "react-toastify";
+import Library from './Library';
 axios.defaults.withCredentials = true;
 const initialState= {
    name:"",
    adresse:"",
    email:"",
-   tel:""
+   tel:"",
+   img:""
 }
 function AddLibrary(props) {
-
+  
 
    const [state, setState] = useState(initialState);
-
    const { name, adresse, email, tel}=initialState;
    const history = useHistory();
    const addL = async (data)=> {
       const response = await axios.post("http://localhost:5000/library/addl",data)
       toast.sucess(response.data);
    }
-    
+   const updateL = async (data,id)=> {
+      const response = await axios.put(`http://localhost:5000/library/updatel/${id}`, data);
+      if(response.status ==200){
+         toast.sucess(response.data);
+
+      }
+   };
+   const { id } = useParams();
+   useEffect(() =>{
+      if (id) {
+
+      getOneL(id);
+   }
+   },[id])
+var self=this;
+   const getOneL = async (id) => {
+      const response = await axios.get(`http://localhost:5000/library/getOnel/${id}`);
+         setState({ ...response.data[0]} );
+
+      
+   };
+   
+   
    const Handelsubmit=(e)=>{
           
       e.preventDefault();
-     
+     if(!id){
          addL(state);
+     }else{
+      updateL(state, id);
+     }
          history.push("/Showlibrary");
       
     
@@ -36,7 +63,7 @@ function AddLibrary(props) {
          let{name, value}=e.target;
          setState({...state, [name]:value });
     };
-  
+
    
    
       
@@ -81,39 +108,52 @@ function AddLibrary(props) {
                                 </a>
                              </li>
                           </ul>
-            <form onSubmit={Handelsubmit}>
+            <form id="form-wizard1" class="text-center mt-4"  methode="POST" onSubmit={Handelsubmit}>
   
-              <div class="row">
-              <div class="col-md-6">
+            <div class="form-card text-left">
+         <div class="row">
+            <div class="col-7">
+               <h3 class="mb-4">Library  Information:</h3>
+            </div>
+          
+         </div>
+         <div class="row">
+            <div class="col-md-6">
 
                  <div class="form-group">
                     <label htmlFor="tel" >tel: * </label>
-                    <input type="text" className="form-control" id="tel " name="tel"  placeholder="tel"   onChange={handleInputChange} value={tel} />
+                    <input type="text" className="form-control"  name="tel"  placeholder="tel"   onChange={handleInputChange} value={state.tel} />
                  </div>
               <div class="col-md-6">
                  <div class="form-group">
                     <label htmlFor="name" >nom: *</label>
-                    <input type="text" className="form-control"  id="name" name="name"  placeholder="name"   onChange={handleInputChange}  value={name}/>
+                    <input type="text" className="form-control"  name="name"  placeholder="name"   onChange={handleInputChange}  value={state.name}/>
                  </div>
               </div>
               <div class="col-md-6">
                  <div class="form-group">
                     <label htmlFor="adresse">adresse: *</label>
-                    <input type="text" className="form-control" id="adresse" name="adresse"  placeholder="adresse"  onChange={handleInputChange}  value={adresse}/>
+                    <input type="text" className="form-control"  name="adresse"  placeholder="adresse"  onChange={handleInputChange}  value={state.adresse}/>
                  </div>
               </div>
               <div class="col-md-6">
                  <div class="form-group">
                     <label htmlFor="email">Email: *</label>
-                    <input type="email" className="form-control"  id="email" name="email" placeholder="email"   onChange={handleInputChange}  value={email}/>
+                    <input type="email" className="form-control"   name="email" placeholder="email"   onChange={handleInputChange}  value={state.email}/>
                  </div>
               </div>
-                </div>
-        </div>
+              <div className="form-group">
+               <label for="file-upload">Photo</label>
+               <input id="file-upload" type="file" name="img"  onChange={handleInputChange}  value={state.img}></input>
+               
+               </div></div>
+              </div>
+               
       
 
-               <button type="submit" className="btn btn-primary btn-lg"
-                    >Ajouter</button>     
+               <input type="submit" value={id ? "Update" : "Add"}
+                    />  
+                    </div>  
              </form>
              </div>
                     <div/>
