@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbarback from '../../components/Navbarback';
 import SideBar from '../../components/SideBar';
+
 function AddCoach(props) {
     return (
         <div id="content-page" class="content-page">          
