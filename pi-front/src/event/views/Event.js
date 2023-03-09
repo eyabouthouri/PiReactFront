@@ -1,7 +1,10 @@
 import React from 'react';
 import Topnav from '../../components/Topnav';
+import AddEvent from './AddEvent';
+import { Routes, Route } from 'react-router-dom';
 function Event(props) {
     return (
+
         <div id="root">
             <Topnav/>
         <div class="header-for-bg">

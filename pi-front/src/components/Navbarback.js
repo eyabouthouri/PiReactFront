@@ -1,6 +1,38 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Navbarback(props) {
+   const [userconnecte, setUserconnecte] = useState([]);
+   var history = useNavigate
+   useEffect(() => {
+      
+       userconnectee().then((d) => {
+
+        setUserconnecte(d);
+        console.log(userconnecte)
+      
+     });
+      
+      
+   }, [])
+
+   const userconnectee = async()=>{
+
+      const res = await axios
+      .get("http://localhost:5000/users/userconnecte", {
+        withCredentials: true,
+
+      })
+      .catch((err) => console.log(err));
+      setUserconnecte(res.data)
+      if(res.data == [])
+      {
+         history("/")
+
+      }
+      return res.data;
+   }
     return (
         <div class="iq-top-navbar">
         <div class="iq-navbar-custom">
@@ -30,9 +62,10 @@ function Navbarback(props) {
                  <ul class="navbar-nav ml-auto navbar-list">
                     <li>
                        <a href="profile.html" class="iq-waves-effect d-flex align-items-center">
-                          <img src="images/user/1.jpg" class="img-fluid rounded-circle mr-3" alt="user"/>
+                          <img src={process.env.PUBLIC_URL+"/imagee/"+userconnecte.image} class="img-fluid rounded-circle mr-3" alt="user"/>
+
                           <div class="caption">
-                             <h6 class="mb-0 line-height">Bni Cyst</h6>
+                             <h6 class="mb-0 line-height">{userconnecte.name} {userconnecte.lastname}</h6>
                           </div>
                        </a>
                     </li>
@@ -281,7 +314,7 @@ function Navbarback(props) {
                                       </div>
                                    </div>
                                 </a>
-                                <a href="profile-edit.html" class="iq-sub-card iq-bg-warning-hover">
+                               <Link to={"/UpdateUser"} class="iq-sub-card iq-bg-warning-hover">
                                    <div class="media align-items-center">
                                       <div class="rounded iq-card-icon iq-bg-warning">
                                          <i class="ri-profile-line"></i>
@@ -291,7 +324,7 @@ function Navbarback(props) {
                                          <p class="mb-0 font-size-12">Modify your personal details.</p>
                                       </div>
                                    </div>
-                                </a>
+                                   </Link> 
                                 <a href="account-setting.html" class="iq-sub-card iq-bg-info-hover">
                                    <div class="media align-items-center">
                                       <div class="rounded iq-card-icon iq-bg-info">
