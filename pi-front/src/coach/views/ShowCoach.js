@@ -92,13 +92,14 @@ function ShowCoach(props) {
                               <h4 class="card-title">Editable Table</h4>
                            </div>
                         </div> </div>
-                  <div class="iq-card-body">
+                        <div class="container">
                            <div id="table" class="table-editable">
-                          
                               <table class="table table-bordered table-responsive-md table-striped text-center">
                                 
                  
-                                 <thead>
+                                 <thead class="thead-dark">
+                                
+                 
                                     <tr>
                                   
                                        <th>first Name</th>
