@@ -15,10 +15,13 @@ import ShowLiabrary from './Library/views/ShowLiabrary';
 import ShowCoach from './coach/views/ShowCoach';
 import ShowCourse from './course/views/ShowCourse';
 import ShowEvent from './event/views/ShowEvent';
-import { Route,Routes } from 'react-router-dom';
+import { Route,Routes ,useParams } from 'react-router-dom';
 import UpdateUser from './coach/views/updateuser';
 
 function App()  {
+
+  let { id } = useParams();
+
   return (
 
 
@@ -37,6 +40,9 @@ function App()  {
         <Route path='/AddCoach' element={<AddCoach></AddCoach>}></Route>
         <Route path='/AddCourse' element={<AddCourse></AddCourse>}></Route>
         <Route path='/ShowLiabrary' element={<ShowLiabrary></ShowLiabrary>}></Route>
+        <Route path='/library' element={<Library></Library>}></Route>
+        <Route path='/updateL/:id' element={<AddLibrary/>}></Route>
+
         <Route path='/ShowCoach' element={<ShowCoach></ShowCoach>}></Route>
         <Route path='/ShowCourse' element={<ShowCourse></ShowCourse>}></Route>
         <Route path='/ShowLiabrary' element={<ShowLiabrary></ShowLiabrary>}></Route>
