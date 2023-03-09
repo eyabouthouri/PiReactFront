@@ -1,9 +1,12 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
+
 import Navbarback from '../../components/Navbarback';
 import SideBar from '../../components/SideBar';
 import {toast} from "react-toastify";
+import Library from './Library';
 function ShowLiabrary(props) {
 const [data,setData]=useState([]);
 useEffect(()=>{
@@ -30,7 +33,8 @@ const deleteL = async (id)=> {
       }
    }
 }
-
+const upload = "https://res.cloudinary.com/dojrd5swn/image/upload/" + Library.img || null;
+console.log("taswira",listL.img)
     return (
         <div id="content-page" class="content-page">          
 
@@ -77,7 +81,9 @@ const deleteL = async (id)=> {
                                 {data && data.map((item, index)=>{
                                  return(
                                     <tr >
-                                       <td class="contenteditable">{item.img}</td>
+                                       <td>
+                                        {" "}
+                                       <img class="img-fluid img-thumbnail" src={process.env.PUBLIC_URL+"/images/"+item.img}></img>{" "} </td>
                                        <td class="contenteditable">{item.name}</td>
                                        <td class="contenteditable">{item.adresse}</td>
                                        <td class="contenteditable">{item.email}</td>

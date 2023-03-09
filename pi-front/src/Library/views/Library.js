@@ -6,7 +6,7 @@ import Topnav from '../../components/Topnav';
 
 function Library(props) {
 
-    const [data,setData]=useState([]);
+   const [data,setData]=useState([]);
 useEffect(()=>{
    listL();
 },[])
@@ -20,45 +20,55 @@ if(response.status ==200){
 }
 
 
-    return (
-        <div id="root">
+   return (
+      <div id="root">
             <Topnav/>
-       
+      
             <div class="header-for-bg">
             <div class="background-header position-relative">
-               <img src="images/page-img/profile-bg5.jpg" class="img-fluid rounded w-100 rounded rounded" alt="profile-bg"/>
+               <img src="images/page-img/profile-bg7.jpg" class="img-fluid rounded w-100 rounded rounded" alt="profile-bg"/>
                <div class="title-on-header">
                   <div class="data-block">
-                     <h2>Your Photos</h2>
+                     <h2>Library</h2>
                   </div>
                </div>
             </div>
-            <div   id="content-page" className="content-page">
-  <div className="container">
-     <div className="row">
-        <div className="col-md-6 col-lg-4 mb-3">
-           <div className="user-images position-relative overflow-hidden">
+         
+            <div   class="container">
+            <div class="row">
 
-                         {data && data.map((item, index)=>{
-                                                 return(
-                                   <p key={index}>
-                                  <h4 class="title-agile2">{item.name}</h4>
-                                   <span> adresse : {item.adresse}</span>
-                                  <span> email :{item.email} </span>
-                                  <span> Tel :{item.tel}</span> 
-                                  <span> {item.img}</span> 
+               {data && data.map((item, index)=>{
+               return(
+                  <div class="col-sm-6">
+                  <div class="card">
+                     <div class="card-body">
+                  <img class="card-img-top"  src={process.env.PUBLIC_URL+"/images/"+item.img}></img>
 
-                                         
-                                    </p> 
-                                  
-   
-                                 )
-                                })}
-                               
-                               </div>
-                                </div></div></div></div></div>
-                    
-                                     
+                     <div class="card-body">
+                     <h5 class="card-title">{item.name}</h5>
+                        <p class="card-text">Adresse : {item.adresse} <br></br>email : {item.email} <br></br>Tel : {item.tel} </p>
+                  
+
+                        </div>  </div>
+                     
+                                          
+                        <br></br>
+
+                                             <form class="comment-text d-flex align-items-center mt-3" action="javascript:void(0);">
+                                                <input type="text" class="form-control rounded"/>
+                                                <div class="comment-attagement d-flex">
+                                                   <a href="javascript:void();"><i class="ri-link mr-3"></i></a>
+                                                   <a href="javascript:void();"><i class="ri-user-smile-line mr-3"></i></a>
+                                                   <a href="javascript:void();"><i class="ri-camera-line mr-3"></i></a>
+                                                </div>
+                                             </form>
+                     </div></div>
+                     
+                                 )                           
+                              })}                           
+                     </div></div>
+                           </div>     
+         <br></br>  <br></br>   <br></br>         <br></br><br></br>
    <footer class="bg-white iq-footer">
          <div class="container-fluid">
             <div class="row">
@@ -75,9 +85,9 @@ if(response.status ==200){
             </div>
          </div>
       </footer>
-     </div>
+   </div>
          
-    );
+   );
 }
 
 export default Library;
