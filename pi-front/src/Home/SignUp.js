@@ -115,12 +115,13 @@ const handleAccept = () => {
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="col-md-6 bg-white pt-5" >
-                        <div class="myBox">
+                    <div class="myBox">
+
                         <div class="sign-in-from">
                             <h1 class="mb-0">Sign Up</h1>
-                        
+
                             <form methode="POST" onSubmit={Handelsubmit}  class="mt-4">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">First Name {input.name}</label>
