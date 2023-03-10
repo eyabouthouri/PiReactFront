@@ -1,13 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState ,useRef,useEffect} from 'react';
 import { useNavigate,NavLink } from 'react-router-dom';
 import {toast} from 'react-toastify'
+import { useSpring, animated } from 'react-spring';
+
 import axios from 'axios';
 axios.defaults.withCredentials = true;
+
 function SignUp() {
     const initialState={ name:"", lastname:"", email:"",username:"", pwd:""};
     
     const [input, setinput] = useState(initialState);
-   
+    const [isChecked, setIsChecked] = useState(false);
+    const [showButton, setShowButton] = useState(false);
+    
     const history = useNavigate();
     const addclient=async() =>{
         const res= await axios.post("http://localhost:5000/users/add/user",{
@@ -30,13 +35,40 @@ function SignUp() {
         )
         history("/")
 }  
+const TermsAndConditions = () => {
+    const [progress, setProgress] = useState(0);
+    const containerRef = useRef(null);
+}
+const handleCheckboxChange = () => {
+    setIsChecked(!isChecked);
+    setShowButton(!showButton);
+  };
+  
+  const buttonAnimation = useSpring({
+    from: { opacity: 0 },
+    to: { opacity: showButton ? 1 : 0 }
+  });
+const [accepted, setAccepted] = useState(false);
+
+const handleAccept = () => {
+    
+    setAccepted(true);
+  }
     const Handelsubmit=(e)=>{
            
        e.preventDefault();
-      addclient().then(ress => {
-        console.log(ress.data)
+       if (accepted) {
+        // submit form data
+        console.log('Form data submitted successfully!');
+        addclient().then(ress => {
+            console.log(ress.data)
+          
+          })
+      } else {
+        alert('Veuillez accepter les termes et conditions pour continuer');
+      }
+    
       
-      })
      
     
     };
@@ -44,9 +76,13 @@ function SignUp() {
           let{name, value}=e.target;
           setinput({...input, [name]:value });
      };
- 
+     const handleDecline = () => {
+        setAccepted(false);
+      }
+     
     
     return (
+
         <div class="sign-in-page">
             <div id="container-inside">
               <div id="circle-small"></div>
@@ -79,7 +115,9 @@ function SignUp() {
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 bg-white pt-5">
+                    
+                    <div class="col-md-6 bg-white pt-5" >
+                        <div class="myBox">
                         <div class="sign-in-from">
                             <h1 class="mb-0">Sign Up</h1>
                         
@@ -112,9 +150,9 @@ function SignUp() {
                                 <div class="d-inline-block w-100">
                                     <div class="custom-control custom-checkbox d-inline-block mt-2 pt-1">
                                         <input type="checkbox" class="custom-control-input" id="customCheck1"/>
-                                        <label class="custom-control-label" for="customCheck1">I accept <a href="#">Terms and Conditions</a></label>
+                                        <label class="custom-control-label" for="customCheck1"  onClick={handleAccept}>I accept <a href="/term">Terms and Conditions</a></label>
                                     </div>
-                                   
+                            
                                     <button  type="submit" class="btn btn-primary float-right">Sign Up</button>
                                 
                                    
@@ -128,10 +166,13 @@ function SignUp() {
                                     </ul>
                                 </div>
                             </form>
+                         
+                        </div>
                         </div>
                     </div>
                 </div>
             </div>
+            
         </div>
     );
 }
