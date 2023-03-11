@@ -2,7 +2,7 @@ import React, { useState ,useRef,useEffect} from 'react';
 import { useNavigate,NavLink } from 'react-router-dom';
 import {toast} from 'react-toastify'
 import { useSpring, animated } from 'react-spring';
-
+import Terms from './Terms';
 import axios from 'axios';
 axios.defaults.withCredentials = true;
 
@@ -12,7 +12,10 @@ function SignUp() {
     const [input, setinput] = useState(initialState);
     const [isChecked, setIsChecked] = useState(false);
     const [showButton, setShowButton] = useState(false);
-    
+
+    const handleCheckboxChangee = (event) => {
+      setIsChecked(event.target.checked);
+    }
     const history = useNavigate();
     const addclient=async() =>{
         const res= await axios.post("http://localhost:5000/users/add/user",{
@@ -79,7 +82,7 @@ const handleAccept = () => {
      const handleDecline = () => {
         setAccepted(false);
       }
-     
+   
     
     return (
 
@@ -151,9 +154,15 @@ const handleAccept = () => {
                                 <div class="d-inline-block w-100">
                                     <div class="custom-control custom-checkbox d-inline-block mt-2 pt-1">
                                         <input type="checkbox" class="custom-control-input" id="customCheck1"/>
-                                        <label class="custom-control-label" for="customCheck1"  onClick={handleAccept}>I accept <a href="/term">Terms and Conditions</a></label>
-                                    </div>
-                            
+                                        <span>Please read our terms and conditions before using our website.</span>
+                                    
+     
+      <label>
+        <input type="checkbox"  onClick={handleAccept} checked={isChecked} onChange={handleCheckboxChange} />
+        <a> I agree to the terms and conditions.</a>
+      </label>
+      {isChecked && <Terms />}
+    </div>
                                     <button  type="submit" class="btn btn-primary float-right">Sign Up</button>
                                 
                                    

@@ -23,6 +23,30 @@ function SignIn(props) {
       function handleInputChange2(e){
         setinput({...inputt,password:e.target.value})
       }
+      const [username, setUsername] = useState('');
+      const [pwd, setPwd] = useState('');
+      const [rememberMe, setRememberMe] = useState(false);
+      const [lastLoggedInUser, setLastLoggedInUser] = useState('');
+
+    
+    
+    
+    
+      const handleRememberMeChange = (event) => {
+        setRememberMe(event.target.checked);
+      }
+    
+    
+    
+      // Check if there is a last logged in user and update the state
+      React.useEffect(() => {
+        const lastUser = localStorage.getItem('lastLoggedInUser');
+        if (lastUser) {
+          setLastLoggedInUser(lastUser);
+          setUsername(lastUser);
+        }
+      }, []);
+    
       const sendrequest = async() =>{
         const res= await axios.post("http://localhost:5000/users/login",{
     
@@ -49,7 +73,11 @@ function SignIn(props) {
         const Handelsubmit=(e)=>{
             
            e.preventDefault();
-        
+           if (rememberMe) {
+            localStorage.setItem('lastLoggedInUser', username);
+          } else {
+            localStorage.removeItem('lastLoggedInUser');
+          }
            sendrequest().then(ress => {
            // console.log(ress.userexisting); 
            if(ress.userexisting.role=="user")
@@ -116,12 +144,20 @@ function SignIn(props) {
                                     <input type="password" value={inputt.password} onChange={handleInputChange2} name="password"  id="form3Example4" class="form-control form-control-lg"></input>
                                 </div>
                                 <div className="d-inline-block w-100">
-                                    <div className="custom-control custom-checkbox d-inline-block mt-2 pt-1">
-                                        <input type="checkbox" class="custom-control-input" id="customCheck1"/>
-                                        <label className="custom-control-label" for="customCheck1">Remember Me</label>
-                                    </div>
+                                <div>
+        <label htmlFor="remember-me">
+          <input type="checkbox" id="remember-me" checked={rememberMe} onChange={handleRememberMeChange} />
+          Remember me
+        </label>
+      </div>
                                     <button type="submit" class="btn btn-primary float-right">Sign in</button>
+                                    {lastLoggedInUser && (
+        <div>
+          Last logged in user: {lastLoggedInUser}
+        </div>
+      )}
                                 </div>
+                                
                                 <div className="sign-info">
                                     <span class="dark-color d-inline-block line-height-2">Don't have an account? <NavLink to="/SignUp">Sign up</NavLink></span>
                                     <ul className="iq-social-media">
