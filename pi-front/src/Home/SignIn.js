@@ -23,15 +23,10 @@ function SignIn(props) {
       function handleInputChange2(e){
         setinput({...inputt,password:e.target.value})
       }
-      const [username, setUsername] = useState('');
-      const [pwd, setPwd] = useState('');
+   
       const [rememberMe, setRememberMe] = useState(false);
       const [lastLoggedInUser, setLastLoggedInUser] = useState('');
 
-    
-    
-    
-    
       const handleRememberMeChange = (event) => {
         setRememberMe(event.target.checked);
       }
@@ -39,13 +34,7 @@ function SignIn(props) {
     
     
       // Check if there is a last logged in user and update the state
-      React.useEffect(() => {
-        const lastUser = localStorage.getItem('lastLoggedInUser');
-        if (lastUser) {
-          setLastLoggedInUser(lastUser);
-          setUsername(lastUser);
-        }
-      }, []);
+  
     
       const sendrequest = async() =>{
         const res= await axios.post("http://localhost:5000/users/login",{
@@ -69,15 +58,15 @@ function SignIn(props) {
         return data;
     }
 
-    
         const Handelsubmit=(e)=>{
             
            e.preventDefault();
            if (rememberMe) {
-            localStorage.setItem('lastLoggedInUser', username);
+            localStorage.setItem('lastLoggedInUser', inputt.username);
           } else {
             localStorage.removeItem('lastLoggedInUser');
           }
+         
            sendrequest().then(ress => {
            // console.log(ress.userexisting); 
            if(ress.userexisting.role=="user")
@@ -89,11 +78,29 @@ function SignIn(props) {
             history("/ShowCoach")
            }
           }
+
           )  
-       
+        
+
         }
-       
+        const [username, setUsername] = useState('');
+        const [password, setPassword] = useState('');
+        React.useEffect(() => {
+            const lastUser = localStorage.getItem('lastLoggedInUser');
+            if (lastUser) {
+              setLastLoggedInUser(lastUser);
+              setUsername(lastUser);
+            }
+          }, []); 
+          
+          
     return (
+        <div>
+        {lastLoggedInUser && (
+          <div>
+            last  user, {lastLoggedInUser}!
+          </div>
+        )}
         <div>
         <section class="sign-in-page">
         <div id="container-inside">
@@ -151,12 +158,7 @@ function SignIn(props) {
         </label>
       </div>
                                     <button type="submit" class="btn btn-primary float-right">Sign in</button>
-                                    {lastLoggedInUser && (
-        <div>
-          Last logged in user: {lastLoggedInUser}
-        </div>
-      )}
-                                </div>
+                                                     </div>
                                 
                                 <div className="sign-info">
                                     <span class="dark-color d-inline-block line-height-2">Don't have an account? <NavLink to="/SignUp">Sign up</NavLink></span>
@@ -190,7 +192,7 @@ function SignIn(props) {
                <script src="js/chart-custom.js"/>
                <script src="js/custom.js"/>
             </div>
-               
+          </div>     
     );
 }
 

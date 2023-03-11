@@ -18,6 +18,7 @@ import ShowEvent from './event/views/ShowEvent';
 import { Route,Routes ,useParams } from 'react-router-dom';
 import UpdateUser from './coach/views/updateuser';
 import Terms from './Home/Terms';
+import Rem from './Home/Rem';
 function App()  {
 
   let { id } = useParams();
@@ -48,7 +49,7 @@ function App()  {
         <Route path='/ShowLibrary' element={<ShowLiabrary></ShowLiabrary>}></Route>
         <Route path='/ShowEvent' element={<ShowEvent></ShowEvent>}></Route>
         <Route path='/UpdateUser' element={<UpdateUser></UpdateUser>}></Route>
-        <Route path='/terms' element={<Terms></Terms>}></Route>
+        <Route path='/rem' element={<Rem></Rem>}></Route>
 
         
 
