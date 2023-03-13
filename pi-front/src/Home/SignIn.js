@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+
 import { useNavigate, Link, NavLink } from "react-router-dom";
 import image from "../login/image1.png";
 import ForgotPassword from "../coach/views/ForgotPassword";
@@ -119,7 +120,7 @@ function SignIn(props) {
                     </button>
                   </div>
                   <div className="sign-info">
-                    <span class="dark-color d-inline-block line-height-2">
+                    <span class="dark-color d-inline-block ">
                       Don't have an account? <NavLink to="/SignUp">Sign up</NavLink>
                     </span>
                     <ul className="iq-social-media">

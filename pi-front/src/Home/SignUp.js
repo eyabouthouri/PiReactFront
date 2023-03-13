@@ -2,12 +2,20 @@ import React, { useState } from 'react';
 import { useNavigate,NavLink } from 'react-router-dom';
 import {toast} from 'react-toastify'
 import axios from 'axios';
+import { useFormik } from "formik";
+import {BasicSchema} from"../shemas/controle"
+
 axios.defaults.withCredentials = true;
 function SignUp() {
+   
     const initialState={ name:"", lastname:"", email:"",username:"", pwd:""};
     
     const [input, setinput] = useState(initialState);
-   
+    const[msg,setmsg]=useState("");
+    const [valid, setValid] = useState(initialState);
+ 
+
+     
     const history = useNavigate();
     const addclient=async() =>{
         const res= await axios.post("http://localhost:5000/users/add/user",{
@@ -19,32 +27,37 @@ function SignUp() {
             pwd: input.pwd,
             image:input.image
 
-        },{withCredentials: true}).catch((err)=>{
-            console.error(err)
-            
-          }
-
+        },{withCredentials: true}).catch(
+            (err) => {
+                setValid(false);
+                console.error(err.response.data);
+                  setmsg(...msg,err.response.data);
+              }
             
          
 
         )
-        history("/")
+       
 }  
-    const Handelsubmit=(e)=>{
+    const handelsubmit=(e)=>{
            
        e.preventDefault();
-      addclient().then(ress => {
-        console.log(ress.data)
       
-      })
-     
+      addclient().then(ress => {
+        if(valid==true)
+        {history("/")}
+        
+
+      
+      }) 
     
     };
-       const  handleInputChange=(e) =>{
+       const  handleChange=(e) =>{
           let{name, value}=e.target;
           setinput({...input, [name]:value });
      };
- 
+  
+    
     
     return (
         <div class="sign-in-page">
@@ -82,32 +95,47 @@ function SignUp() {
                     <div class="col-md-6 bg-white pt-5">
                         <div class="sign-in-from">
                             <h1 class="mb-0">Sign Up</h1>
+                            
                         
-                            <form methode="POST" onSubmit={Handelsubmit}  class="mt-4">
+                            <form  onSubmit={handelsubmit} autoComplete="off">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">First Name {input.name}</label>
-                                    <input type="text" class="form-control mb-0" name="name" onChange={handleInputChange} value={input.name} placeholder="Your Full Name"/>
+                                {!valid && <span style={{ color: "red" }}>{msg.name}!! </span>}
+                                    <label htmlFor='name' for="exampleInputEmail1">First Name</label>
+                                    <input type="text" class="form-control mb-0" name="name" id="name" onChange={handleChange} value={input.name} 
+                                   />
+                                  
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">last Name {input.lastname}</label>
+                                {!valid && <span style={{ color: "red" }}>{msg.lastName}!! </span>}
+                                    <label for="exampleInputEmail1">last Name</label>
                                     
-                                    <input type="text" class="form-control mb-0" name="lastname" onChange={handleInputChange} value={input.lastname} placeholder="Your Last Name"/>
+                                    <input type="text" class="form-control mb-0" name="lastname" id="lastname" onChange={handleChange}  value={input.lastname} placeholder="Your Last Name" />
+                                   
                                 </div>
+                                {!valid && <span style={{ color: "red" }}>{msg.email}!! </span>}
                                 <div class="form-group">
-                                    <label for="exampleInputEmail2">Email address {input.email}</label>
-                                    <input type="email" class="form-control mb-0" name="email" onChange={handleInputChange} value={input.email} placeholder="Your Email"/>
+                                    <label for="exampleInputEmail2">Email address</label>
+                                    <input type="email"  class="form-control mb-0" name="email" id="email" onChange={handleChange} value={input.email} placeholder="Your Email" ></input>
+                                        
+                                
                                 </div>
+                                {!valid && <span style={{ color: "red" }}>{msg.username}!! </span>}
                                 <div class="form-group">
-                                    <label for="exampleInputEmail2">Username {input.username}</label>
-                                    <input type="text" class="form-control mb-0" name="username" onChange={handleInputChange} value={input.username} placeholder="Your  UserName"/>
+                                    <label for="exampleInputEmail2">Username</label>
+                                    <input type="text" name="username" id="usernale" onChange={handleChange} value={input.username} placeholder="Your  UserName" 
+                                        class="form-control mb-0"  />
+
+                                
                                 </div>
+                                {!valid && <span style={{ color: "red" }}>{msg.password}!! </span>}
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Password {input.pwd}</label>
-                                    <input type="text" class="form-control mb-0" name="pwd" onChange={handleInputChange} value={input.pwd} placeholder="Your password"/>
+                                    <input type="text" class="form-control mb-0" name="pwd" id="pwd" onChange={handleChange} value={input.pwd} placeholder="Your password" />
+                                   
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">image </label>
-                                    <input type="file" class="form-control mb-0" name="image" onChange={handleInputChange} value={input.image} placeholder="Your password"/>
+                                    <input type="file" class="form-control mb-0" name="image"  onChange={handleChange} value={input.image} placeholder="Your password"/>
                                 </div>
                                 <div class="d-inline-block w-100">
                                     <div class="custom-control custom-checkbox d-inline-block mt-2 pt-1">
@@ -115,7 +143,7 @@ function SignUp() {
                                         <label class="custom-control-label" for="customCheck1">I accept <a href="#">Terms and Conditions</a></label>
                                     </div>
                                    
-                                    <button  type="submit" class="btn btn-primary float-right">Sign Up</button>
+                                    <button  type="submit"  class="btn btn-primary float-right">Sign Up</button>
                                 
                                    
                                   </div>

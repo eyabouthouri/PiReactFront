@@ -13,33 +13,21 @@ function Home(props) {
         })
         .catch((err) => console.log(err));
      }
-    const sednRequest = async () => {
-      const res = await axios
-        .get("http://localhost:5000/users/listuser", {
-          withCredentials: true,
-        })
-        .catch((err) => console.log(err));
-      console.log(res.data)
-      return  res.data;
-    };
+    
 
     useEffect(() => {
       {
        
-        sednRequest().then((d) => setUser(d));
-        console.log(user)
         let interval = setInterval(() => {
             refreshtoken();
           }, 1000 * 29);
       }
     }, [])
     return (
-        <div className='section-overlay'>
+        <div >
                    
 <Navbar/>
-      
- <div className='site-footer'> <Footer/>
- </div>
+    
  </div>
  
     );

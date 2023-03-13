@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 function SideBar(props) {
     return (
         <div class="iq-sidebar">
@@ -19,9 +19,9 @@ function SideBar(props) {
                       
                        <li>
                          
-                             <li><a href="form-wizard.html"><i class="ri-clockwise-line"></i>Add Liabrary</a></li>
-                             <li><a href="form-course.html"><i class="ri-clockwise-line"></i>Add course</a></li>
-                             <li><a href="form-wizard-vertical.html"><i class="ri-anticlockwise-line"></i>Add coach</a></li>
+                             <li > <Link  class="ri-clockwise-line" to="/AddCoach">add admin </Link> </li>
+                             <li > <Link  class="ri-clockwise-line" to="/ShowCoach">show users </Link> </li>
+                              <li > <Link  class="ri-clockwise-line" to="/AddCoach">add admin </Link> </li>
                        </li>
                        <li class="active">
                           <a href="#tables" class="iq-waves-effect collapsed" data-toggle="collapse" aria-expanded="true"><i class="ri-table-line"></i><span>Show Table</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
