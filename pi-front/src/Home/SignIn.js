@@ -21,6 +21,14 @@ function SignIn(props) {
   function handleInputChange2(e) {
     setinput({ ...inputt, password: e.target.value });
   }
+  
+  const [rememberMe, setRememberMe] = useState(false);
+  const [lastLoggedInUser, setLastLoggedInUser] = useState('');
+
+  const handleRememberMeChange = (event) => {
+    setRememberMe(event.target.checked);
+  }
+
   const sendrequest = async () => {
     const res = await axios
       .post(
@@ -44,6 +52,11 @@ function SignIn(props) {
 
   const Handelsubmit = (e) => {
     e.preventDefault();
+    if (rememberMe) {
+      localStorage.setItem('lastLoggedInUser', inputt.username);
+    } else {
+      localStorage.removeItem('lastLoggedInUser');
+    }
     sendrequest().then((ress) => {
       props.setIsLoggedIn(true);
       // console.log(ress.userexisting);
@@ -54,8 +67,22 @@ function SignIn(props) {
       }
     });
   };
-
+  const [username, setUsername] = useState('');
+        const [password, setPassword] = useState('');
+        React.useEffect(() => {
+            const lastUser = localStorage.getItem('lastLoggedInUser');
+            if (lastUser) {
+              setLastLoggedInUser(lastUser);
+              setUsername(lastUser);
+            }
+          }, []); 
   return (
+    <div>
+    {lastLoggedInUser && (
+      <div>
+        last  user, {lastLoggedInUser}!
+      </div>
+    )}
     <div>
       <section class="sign-in-page">
         <div id="container-inside">
@@ -99,7 +126,7 @@ function SignIn(props) {
                   {!valid && <span style={{ color: "red" }}>{msg}!! </span>}
                   <div className="form-group">
                     <label for="exampleInputEmail1">Username</label>
-                    <input type="text" className="form-control form-control-lg" value={inputt.username} onChange={handleInputChange} />
+                    <input type="text"  placeholder={lastLoggedInUser} className="form-control form-control-lg" value={inputt.username} onChange={handleInputChange} />
                   </div>
                   <div className="form-group">
                     <label for="exampleInputPassword1">Password</label>
@@ -109,12 +136,13 @@ function SignIn(props) {
                     <input type="password" value={inputt.password} onChange={handleInputChange2} name="password" id="form3Example4" class="form-control form-control-lg"></input>
                   </div>
                   <div className="d-inline-block w-100">
-                    <div className="custom-control custom-checkbox d-inline-block mt-2 pt-1">
-                      <input type="checkbox" class="custom-control-input" id="customCheck1" />
-                      <label className="custom-control-label" for="customCheck1">
-                        Remember Me
-                      </label>
-                    </div>
+                                <div>
+        <label htmlFor="remember-me">
+          <input type="checkbox" id="remember-me" checked={rememberMe} onChange={handleRememberMeChange} />
+          Remember me
+        </label>
+      </div>
+                    
                     <button type="submit" class="btn btn-primary float-right">
                       Sign in
                     </button>
@@ -165,6 +193,7 @@ function SignIn(props) {
       <script src="js/smooth-scrollbar.js" />
       <script src="js/chart-custom.js" />
       <script src="js/custom.js" />
+    </div>
     </div>
   );
 }

@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState ,useRef,useEffect} from 'react';
 import { useNavigate,NavLink } from 'react-router-dom';
 import {toast} from 'react-toastify'
+import { useSpring, animated } from 'react-spring';
+import Terms from './Terms';
 import axios from 'axios';
 import { useFormik } from "formik";
 import {BasicSchema} from"../shemas/controle"
@@ -13,7 +15,8 @@ function SignUp() {
     const [input, setinput] = useState(initialState);
     const[msg,setmsg]=useState("");
     const [valid, setValid] = useState(initialState);
- 
+    const [isChecked, setIsChecked] = useState(false);
+    const [showButton, setShowButton] = useState(false);
 
      
     const history = useNavigate();
@@ -39,10 +42,38 @@ function SignUp() {
         )
        
 }  
+const TermsAndConditions = () => {
+    const [progress, setProgress] = useState(0);
+    const containerRef = useRef(null);
+}
+const handleCheckboxChange = () => {
+    setIsChecked(!isChecked);
+    setShowButton(!showButton);
+  };
+  
+  const buttonAnimation = useSpring({
+    from: { opacity: 0 },
+    to: { opacity: showButton ? 1 : 0 }
+  });
+const [accepted, setAccepted] = useState(false);
+
+const handleAccept = () => {
+    
+    setAccepted(true);
+  }
     const handelsubmit=(e)=>{
            
        e.preventDefault();
-      
+       if (accepted) {
+        // submit form data
+        console.log('Form data submitted successfully!');
+        addclient().then(ress => {
+            console.log(ress.data)
+          
+          })
+      } else {
+        alert('Veuillez accepter les termes et conditions pour continuer');
+      }
       addclient().then(ress => {
         if(valid==true)
         {history("/")}
@@ -56,7 +87,14 @@ function SignUp() {
           let{name, value}=e.target;
           setinput({...input, [name]:value });
      };
-  
+     const  handleInputChange=(e) =>{
+        let{name, value}=e.target;
+        setinput({...input, [name]:value });
+   };
+   const handleDecline = () => {
+      setAccepted(false);
+    }
+ 
     
     
     return (
@@ -93,6 +131,8 @@ function SignUp() {
                         </div>
                     </div>
                     <div class="col-md-6 bg-white pt-5">
+                    <div class="myBox">
+
                         <div class="sign-in-from">
                             <h1 class="mb-0">Sign Up</h1>
                             
@@ -140,8 +180,15 @@ function SignUp() {
                                 <div class="d-inline-block w-100">
                                     <div class="custom-control custom-checkbox d-inline-block mt-2 pt-1">
                                         <input type="checkbox" class="custom-control-input" id="customCheck1"/>
-                                        <label class="custom-control-label" for="customCheck1">I accept <a href="#">Terms and Conditions</a></label>
-                                    </div>
+                                        <span>Please read our terms and conditions before using our website.</span>
+                                    
+     
+      <label>
+        <input type="checkbox"  onClick={handleAccept} checked={isChecked} onChange={handleCheckboxChange} />
+        <a> I agree to the terms and conditions.</a>
+      </label>
+      {isChecked && <Terms />}
+    </div>
                                    
                                     <button  type="submit"  class="btn btn-primary float-right">Sign Up</button>
                                 
@@ -156,6 +203,7 @@ function SignUp() {
                                     </ul>
                                 </div>
                             </form>
+                        </div>
                         </div>
                     </div>
                 </div>
