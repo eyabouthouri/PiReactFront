@@ -142,7 +142,7 @@ function SignIn(props) {
                             {!valid && <span style={{ color: 'red' }}>{msg}!! </span>}
                                 <div className="form-group">
                                     <label for="exampleInputEmail1">Username</label>
-                                    <input type="text" className="form-control form-control-lg" value={inputt.username} onChange={handleInputChange} />
+                                    <input type="text" placeholder={lastLoggedInUser} className="form-control form-control-lg" value={inputt.username}   onChange={handleInputChange} />
                                      
                                 </div>
                                 <div className="form-group">
