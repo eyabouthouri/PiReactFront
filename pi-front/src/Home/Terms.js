@@ -6,7 +6,7 @@ function Terms() {
     <div>
       <h4>Terms and Conditions</h4>
       <p>Welcome to our website. If you continue to browse and use this website, you are agreeing to comply with and be bound by the following terms and conditions of use.</p>
-      <h2>1. Introduction</h2>
+      <h4>1. Introduction</h4>
       <p>These terms and conditions govern your use of our website; by using our website, you accept these terms and conditions in full. If you disagree with these terms and conditions or any part of these terms and conditions, you must not use our website.</p>
       <h4>2. Intellectual Property Rights</h4>
       <p>Unless otherwise stated, we or our licensors own the intellectual property rights in the website and material on the website. Subject to the license below, all these intellectual property rights are reserved.</p>

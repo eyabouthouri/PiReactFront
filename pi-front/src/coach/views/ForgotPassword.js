@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Store } from 'react-notifications-component'
-import { redirect } from "react-router-dom";
+import { Store } from "react-notifications-component";
+import { redirect, useNavigate } from "react-router-dom";
 
 const ForgotPassword = () => {
+  const history = useNavigate();
   const [email, setEmail] = useState("");
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
@@ -15,7 +16,7 @@ const ForgotPassword = () => {
       setSuccess(data.data);
       Store.addNotification({
         title: "Email send",
-        message: "Please check your e_mail",
+        message: "Please check your e-mail",
         type: "success",
         insert: "bottom",
         container: "bottom-right",
@@ -25,6 +26,7 @@ const ForgotPassword = () => {
           duration: 3000,
         },
       });
+      history("/");
     } catch (error) {
       setError(error.response.data.error);
       setTimeout(() => {
@@ -35,7 +37,6 @@ const ForgotPassword = () => {
 
   return (
     <section className="sign-in-page">
-        
       <div id="container-inside">
         <div id="circle-small"></div>
         <div id="circle-medium"></div>
@@ -48,52 +49,32 @@ const ForgotPassword = () => {
           <div className="col-md-6 text-center pt-5">
             <div className="sign-in-detail text-white">
               <a className="sign-in-logo mb-5" href="#">
-                <img
-                  src="images/logo-full.png"
-                  className="img-fluid"
-                  alt="logo"
-                />
+              <img src="images/yc.png" class="img-fluid" alt="logo" style={{ width: 500, height: 300 }}  />
               </a>
             </div>
           </div>
           <div className="col-md-6 bg-white pt-5">
             <div className="sign-in-from">
               <img src="images/login/mail.png" width="80" alt="" />
-              <form
-                onSubmit={forgotPasswordHandler}
-                className="lg:p-10 p-6 space-y-3 relative bg-white shadow-xl rounded-md"
-              >
-                <h1 className="lg:text-2xl text-xl font-semibold mb-6">
-                  {" "}
-                  Forgot Password{" "}
-                </h1>
+              <form onSubmit={forgotPasswordHandler} className="lg:p-10 p-6 space-y-3 relative bg-white shadow-xl rounded-md">
+                <h1 className="lg:text-2xl text-xl font-semibold mb-6"> Forgot Password </h1>
 
                 {success && <span>{success}</span>}
+
                 <div>
-                  <p>
-                    Please enter the email address you register your account
-                    with. we will send you reset password confirmation to this
-                    email
-                  </p>
+                  <p>Please enter the email address you register your account with. we will send you reset password confirmation to this email</p>
                 </div>
                 <div>
                   <label htmlFor="email" className="mb-0">
                     {" "}
                     Email Address{" "}
                   </label>
-                  <input
-                    type="email"
-                    placeholder="Info@example.com"
-                    id="email"
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="bg-gray-100 h-12 mt-2 px-3 rounded-md w-full"
-                  />
+                  <input type="email" placeholder="Info@example.com" id="email" required value={email} onChange={(e) => setEmail(e.target.value)} className="form-control form-control-lg" />
                 </div>
                 {error && <span style={{ color: "red" }}>{error}</span>}
                 <div className="d-inline-block w-100">
-                  <button type="submit" className="btn btn-primary mt-3">
+                  <br></br>
+                  <button type="submit" className="btn btn-primary float-right">
                     {" "}
                     Send Email
                   </button>

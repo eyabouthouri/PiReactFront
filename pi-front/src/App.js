@@ -36,33 +36,21 @@ function App() {
         )}
         <Route path="/home" element={<Home></Home>}></Route>
         <Route path="/event" element={<Event></Event>}></Route>
-        <Route
-          path="/forgotpassword"
-          element={<ForgotPassword></ForgotPassword>}
-        />
-        <Route
-          path="/users/resetpassword/:token"
-          element={<ResetPassword></ResetPassword>}
-        />
+        <Route path="/forgotpassword" element={<ForgotPassword></ForgotPassword>} />
+        <Route path="/resetpassword/:token" element={<ResetPassword></ResetPassword>} />
 
         <Route path="/addevent" element={<AddEvent />}></Route>
-        <Route path="/" element={<SignIn setIsLoggedIn= {setIsLoggedIn}></SignIn>}></Route>
+        <Route path="/" element={<SignIn setIsLoggedIn={setIsLoggedIn}></SignIn>}></Route>
         <Route path="/SignUp" element={<SignUp></SignUp>}></Route>
 
         <Route path="/AddLibrary" element={<AddLibrary></AddLibrary>}></Route>
         <Route path="/AddCoach" element={<AddCoach></AddCoach>}></Route>
         <Route path="/AddCourse" element={<AddCourse></AddCourse>}></Route>
-        <Route
-          path="/ShowLiabrary"
-          element={<ShowLiabrary></ShowLiabrary>}
-        ></Route>
+        <Route path="/ShowLiabrary" element={<ShowLiabrary></ShowLiabrary>}></Route>
         <Route path="/ShowCourse" element={<ShowCourse></ShowCourse>}></Route>
-        <Route
-          path="/ShowLiabrary"
-          element={<ShowLiabrary></ShowLiabrary>}
-        ></Route>
+        <Route path="/ShowLiabrary" element={<ShowLiabrary></ShowLiabrary>}></Route>
         <Route path="/ShowEvent" element={<ShowEvent></ShowEvent>}></Route>
-      </Routes> 
+      </Routes>
     </div>
   );
 }

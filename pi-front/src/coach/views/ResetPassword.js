@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { Store } from "react-notifications-component";
 
 const ResetPassword = ({ history, match }) => {
+  const nav = useNavigate();
   const params = useParams();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -26,6 +27,19 @@ const ResetPassword = ({ history, match }) => {
         pwd: password,
       });
       setSuccess(data.data);
+      Store.addNotification({
+        title: "Reset Password",
+        message: "Password Successfully Changed",
+        type: "success",
+        insert: "bottom",
+        container: "bottom-right",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 3000,
+        },
+      });
+      nav("/");
     } catch (error) {
       setError(error.response.data.error);
       setTimeout(() => {
@@ -48,7 +62,7 @@ const ResetPassword = ({ history, match }) => {
           <div class="col-md-6 text-center pt-5">
             <div class="sign-in-detail text-white">
               <a class="sign-in-logo mb-5" href="#">
-                <img src="/images/logo-full.png" class="img-fluid" alt="logo" />
+              <img src="images/yc.png" class="img-fluid" alt="logo" style={{ width: 500, height: 300 }}  />
               </a>
             </div>
           </div>
@@ -68,18 +82,21 @@ const ResetPassword = ({ history, match }) => {
                     {" "}
                     New Password{" "}
                   </label>
-                  <input type="password" placeholder="******" id="password" required value={password} onChange={(e) => setPassword(e.target.value)} class="bg-gray-100 h-12 mt-2 px-3 rounded-md w-full" />
+                  <input type="password" placeholder="******" id="password" required value={password} onChange={(e) => setPassword(e.target.value)} className="form-control form-control-lg" />
                 </div>
                 <div>
                   <label htmlFor="confpassword" class="mb-0">
                     {" "}
                     Confirm Password{" "}
                   </label>
-                  <input type="password" placeholder="******" id="confpassword" required value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} class="bg-gray-100 h-12 mt-2 px-3 rounded-md w-full" />
+                  <input type="password" placeholder="******" id="confpassword" required value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} className="form-control form-control-lg" />
                 </div>
                 {error && <span style={{ color: "red" }}>{error}</span>}
+                <br></br>
                 <div>
-                  <button type="submit">Reset Password</button>
+                  <button class="btn btn-primary float-right" type="submit">
+                    Reset Password
+                  </button>
                 </div>
               </form>
             </div>
