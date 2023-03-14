@@ -21,9 +21,14 @@ import ForgotPassword from "./coach/views/ForgotPassword";
 import ResetPassword from "./coach/views/ResetPassword";
 import { ReactNotifications } from "react-notifications-component";
 import "react-notifications-component/dist/theme.css";
+import { useSelector } from "react-redux";
+import store from "./redux/store";
+import { Provider } from "react-redux";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const isLoggedIn = useSelector((state) => state.session.isLoggedIn);
+
   return (
     <div>
       <ReactNotifications />
@@ -31,20 +36,18 @@ function App() {
         {isLoggedIn && (
           <>
             <Route path="/ShowCoach" element={<ShowCoach></ShowCoach>}></Route>
-            <Route path="/UpdateUser" element={<UpdateUser></UpdateUser>}></Route>
+            <Route path="/forgotpassword" element={<ForgotPassword></ForgotPassword>} />
+            <Route path="/resetpassword/:token" element={<ResetPassword></ResetPassword>} />
+            <Route path="/UpdateUser" element={<UpdateUser></UpdateUser>} />
+            <Route path="/AddCoach" element={<AddCoach></AddCoach>}></Route>
           </>
         )}
         <Route path="/home" element={<Home></Home>}></Route>
         <Route path="/event" element={<Event></Event>}></Route>
-        <Route path="/forgotpassword" element={<ForgotPassword></ForgotPassword>} />
-        <Route path="/resetpassword/:token" element={<ResetPassword></ResetPassword>} />
-
         <Route path="/addevent" element={<AddEvent />}></Route>
-        <Route path="/" element={<SignIn setIsLoggedIn={setIsLoggedIn}></SignIn>}></Route>
+        <Route path="/" element={<SignIn></SignIn>}></Route>
         <Route path="/SignUp" element={<SignUp></SignUp>}></Route>
-
         <Route path="/AddLibrary" element={<AddLibrary></AddLibrary>}></Route>
-        <Route path="/AddCoach" element={<AddCoach></AddCoach>}></Route>
         <Route path="/AddCourse" element={<AddCourse></AddCourse>}></Route>
         <Route path="/ShowLiabrary" element={<ShowLiabrary></ShowLiabrary>}></Route>
         <Route path="/ShowCourse" element={<ShowCourse></ShowCourse>}></Route>

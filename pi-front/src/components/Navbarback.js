@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import { setIsLoggedin } from "../redux/session";
+import { useDispatch } from "react-redux";
 
 function Navbarback(props) {
+  const dispatch = useDispatch();
+
   const [userconnecte, setUserconnecte] = useState([]);
   var history = useNavigate;
   useEffect(() => {
@@ -384,7 +388,14 @@ function Navbarback(props) {
                         </div>
                       </a>
                       <div class="d-inline-block w-100 text-center p-3">
-                        <Link onClick={logout} to="/" class="bg-primary iq-sign-btn" role="button">
+                        <Link
+                          to="/"
+                          class="bg-primary iq-sign-btn"
+                          role="button"
+                          onClick={() => {
+                            dispatch(setIsLoggedin(false));
+                          }}
+                        >
                           Log out<i class="ri-login-box-line ml-2"></i>
                         </Link>
                       </div>

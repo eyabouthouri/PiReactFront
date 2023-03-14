@@ -3,9 +3,13 @@ import axios from "axios";
 
 import { useNavigate, Link, NavLink } from "react-router-dom";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
+import { useDispatch } from "react-redux";
+import { setIsLoggedin } from "../redux/session";
 
 axios.defaults.withCredentials = true;
 function SignIn(props) {
+  const dispatch = useDispatch();
+
   const [error, setError] = useState("");
   const [msg, setmsg] = useState("");
   const [valid, setValid] = useState(true);
@@ -58,7 +62,7 @@ function SignIn(props) {
       localStorage.removeItem("lastLoggedInUser");
     }
     sendrequest().then((ress) => {
-      props.setIsLoggedIn(true);
+      // props.setIsLoggedIn(true);
       // console.log(ress.userexisting);
       if (ress.userexisting.role == "user") {
         history("/home");
@@ -111,7 +115,7 @@ function SignIn(props) {
               <div class="col-md-6 text-center pt-5">
                 <div class="sign-in-detail text-white">
                   <a class="sign-in-logo mb-5" href="#">
-                    <img src="images/yc.png" class="img-fluid" alt="logo" style={{ width: 500, height: 300 }}  />
+                    <img src="images/yc.png" class="img-fluid" alt="logo" style={{ width: 500, height: 300 }} />
                   </a>
                   <div class="owl-carousel" data-autoplay="true" data-loop="true" data-nav="false" data-dots="true" data-items="1" data-items-laptop="1" data-items-tab="1" data-items-mobile="1" data-items-mobile-sm="1" data-margin="0">
                     <div class="item">
@@ -156,21 +160,27 @@ function SignIn(props) {
                           Remember me
                         </label>
                       </div>
-                      <button type="submit" className="btn btn-primary float-right">
+                      <button
+                        type="submit"
+                        className="btn btn-primary float-right"
+                        onClick={() => {
+                          dispatch(setIsLoggedin(true));
+                        }}
+                      >
                         Sign in
                       </button>
                     </div>
                     <br></br>
                     <br></br>
                     <ul className="iq-social-media">
-                        <li>
-                          <i className="ri-google-box-line"></i>
-                          <GoogleOAuthProvider clientId="89869161971-9i90tpaak744qss86o926bg663jctuie.apps.googleusercontent.com">
-                            <GoogleLogin locale="en" text="signin with google" onSuccess={responseSuccessGoogle} onError={responseErrorGoogle} auto_select={false} useOneTap={false} style={{ zIndex: 50 }} />
-                          </GoogleOAuthProvider>
-                        </li>
-                      </ul>
-                      <br></br>
+                      <li>
+                        <i className="ri-google-box-line"></i>
+                        <GoogleOAuthProvider clientId="89869161971-9i90tpaak744qss86o926bg663jctuie.apps.googleusercontent.com">
+                          <GoogleLogin locale="en" text="signin with google" onSuccess={responseSuccessGoogle} onError={responseErrorGoogle} auto_select={false} useOneTap={false} style={{ zIndex: 50 }} />
+                        </GoogleOAuthProvider>
+                      </li>
+                    </ul>
+                    <br></br>
                     <div className="sign-info">
                       <span className="dark-color d-inline-block ">
                         Don't have an account? <NavLink to="/SignUp">Sign up</NavLink>
