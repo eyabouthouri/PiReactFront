@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { useNavigate, NavLink, Link } from "react-router-dom";
+import { useNavigate, NavLink, Link, Navigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useSpring, animated } from "react-spring";
 import Terms from "./Terms";
@@ -10,39 +10,41 @@ import { Store } from "react-notifications-component";
 
 axios.defaults.withCredentials = true;
 function SignUp() {
-  const initialState = { name: '', lastname: '', email: '', username: '', pwd: '',image:'' };
+  const initialState = { name: "", lastname: "", email: "", username: "", pwd: "", image: "" };
 
   const [input, setinput] = useState(initialState);
-  const [msg, setmsg] = useState("");
-  const [validd, setValid] = useState(true);
+  const [msg, setmsg] = useState({});
+  const [valid, setValid] = useState(true);
   const [isChecked, setIsChecked] = useState(false);
   const [showButton, setShowButton] = useState(false);
 
   const history = useNavigate();
   const addclient = async () => {
-    const res = await axios
-      .post(
-        "http://localhost:5000/users/add/user",
+    try {
+      const res = await axios.post(
+        "/users/add/user",
         {
           name: input.name,
-          lastname:input.lastname,
+          lastname: input.lastname,
           email: input.email,
           username: input.username,
           pwd: input.pwd,
           image: input.image,
         },
-        { withCredentials: true },
-      )
-      .catch((err) => {
-        setValid(false)
-        console.error(err.response.data);
-        setmsg(...msg, err.response.data);
-      });
+        { withCredentials: true }
+      );
+      history("/");
+    } catch (err) {
+      setValid(false);
+      console.error(err.response.data);
+      setmsg(err.response.data);
+    }
   };
   const TermsAndConditions = () => {
     const [progress, setProgress] = useState(0);
     const containerRef = useRef(null);
   };
+
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
     setShowButton(!showButton);
@@ -52,21 +54,14 @@ function SignUp() {
     from: { opacity: 0 },
     to: { opacity: showButton ? 1 : 0 },
   });
-  const [accepted, setAccepted] = useState(false);
 
-  const handleAccept = () => {
-    setAccepted(true);
-  };
+  
   const handelsubmit = (e) => {
     e.preventDefault();
-    if (accepted ) {
-      // submit form data
+    if (isChecked) {
       console.log("Form data submitted successfully!");
-      addclient().then((ress,err) => {
-        
-      });
+      addclient();
     } else {
-      // alert("Veuillez accepter les termes et conditions pour continuer");
       Store.addNotification({
         title: "Terms And Conditions",
         message: "Please read and accept our terms and conditions to sign up",
@@ -80,17 +75,12 @@ function SignUp() {
         },
       });
     }
-   
   };
 
   const handleChange = (e) => {
     let { name, value } = e.target;
     setinput({ ...input, [name]: value });
   };
-  const handleDecline = () => {
-    setAccepted(false);
-  };
-  
 
   return (
     <div class="sign-in-page">
@@ -132,40 +122,37 @@ function SignUp() {
               <div class="sign-in-from">
                 <h1 class="mb-0">Sign Up</h1>
 
-                <form onSubmit={handelsubmit} >
+                <form onSubmit={handelsubmit}>
                   <div class="form-group">
-                  
                     <label htmlFor="name" for="exampleInputEmail1">
                       First Name
                     </label>
-                    <input type="text" class="form-control mb-0" name="name"  onChange={handleChange} value={input.name} placeholder="first name" />
-                    {!validd && <span style={{ color: "red" }}>{msg.name}!! </span>}
-
+                    <input type="text" class="form-control mb-0" name="name" onChange={handleChange} value={input.name} placeholder="first name" />
+                    {!valid && msg.name && <span style={{ color: "red" }}>{msg.name}!! </span>}
                   </div>
                   <div class="form-group">
-                   
                     <label for="exampleInputEmail1">Last Name</label>
 
-                    <input type="text" class="form-control mb-0" name="lastname"  onChange={handleChange} value={input.lastname} placeholder="last name" />
-                    {!validd && <span style={{ color: "red" }}>{msg.lastname}!! </span>}
+                    <input type="text" class="form-control mb-0" name="lastname" onChange={handleChange} value={input.lastname} placeholder="last name" />
+                    {!valid && msg.lastname && <span style={{ color: "red" }}>{msg.lastname}!! </span>}
                   </div>
-                 
+
                   <div class="form-group">
                     <label for="exampleInputEmail2">Email address</label>
                     <input type="text" class="form-control mb-0" name="email" onChange={handleChange} value={input.email} placeholder="info@example.com"></input>
-                    {!validd && <span style={{ color: "red" }}>{msg.email}!! </span>}
+                    {!valid && msg.email && <span style={{ color: "red" }}>{msg.email}!! </span>}
                   </div>
-                  
+
                   <div class="form-group">
                     <label for="exampleInputEmail2">Username</label>
                     <input type="text" name="username" onChange={handleChange} value={input.username} placeholder="username" class="form-control mb-0" />
-                    {!validd && <span style={{ color: "red" }}>{msg.username}!! </span>}
+                    {!valid && (msg.message || msg.username) && <span style={{ color: "red" }}>{msg.username || msg.message}!! </span>}
                   </div>
-                  
+
                   <div class="form-group">
                     <label for="exampleInputPassword1">Password {input.pwd}</label>
-                    <input type="text" class="form-control mb-0" name="pwd"  onChange={handleChange} value={input.pwd} placeholder="******" />
-                    {!validd && <span style={{ color: "red" }}>{msg.pwd}!! </span>}
+                    <input type="text" class="form-control mb-0" name="pwd" onChange={handleChange} value={input.pwd} placeholder="******" />
+                    {!valid && msg.pwd && <span style={{ color: "red" }}>{msg.pwd}!! </span>}
                   </div>
                   <div class="form-group">
                     <label for="exampleInputPassword1">Image </label>
@@ -177,7 +164,7 @@ function SignUp() {
                       <span>Please read our terms and conditions before using our website.</span>
                       <br></br>
                       <label>
-                        <input type="checkbox" onClick={handleAccept} checked={isChecked} onChange={handleCheckboxChange} />
+                        <input type="checkbox" checked={isChecked} onChange={handleCheckboxChange} />
                         <a> &nbsp; I agree to the terms and conditions.</a>
                       </label>
                       {isChecked && <Terms />}

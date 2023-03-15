@@ -50,6 +50,7 @@ function SignIn(props) {
       });
 
     const data = res.data;
+    dispatch(setIsLoggedin(data.token));
     console.log(data);
     return data;
   };
@@ -86,7 +87,7 @@ function SignIn(props) {
       const { data } = await axios.post("/users/googlelogin", {
         token: response.credential,
       });
-      localStorage.setItem("token", data.token);
+      dispatch(setIsLoggedin(data.token));
       history("/home");
     } catch (err) {
       setError(error.response.data.error);
@@ -160,13 +161,7 @@ function SignIn(props) {
                           Remember me
                         </label>
                       </div>
-                      <button
-                        type="submit"
-                        className="btn btn-primary float-right"
-                        onClick={() => {
-                          dispatch(setIsLoggedin(true));
-                        }}
-                      >
+                      <button type="submit" className="btn btn-primary float-right">
                         Sign in
                       </button>
                     </div>

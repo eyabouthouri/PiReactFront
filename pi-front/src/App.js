@@ -25,28 +25,25 @@ import { useSelector } from "react-redux";
 import store from "./redux/store";
 import { Provider } from "react-redux";
 import Homebeforsignin from "./Home/homebeforesignin";
+import PrivateRoute from "./components/PrivateRoute";
+import NotLoggedRoute from "./components/NotLoggedRoute";
 
 function App() {
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const isLoggedIn = useSelector((state) => state.session.isLoggedIn);
 
   return (
     <div>
       <ReactNotifications />
       <Routes>
-        {isLoggedIn && (
-          <>
-            <Route path="/ShowCoach" element={<ShowCoach></ShowCoach>}></Route>
-            <Route path="/forgotpassword" element={<ForgotPassword></ForgotPassword>} />
-            <Route path="/resetpassword/:token" element={<ResetPassword></ResetPassword>} />
-            <Route path="/UpdateUser" element={<UpdateUser></UpdateUser>} />
-            <Route path="/AddCoach" element={<AddCoach></AddCoach>}></Route>
-          </>
-        )}
+      <Route path="/ShowCoach" element={<PrivateRoute><ShowCoach></ShowCoach></PrivateRoute>}></Route>
+        <Route path="/UpdateUser" element={<PrivateRoute><UpdateUser></UpdateUser></PrivateRoute>} />
+        <Route path="/AddCoach" element={<PrivateRoute><AddCoach></AddCoach></PrivateRoute>}></Route>
+        <Route path="/forgotpassword" element={<ForgotPassword></ForgotPassword>} />
+        <Route path="/resetpassword/:token" element={<ResetPassword></ResetPassword>} />
         <Route path="/home" element={<Home></Home>}></Route>
         <Route path="/event" element={<Event></Event>}></Route>
         <Route path="/addevent" element={<AddEvent />}></Route>
-        <Route path="/Signin" element={<SignIn></SignIn>}></Route>
+        <Route path="/Signin" element={<NotLoggedRoute><SignIn></SignIn></NotLoggedRoute>}></Route>
         <Route path="/SignUp" element={<SignUp></SignUp>}></Route>
         <Route path="/AddLibrary" element={<AddLibrary></AddLibrary>}></Route>
         <Route path="/AddCourse" element={<AddCourse></AddCourse>}></Route>

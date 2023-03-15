@@ -30,14 +30,12 @@ function Navbarback(props) {
   };
   const navigate = useNavigate();
   const logout = async () => {
-    props.setIsLoggedIn(false);
     const res = await axios
       .get("/users/logout", {
         withCredentials: true,
       })
       .catch((err) => console.log(err));
-    localStorage.removeItem("token-info");
-    localStorage.clear();
+    dispatch(setIsLoggedin());
     setUserconnecte(false);
     navigate("/");
   };
@@ -388,14 +386,7 @@ function Navbarback(props) {
                         </div>
                       </a>
                       <div class="d-inline-block w-100 text-center p-3">
-                        <Link
-                          to="/"
-                          class="bg-primary iq-sign-btn"
-                          role="button"
-                          onClick={() => {
-                            dispatch(setIsLoggedin(false));
-                          }}
-                        >
+                        <Link to="/" class="bg-primary iq-sign-btn" role="button" onClick={logout}>
                           Log out<i class="ri-login-box-line ml-2"></i>
                         </Link>
                       </div>
