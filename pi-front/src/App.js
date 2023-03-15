@@ -35,23 +35,23 @@ function App() {
     <div>
       <ReactNotifications />
       <Routes>
-      <Route path="/ShowCoach" element={<PrivateRoute><ShowCoach></ShowCoach></PrivateRoute>}></Route>
+      <Route path="/ShowCoach" element={<PrivateRoute isAdmin={true}><ShowCoach></ShowCoach></PrivateRoute>}></Route>
         <Route path="/UpdateUser" element={<PrivateRoute><UpdateUser></UpdateUser></PrivateRoute>} />
         <Route path="/AddCoach" element={<PrivateRoute><AddCoach></AddCoach></PrivateRoute>}></Route>
         <Route path="/forgotpassword" element={<ForgotPassword></ForgotPassword>} />
         <Route path="/resetpassword/:token" element={<ResetPassword></ResetPassword>} />
-        <Route path="/home" element={<Home></Home>}></Route>
+        <Route path="/home" element={<PrivateRoute><Home></Home></PrivateRoute>}></Route>
         <Route path="/event" element={<Event></Event>}></Route>
         <Route path="/addevent" element={<AddEvent />}></Route>
         <Route path="/Signin" element={<NotLoggedRoute><SignIn></SignIn></NotLoggedRoute>}></Route>
-        <Route path="/SignUp" element={<SignUp></SignUp>}></Route>
+        <Route path="/SignUp" element={<NotLoggedRoute><SignUp></SignUp></NotLoggedRoute>}></Route>
         <Route path="/AddLibrary" element={<AddLibrary></AddLibrary>}></Route>
         <Route path="/AddCourse" element={<AddCourse></AddCourse>}></Route>
         <Route path="/ShowLiabrary" element={<ShowLiabrary></ShowLiabrary>}></Route>
         <Route path="/ShowCourse" element={<ShowCourse></ShowCourse>}></Route>
         <Route path="/ShowLiabrary" element={<ShowLiabrary></ShowLiabrary>}></Route>
         <Route path="/ShowEvent" element={<ShowEvent></ShowEvent>}></Route>
-        <Route path="/" element={<Homebeforsignin></Homebeforsignin>}></Route>
+        <Route path="/" element={<NotLoggedRoute><Homebeforsignin></Homebeforsignin></NotLoggedRoute>}></Route>
       </Routes>
     </div>
   );

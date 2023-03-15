@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setIsLoggedin } from "../redux/session";
 function Navbar(props) {
   const dispatch = useDispatch();
-  const isLoggedIn = useSelector((state) => state.session.isLoggedIn);
+  const { isLoggedIn, isAdmin } = useSelector((state) => state.session);
   const [userconnecte, setUserconnecte] = useState([]);
   var history = useNavigate;
   useEffect(() => {
@@ -69,6 +69,13 @@ function Navbar(props) {
                 {!isLoggedIn && (
                   <Link class="nav-link " to="/">
                     sign in
+                  </Link>
+                )}
+              </li>
+              <li class="nav-item ml-auto">
+                {isLoggedIn && isAdmin && (
+                  <Link class="nav-link " to="/ShowCoach">
+                    Dashboard
                   </Link>
                 )}
               </li>

@@ -50,7 +50,7 @@ function SignIn(props) {
       });
 
     const data = res.data;
-    dispatch(setIsLoggedin(data.token));
+    dispatch(setIsLoggedin({token: data.token, isAdmin:data.userexisting?.role=="admin"}));
     console.log(data);
     return data;
   };
@@ -87,7 +87,7 @@ function SignIn(props) {
       const { data } = await axios.post("/users/googlelogin", {
         token: response.credential,
       });
-      dispatch(setIsLoggedin(data.token));
+      dispatch(setIsLoggedin({token : data.token, isAdmin: false}));
       history("/home");
     } catch (err) {
       setError(error.response.data.error);
