@@ -55,7 +55,7 @@ function SignUp() {
     to: { opacity: showButton ? 1 : 0 },
   });
 
-  
+
   const handelsubmit = (e) => {
     e.preventDefault();
     if (isChecked) {
@@ -150,7 +150,7 @@ function SignUp() {
                   </div>
 
                   <div class="form-group">
-                    <label for="exampleInputPassword1">Password {input.pwd}</label>
+                    <label for="exampleInputPassword1">Password </label>
                     <input type="text" class="form-control mb-0" name="pwd" onChange={handleChange} value={input.pwd} placeholder="******" />
                     {!valid && msg.pwd && <span style={{ color: "red" }}>{msg.pwd}!! </span>}
                   </div>

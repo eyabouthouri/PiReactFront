@@ -5,6 +5,7 @@ import SideBar from "../../components/SideBar";
 import StepDeux from "../../components/StepDeux";
 import axios from "axios";
 import { NavLink, useNavigate, Link } from "react-router-dom";
+import ShowCoach from "./ShowCoach";
 axios.defaults.withCredentials = true;
 function UpdateUser() {
   const [userconnecte, setUserconnecte] = useState([]);
@@ -13,6 +14,9 @@ function UpdateUser() {
   const [input, setinput] = useState(
    []
  );
+ const[inputt,setinputt]=useState([]);
+ const[msg,setmsg]=useState("");
+ const [valid, setValid] = useState(true);
  
   var history = useNavigate();
  
@@ -68,6 +72,27 @@ function UpdateUser() {
     history("/ShowCoach");
     return resupdate.data;
   };
+  const updatepwd = async () => {
+   try{ const resupdate = await axios
+
+      .post(
+        `http://localhost:5000/users/changerpwd/${userconnecte.username}`,
+        {
+          pwd: inputt.pwd,
+          pwdd: inputt.pwdd,
+         
+        },
+        { withCredentials: true }
+      ); history("/ShowCoach");
+      } 
+      catch(err)  {
+        setValid(false);
+        console.error(err.response.data.message);
+        setmsg(err.response.data.message);
+      }
+    
+   
+  };
   const Handelsubmit = (ee) => {
     ee.preventDefault();
     updateadmin().then((ress, err) => {
@@ -78,10 +103,19 @@ function UpdateUser() {
       console.log(ress.data);
     });
   };
+  const Handelsubmitt = (ee) => {
+    ee.preventDefault();
+    updatepwd();
+  };
+
   const handleInputChange = (e) =>{
     let {name, value } = e.target;
     setinput({ ...input, [name]: value });
   };
+ const handleChange = (a)=>{
+    let {name, value } = a.target;
+    setinputt({ ...inputt, [name]: value });
+  }
 
 
   return (
@@ -92,24 +126,31 @@ function UpdateUser() {
           <SideBar />
         </div>
       </div>
-
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="iq-card">
-              <div class="iq-card-body p-0">
-                <div class="iq-edit-list">
-                  <ul class="iq-edit-profile d-flex nav nav-pills">
-                    <li class="col-md-3 p-0">
-                      <a class="nav-link active" data-toggle="pill" href="#personal-information">
-                        Personal Information
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
+     
+            <div class="container">
+               <div class="row">
+                  <div class="col-lg-12">
+                     <div class="iq-card">
+                        <div class="iq-card-body p-0">
+                           <div class="iq-edit-list">
+                              <ul class="iq-edit-profile d-flex nav nav-pills">
+                                 <li class="col-md-3 p-0">
+                                    <a class="nav-link active" data-toggle="pill" href="#personal-information">
+                                    Personal Information
+                                    </a>
+                                 </li>
+                                 <li class="col-md-3 p-0">
+                                    <a class="nav-link" data-toggle="pill" href="#chang-pwd">
+                                    Change Password
+                                    </a>
+                                 </li>
+                              
+                              </ul>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+     
           <div class="col-lg-12">
             <div class="iq-edit-list-data">
               <div class="tab-content">
@@ -146,6 +187,8 @@ function UpdateUser() {
                             <label for="uname">email:</label>
                             <input type="text" class="form-control" name="email" value={input.email} onChange={handleInputChange}  />
                           </div>
+                         
+            
             
                         </div>
 
@@ -156,6 +199,33 @@ function UpdateUser() {
                     </div>
                   </div>
                 </div>
+                <div class="tab-pane fade" id="chang-pwd" role="tabpanel">
+                              <div class="iq-card">
+                                 <div class="iq-card-header d-flex justify-content-between">
+                                    <div class="iq-header-title">
+                                       <h4 class="card-title">Change Password</h4>
+                                    </div>
+                                 </div>
+                                 <div class="iq-card-body">
+                                    <form onSubmit={Handelsubmitt}>
+                                       <div class="form-group">
+                                          <label for="cpass">Current Password:</label>
+                                          <Link to="/forgotpassword" class="float-right">Forgot Password</Link>
+                                         
+                                          <input type="text" class="form-control" name="pwd" value={inputt.pwd} onChange={handleChange} ></input>
+                                          {!valid && <span style={{ color: "red" }}>{msg}!! </span>}
+                                       </div>
+                                       <div class="form-group">
+                                          <label for="npass">New Password:</label>
+                                          <input type="text" class="form-control" name="pwdd" value={input.pwdd} onChange={handleChange} ></input>
+                                       </div>
+                  
+                                       <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                                       <button type="reset" class="btn iq-bg-danger">Cancle</button>
+                                    </form>
+                                 </div>
+                              </div>
+                           </div>
               </div>
             </div>
           </div>

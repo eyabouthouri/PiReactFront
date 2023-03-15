@@ -7,6 +7,10 @@ function Navbar(props) {
   const dispatch = useDispatch();
   const { isLoggedIn, isAdmin } = useSelector((state) => state.session);
   const [userconnecte, setUserconnecte] = useState([]);
+  
+  const [input, setinput] = useState(
+    []
+  );
   var history = useNavigate;
   useEffect(() => {
     userconnectee().then((d) => {
@@ -14,6 +18,17 @@ function Navbar(props) {
       console.log(userconnecte);
     });
   }, []);
+  useEffect(()=>{
+    setinput(
+      {
+        name:userconnecte.name,
+        lastname:userconnecte.lastname,
+        email:userconnecte.email,
+        image:userconnecte.image,
+        
+      }
+    )
+  },[userconnecte])
   const userconnectee = async () => {
     const res = await axios
       .get("http://localhost:5000/users/userconnecte", {
@@ -36,6 +51,34 @@ function Navbar(props) {
     setUserconnecte(false);
     history("/Signin");
   };
+  const updateadmin = async () => {
+    const resupdate = await axios
+
+      .post(
+        `http://localhost:5000/users/updateuser/${userconnecte._id}`,
+        {
+          name: input.name,
+          lastname: input.lastname,
+          email: input.email,
+          image: input.image,
+        },
+        { withCredentials: true }
+      )
+      .catch((err) => {
+        console.error(err);
+      });
+    history("/home");
+    return resupdate.data;
+  };
+  const Handelsubmit = (ee) => {
+    ee.preventDefault();
+    updateadmin()
+  };
+  const handleInputChange = (e) =>{
+    let {name, value } = e.target;
+    setinput({ ...input, [name]: value });
+  };
+
   return (
     <div>
       <nav class="navbar navbar-expand-md navbar-light bg-light border-bottom shadow-sm">
@@ -83,18 +126,18 @@ function Navbar(props) {
           </div>
           {isLoggedIn && (
             <>
+            &nbsp; <img class="profile-pic" src={process.env.PUBLIC_URL + "/imagee/" + userconnecte.image} alt="profile-pic"  height="70" width="50" />
               <h6>
                 {" "}
-                bienvenu &nbsp; {userconnecte.name} &nbsp;{userconnecte.lastname}
+              &nbsp; {userconnecte.name} &nbsp;{userconnecte.lastname} 
+             
               </h6>
               &nbsp; &nbsp; &nbsp;
               <Link class="nav-link " onClick={logout} to="/">
                 logout
               </Link>
               &nbsp; &nbsp; &nbsp;
-              <Link class="nav-link " to="/">
-                updateprofile
-              </Link>
+              <Link class="nav-link " data-toggle="modal" data-target="#exampleModal">updateprofile</Link>
             </>
           )}
         </div>
@@ -138,6 +181,53 @@ function Navbar(props) {
           ></path>
         </svg>
       </section>
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Update Profile</h5>
+        
+       
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       <form onSubmit={Handelsubmit}>
+       <div class="form-group row align-items-center">
+                          <div class="col-md-12">
+                            <div class="profile-img-edit">
+                              <img class="profile-pic" src={process.env.PUBLIC_URL + "/imagee/" + userconnecte.image} alt="profile-pic" />
+                              <div class="p-image">
+                                <i></i>
+                                
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+       <div class="form-group col-sm-6">
+           <label for="fname">First Name:{input.name}</label>
+           <input type="text" class="form-control" name="name" value={input.name} onChange={handleInputChange}  />
+          </div>
+      <div class="form-group col-sm-6">
+     <label for="lname">Last Name:</label>
+     <input type="text" class="form-control" name="lastname" value={input.lastname} onChange={handleInputChange}  />
+    </div>
+    <div class="form-group col-sm-6">
+        <label for="uname">email:</label>
+   <input type="text" class="form-control" name="email" value={input.email} onChange={handleInputChange}  />
+     </div>
+     <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </div>             
+       </form>
+      </div>
+     
+    </div>
+  </div>
+</div>
 
       <section class="about-section section-padding" id="section_2">
         <div class="container">

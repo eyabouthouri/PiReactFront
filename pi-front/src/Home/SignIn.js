@@ -190,6 +190,7 @@ function SignIn(props) {
  appId="933278841178337"
  onResolve={(response)=>{
    console.log(response);
+   history("/home")
  }}
  onReject={(error)=>{
    console.log(error);
