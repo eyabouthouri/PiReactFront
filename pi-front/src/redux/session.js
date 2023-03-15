@@ -3,12 +3,18 @@ import { createSlice } from "@reduxjs/toolkit";
 export const slice = createSlice({
   name: "session",
   initialState: {
-    isLoggedIn: false,
+    isLoggedIn: localStorage.getItem("token") ? true : false,
     name: "unknown",
   },
   reducers: {
     setIsLoggedin: (state, action) => {
-      state.isLoggedIn = action.payload;
+      if (action.payload) {
+        state.isLoggedIn = true;
+        localStorage.setItem("token", action.payload);
+      } else {
+        state.isLoggedIn = false;
+        localStorage.removeItem("token");
+      }
       return state;
     },
     updateName: (state, action) => {

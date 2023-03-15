@@ -393,7 +393,7 @@ function Navbarback(props) {
                           class="bg-primary iq-sign-btn"
                           role="button"
                           onClick={() => {
-                            dispatch(setIsLoggedin(false));
+                            dispatch(setIsLoggedin());
                           }}
                         >
                           Log out<i class="ri-login-box-line ml-2"></i>
