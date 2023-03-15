@@ -5,9 +5,13 @@ import { useNavigate, Link, NavLink } from "react-router-dom";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 import { useDispatch } from "react-redux";
 import { setIsLoggedin } from "../redux/session";
+import ReCAPTCHA from "react-google-recaptcha";
+import { LoginSocialFacebook } from 'reactjs-social-login';
+import { FacebookLoginButton } from 'react-social-login-buttons';
 
 axios.defaults.withCredentials = true;
 function SignIn(props) {
+  const onChange=()=>{};
   const dispatch = useDispatch();
 
   const [error, setError] = useState("");
@@ -164,6 +168,11 @@ function SignIn(props) {
                       <button type="submit" className="btn btn-primary float-right">
                         Sign in
                       </button>
+                      <ReCAPTCHA
+    sitekey="6LcSCQAlAAAAAPa-MzAuKjh1TewNVr7-xf-RUTJQ
+    "
+    onChange={onChange}
+  />
                     </div>
                     <br></br>
                     <br></br>
@@ -173,7 +182,23 @@ function SignIn(props) {
                         <GoogleOAuthProvider clientId="89869161971-9i90tpaak744qss86o926bg663jctuie.apps.googleusercontent.com">
                           <GoogleLogin locale="en" text="signin with google" onSuccess={responseSuccessGoogle} onError={responseErrorGoogle} auto_select={false} useOneTap={false} style={{ zIndex: 50 }} />
                         </GoogleOAuthProvider>
+                        
                       </li>
+                      <li>
+                     
+                      <LoginSocialFacebook
+ appId="933278841178337"
+ onResolve={(response)=>{
+   console.log(response);
+ }}
+ onReject={(error)=>{
+   console.log(error);
+ }}
+ >
+ <FacebookLoginButton/>
+</LoginSocialFacebook>
+                      </li>
+                      
                     </ul>
                     <br></br>
                     <div className="sign-info">
