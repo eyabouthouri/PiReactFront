@@ -24,6 +24,7 @@ import "react-notifications-component/dist/theme.css";
 import { useSelector } from "react-redux";
 import store from "./redux/store";
 import { Provider } from "react-redux";
+import Homebeforsignin from "./Home/homebeforesignin";
 
 function App() {
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -45,7 +46,7 @@ function App() {
         <Route path="/home" element={<Home></Home>}></Route>
         <Route path="/event" element={<Event></Event>}></Route>
         <Route path="/addevent" element={<AddEvent />}></Route>
-        <Route path="/" element={<SignIn></SignIn>}></Route>
+        <Route path="/Signin" element={<SignIn></SignIn>}></Route>
         <Route path="/SignUp" element={<SignUp></SignUp>}></Route>
         <Route path="/AddLibrary" element={<AddLibrary></AddLibrary>}></Route>
         <Route path="/AddCourse" element={<AddCourse></AddCourse>}></Route>
@@ -53,6 +54,7 @@ function App() {
         <Route path="/ShowCourse" element={<ShowCourse></ShowCourse>}></Route>
         <Route path="/ShowLiabrary" element={<ShowLiabrary></ShowLiabrary>}></Route>
         <Route path="/ShowEvent" element={<ShowEvent></ShowEvent>}></Route>
+        <Route path="/" element={<Homebeforsignin></Homebeforsignin>}></Route>
       </Routes>
     </div>
   );

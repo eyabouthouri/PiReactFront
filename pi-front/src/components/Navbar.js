@@ -19,7 +19,7 @@ function Navbar(props) {
           .catch((err) => console.log(err));
         setUserconnecte(res.data);
         if (res.data == []) {
-          history("/");
+          history("/Signin");
         }
         return res.data;
       };
@@ -33,7 +33,7 @@ function Navbar(props) {
         localStorage.removeItem("token-info");
         localStorage.clear();
         setUserconnecte(false);
-        history("/");
+        history("/Signin");
       };
     return (
 
@@ -64,13 +64,26 @@ function Navbar(props) {
                           <li class="nav-item ml-auto">
                            <Link class="nav-link " to="/">sign in</Link>
                           </li>
-                          <li class="nav-item ml-auto">
-                           <Link class="nav-link " onClick={logout} to="/">logout</Link>
-                          </li>
+            
                         </ul>
+
                         
                      </div>
-                     </div>
+                     <h6> bienvenu  &nbsp; {userconnecte.name} &nbsp;{userconnecte.lastname}</h6> 
+                     &nbsp;
+                     &nbsp;
+                     &nbsp;
+                    
+                    
+                                      
+                     <Link class="nav-link " onClick={logout} to="/">logout</Link>
+                     &nbsp;
+                     &nbsp;
+                     &nbsp;
+                    
+                     <Link class="nav-link " to="/">updateprofile</Link>
+					</div>
+
             </nav>
 
       

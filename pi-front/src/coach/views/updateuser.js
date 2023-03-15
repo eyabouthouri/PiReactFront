@@ -8,17 +8,34 @@ import { NavLink, useNavigate, Link } from "react-router-dom";
 axios.defaults.withCredentials = true;
 function UpdateUser() {
   const [userconnecte, setUserconnecte] = useState([]);
-  const initialState = { name: "", lastname: "", email: "", image: "" };
+  const initialState = { name: "", lastname:"", email: "",pwd:"", image:"" };
 
-  const [input, setinput] = useState(initialState);
+  const [input, setinput] = useState(
+   []
+ );
+ 
   var history = useNavigate();
-
+ 
   useEffect(() => {
     userconnectee().then((d) => {
       setUserconnecte(d);
-      console.log(userconnecte);
+      
+    
     });
-  }, []);
+
+  },[]);
+  useEffect(()=>{
+    setinput(
+      {
+        name:userconnecte.name,
+        lastname:userconnecte.lastname,
+        email:userconnecte.email,
+        image:userconnecte.image,
+        
+      }
+    )
+  },[userconnecte])
+ 
 
   const userconnectee = async () => {
     const res = await axios
@@ -27,11 +44,14 @@ function UpdateUser() {
       })
       .catch((err) => console.log(err));
     setUserconnecte(res.data);
+
     return res.data;
   };
+ 
 
   const updateadmin = async () => {
     const resupdate = await axios
+
       .post(
         `http://localhost:5000/users/updateuser/${userconnecte._id}`,
         {
@@ -58,10 +78,11 @@ function UpdateUser() {
       console.log(ress.data);
     });
   };
-  const handleInputChange = (e) => {
-    let { name, value } = e.target;
+  const handleInputChange = (e) =>{
+    let {name, value } = e.target;
     setinput({ ...input, [name]: value });
   };
+
 
   return (
     <div id="content-page" class="content-page">
@@ -107,24 +128,25 @@ function UpdateUser() {
                               <img class="profile-pic" src={process.env.PUBLIC_URL + "/imagee/" + userconnecte.image} alt="profile-pic" />
                               <div class="p-image">
                                 <i></i>
-                                <input type="file" name="image" value={input.image} onChange={handleInputChange} />
+                                
                               </div>
                             </div>
                           </div>
                         </div>
                         <div class=" row align-items-center">
                           <div class="form-group col-sm-6">
-                            <label for="fname">First Name:</label>
-                            <input type="text" class="form-control" name="name" value={input.name} onChange={handleInputChange} placeholder={userconnecte.name} />
+                            <label for="fname">First Name:{input.name}</label>
+                            <input type="text" class="form-control" name="name" value={input.name} onChange={handleInputChange}  />
                           </div>
                           <div class="form-group col-sm-6">
                             <label for="lname">Last Name:</label>
-                            <input type="text" class="form-control" name="lastname" value={input.lastname} onChange={handleInputChange} placeholder={userconnecte.lastname} />
+                            <input type="text" class="form-control" name="lastname" value={input.lastname} onChange={handleInputChange}  />
                           </div>
                           <div class="form-group col-sm-6">
                             <label for="uname">email:</label>
-                            <input type="text" class="form-control" name="email" value={input.email} onChange={handleInputChange} placeholder={userconnecte.email} />
+                            <input type="text" class="form-control" name="email" value={input.email} onChange={handleInputChange}  />
                           </div>
+            
                         </div>
 
                         <button type="submit" class="btn btn-primary mr-2">

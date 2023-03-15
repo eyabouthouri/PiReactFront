@@ -32,6 +32,7 @@ function ShowCoach(props) {
         withCredentials: true,
       })
       .catch((err) => console.log(err));
+      console.log(res.data)
     setUser(res.data);
     return res.data;
   };
@@ -47,6 +48,18 @@ function ShowCoach(props) {
       });
 
     return resdelete.data;
+  };
+  const blockeduser = async (id) => {
+    const resblock = await axios
+      .get(`http://localhost:5000/users/blockuser/${id}`, {
+        withCredentials: true,
+      })
+      .then(sednRequest())
+      .catch((err) => {
+        console.error(err);
+      });
+
+    return resblock.data;
   };
 
   return (
@@ -77,8 +90,9 @@ function ShowCoach(props) {
                   <thead class="thead-dark">
                     <tr>
                       <th>first Name</th>
-                      <th>last name</th>
+                    
                       <th>email</th>
+                      <th>isBlocked</th>
                       <th>username</th>
                       <th>role</th>
                       <th>image</th>
@@ -90,9 +104,10 @@ function ShowCoach(props) {
                         return (
                           <tr>
                             <td contenteditable="true">{item.name}</td>
-                            <td contenteditable="true">{item.lastname}</td>
+                          
                             <td contenteditable="true">{item.email}</td>
-                            <td contenteditable="true">{item.username}</td>
+                            <td >{item.isBlocked.blocked.toString()}</td>
+                            <td >{item.username}</td>
                             <td contenteditable="true">{item.role}</td>
                             <td contenteditable="true">
                               <img src={process.env.PUBLIC_URL + "/imagee/" + item.image} alt="image2" />
@@ -102,6 +117,12 @@ function ShowCoach(props) {
                               <button type="button" class="btn iq-bg-danger btn-rounded btn-sm my-0" onClick={() => deleteuser(item._id)}>
                                 {" "}
                                 Remove
+                              </button>
+                            </td>
+                            <td>
+                              <button type="button" class="btn iq-bg-danger btn-rounded btn-sm my-0" onClick={()=>blockeduser(item._id)}>
+                                {" "}
+                                bloquer
                               </button>
                             </td>
                           </tr>

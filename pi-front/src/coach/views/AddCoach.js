@@ -3,17 +3,20 @@ import { useNavigate } from 'react-router-dom';
 import Navbarback from '../../components/Navbarback';
 import SideBar from '../../components/SideBar';
 import axios from 'axios';
-
+axios.defaults.withCredentials = true;
 function AddCoach(props) {
+   
    const initialState={ name:"", lastname:"", email:"",username:"", pwd:""};
     
    const [input, setinput] = useState(initialState);
+   const [validd, setValid] = useState(true);
   
    const history = useNavigate();
+   const [msg, setmsg] = useState("");
    const addclient=async() =>{
        const res= await axios.post("http://localhost:5000/users/add/admin",{
    
-           name: input.name,
+           name:input.name,
            lastname:input.lastname,
            email:input.email,
            username:input.username,
@@ -22,6 +25,9 @@ function AddCoach(props) {
 
        },{withCredentials: true}).catch((err)=>{
            console.error(err)
+            setValid(false)
+            console.error(err.response.data);
+            setmsg(...msg, err.response.data);
            
          }
 
@@ -29,13 +35,13 @@ function AddCoach(props) {
         
 
        )
-       history("/ShowCoach")
 }  
-   const Handelsubmit=(e)=>{
+      const Handelsubmit=(e)=>{
           
       e.preventDefault();
      addclient().then(ress => {
-       console.log(ress.data)
+      console.log(ress.data)
+       
      
      })
     
@@ -102,40 +108,43 @@ function AddCoach(props) {
     </div>
     <div class="row">
        <div class="col-md-6">
-          <div class="form-group">
-             <label>Email: *</label>
-             <input type="text" class="form-control mb-0" name="email" onChange={handleInputChange} value={input.email} placeholder="Your Full Name"/>
-          </div>
-       </div>
-       <div class="col-md-6">
-          <div class="form-group">
-             <label>Username: *</label>
-             <input type="text" class="form-control mb-0" name="username" onChange={handleInputChange} value={input.username} placeholder="Your Full Name"/>
-          </div>
-       </div>
-       <div class="col-md-6">
-          <div class="form-group">
-             <label>Password: </label>
-             <input type="password" class="form-control mb-0" name="pwd" onChange={handleInputChange} value={input.pwd} placeholder="Your Full Name"/>
-          </div>
-       </div>
-       <div class="col-md-6">
-          <div class="form-group">
-             <label>Confirm Password: *</label>
-             <input type="password" class="form-control" name="cpwd" placeholder="Confirm Password" />
-          </div>
-       </div>
-       <div class="col-md-6">
-          <div class="form-group">
+       <div class="form-group">
              <label>First Name: *</label>
              <input type="text" class="form-control mb-0" name="name" onChange={handleInputChange} value={input.name} placeholder="Your Full Name"/>
+             {!validd && <span style={{ color: "red" }}>{msg.name}!! </span>}
+          </div>
+          
+       </div>
+       <div class="col-md-6">
+       <div class="form-group">
+             <label>Last Name: *</label>
+             <input type="text" class="form-control mb-0" name="lastname" onChange={handleInputChange} value={input.lastname} placeholder="Your Full Name"/>
+             {!validd && <span style={{ color: "red" }}>{msg.lastname}!! </span>}
+          </div>
+          
+          
+       </div>
+       <div class="col-md-6">
+       <div class="form-group">
+             <label>Email: *</label>
+             <input type="email" class="form-control mb-0" name="email" onChange={handleInputChange} value={input.email} placeholder="Your Full Name"/>
+             {!validd && <span style={{ color: "red" }}>{msg.email}!! </span>}
           </div>
        </div>
        <div class="col-md-6">
-          <div class="form-group">
-             <label>Last Name: *</label>
-             <input type="text" class="form-control mb-0" name="lastname" onChange={handleInputChange} value={input.lastname} placeholder="Your Full Name"/>
+       <div class="form-group">
+             <label>Username: *</label>
+             <input type="text" class="form-control mb-0" name="username" onChange={handleInputChange} value={input.username} placeholder="Your Full Name"/>
+             {!validd && <span style={{ color: "red" }}>{msg.username}!! </span>}
           </div>
+       </div>
+       <div class="col-md-6">
+       <div class="form-group">
+             <label>Password: </label>
+             <input type="password" class="form-control mb-0" name="pwd" onChange={handleInputChange} value={input.pwd} placeholder="Your Full Name"/>
+             {!validd && <span style={{ color: "red" }}>{msg.pwd}!! </span>}
+          </div>
+          
        </div>
        
       

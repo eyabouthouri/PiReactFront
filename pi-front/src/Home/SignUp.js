@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { useNavigate, NavLink } from "react-router-dom";
+import { useNavigate, NavLink, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useSpring, animated } from "react-spring";
 import Terms from "./Terms";
@@ -10,11 +10,11 @@ import { Store } from "react-notifications-component";
 
 axios.defaults.withCredentials = true;
 function SignUp() {
-  const initialState = { name: "", lastname: "", email: "", username: "", pwd: "" };
+  const initialState = { name: '', lastname: '', email: '', username: '', pwd: '',image:'' };
 
   const [input, setinput] = useState(initialState);
   const [msg, setmsg] = useState("");
-  const [valid, setValid] = useState(initialState);
+  const [validd, setValid] = useState(true);
   const [isChecked, setIsChecked] = useState(false);
   const [showButton, setShowButton] = useState(false);
 
@@ -25,16 +25,16 @@ function SignUp() {
         "http://localhost:5000/users/add/user",
         {
           name: input.name,
-          lastname: input.lastname,
+          lastname:input.lastname,
           email: input.email,
           username: input.username,
           pwd: input.pwd,
           image: input.image,
         },
-        { withCredentials: true }
+        { withCredentials: true },
       )
       .catch((err) => {
-        setValid(false);
+        setValid(false)
         console.error(err.response.data);
         setmsg(...msg, err.response.data);
       });
@@ -59,11 +59,11 @@ function SignUp() {
   };
   const handelsubmit = (e) => {
     e.preventDefault();
-    if (accepted) {
+    if (accepted ) {
       // submit form data
       console.log("Form data submitted successfully!");
-      addclient().then((ress) => {
-        console.log(ress.data);
+      addclient().then((ress,err) => {
+        
       });
     } else {
       // alert("Veuillez accepter les termes et conditions pour continuer");
@@ -80,23 +80,17 @@ function SignUp() {
         },
       });
     }
-    addclient().then((ress) => {
-      if (valid == true) {
-        history("/");
-      }
-    });
+   
   };
+
   const handleChange = (e) => {
-    let { name, value } = e.target;
-    setinput({ ...input, [name]: value });
-  };
-  const handleInputChange = (e) => {
     let { name, value } = e.target;
     setinput({ ...input, [name]: value });
   };
   const handleDecline = () => {
     setAccepted(false);
   };
+  
 
   return (
     <div class="sign-in-page">
@@ -138,34 +132,40 @@ function SignUp() {
               <div class="sign-in-from">
                 <h1 class="mb-0">Sign Up</h1>
 
-                <form onSubmit={handelsubmit} autoComplete="off">
+                <form onSubmit={handelsubmit} >
                   <div class="form-group">
-                    {!valid && <span style={{ color: "red" }}>{msg.name}!! </span>}
+                  
                     <label htmlFor="name" for="exampleInputEmail1">
                       First Name
                     </label>
-                    <input type="text" class="form-control mb-0" name="name" id="name" onChange={handleChange} value={input.name} placeholder="first name" />
+                    <input type="text" class="form-control mb-0" name="name"  onChange={handleChange} value={input.name} placeholder="first name" />
+                    {!validd && <span style={{ color: "red" }}>{msg.name}!! </span>}
+
                   </div>
                   <div class="form-group">
-                    {!valid && <span style={{ color: "red" }}>{msg.lastName}!! </span>}
+                   
                     <label for="exampleInputEmail1">Last Name</label>
 
-                    <input type="text" class="form-control mb-0" name="lastname" id="lastname" onChange={handleChange} value={input.lastname} placeholder="last name" />
+                    <input type="text" class="form-control mb-0" name="lastname"  onChange={handleChange} value={input.lastname} placeholder="last name" />
+                    {!validd && <span style={{ color: "red" }}>{msg.lastname}!! </span>}
                   </div>
-                  {!valid && <span style={{ color: "red" }}>{msg.email}!! </span>}
+                 
                   <div class="form-group">
                     <label for="exampleInputEmail2">Email address</label>
-                    <input type="email" class="form-control mb-0" name="email" id="email" onChange={handleChange} value={input.email} placeholder="info@example.com"></input>
+                    <input type="text" class="form-control mb-0" name="email" onChange={handleChange} value={input.email} placeholder="info@example.com"></input>
+                    {!validd && <span style={{ color: "red" }}>{msg.email}!! </span>}
                   </div>
-                  {!valid && <span style={{ color: "red" }}>{msg.username}!! </span>}
+                  
                   <div class="form-group">
                     <label for="exampleInputEmail2">Username</label>
-                    <input type="text" name="username" id="usernale" onChange={handleChange} value={input.username} placeholder="username" class="form-control mb-0" />
+                    <input type="text" name="username" onChange={handleChange} value={input.username} placeholder="username" class="form-control mb-0" />
+                    {!validd && <span style={{ color: "red" }}>{msg.username}!! </span>}
                   </div>
-                  {!valid && <span style={{ color: "red" }}>{msg.password}!! </span>}
+                  
                   <div class="form-group">
                     <label for="exampleInputPassword1">Password {input.pwd}</label>
-                    <input type="text" class="form-control mb-0" name="pwd" id="pwd" onChange={handleChange} value={input.pwd} placeholder="******" />
+                    <input type="text" class="form-control mb-0" name="pwd"  onChange={handleChange} value={input.pwd} placeholder="******" />
+                    {!validd && <span style={{ color: "red" }}>{msg.pwd}!! </span>}
                   </div>
                   <div class="form-group">
                     <label for="exampleInputPassword1">Image </label>
@@ -189,7 +189,7 @@ function SignUp() {
                   </div>
                   <div class="sign-info">
                     <span class="dark-color d-inline-block line-height-2">
-                      Already Have Account ? <NavLink to="/">Sign In</NavLink>
+                      Already Have Account ? <NavLink to="/Signin">Sign In</NavLink>
                     </span>
                   </div>
                 </form>
