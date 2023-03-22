@@ -19,15 +19,17 @@ function SideBar(props) {
                       
                        <li>
                          
-                             <li><a href="form-wizard.html"><i class="ri-clockwise-line"></i>Add Liabrary</a></li>
+                             <li><a href='/AddLibrary'><i class="ri-clockwise-line"></i>Add Liabrary</a></li>
                              <li><a href="form-course.html"><i class="ri-clockwise-line"></i>Add course</a></li>
                              <li><a href="form-wizard-vertical.html"><i class="ri-anticlockwise-line"></i>Add coach</a></li>
                        </li>
                        <li class="active">
                           <a href="#tables" class="iq-waves-effect collapsed" data-toggle="collapse" aria-expanded="true"><i class="ri-table-line"></i><span>Show Table</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
                           <ul id="tables" class="iq-submenu collapse show" data-parent="#ui-elements">
-                             <li><a href="tables-liabrary.html"><i class="ri-table-line"></i>Liabrary</a></li>
-                             <li class="active"><a href="data-table.html"><i class="ri-database-line"></i>event</a></li>
+                             <li><a href="/ShowLiabrary"><i class="ri-table-line"></i>Liabrary</a></li>
+                             <li><a href="/ShowCmntr"><i class="ri-table-line"></i>Commentaires</a></li>
+
+                             <li ><a href="data-table.html"><i class="ri-database-line"></i>event</a></li>
                              <li><a href="table-editable.html"><i class="ri-refund-line"></i>Course </a></li>
                              <li><a href="table-coach.html"><i class="ri-refund-line"></i>Coach </a></li>
 

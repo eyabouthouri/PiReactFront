@@ -4,48 +4,43 @@ import Navbarback from '../../components/Navbarback';
 import SideBar from '../../components/SideBar';
 import { Link, useParams } from 'react-router-dom';
 import {toast} from "react-toastify";
-import Library from './Library';
-function ShowLiabrary(props) {
-   const [data,setData]=useState([]);
-useEffect(()=>{
-   listL();
-},[])
+function ShowCmntr(props) {
 
 
-
-const listL = async()=>{
-   const response = await axios.get("http://localhost:5000/library/listL");
-   if(response.status ==200){
-      setData(response.data);
+    const [data,setData]=useState([]);
+    useEffect(()=>{
+        listC();
+    },[])
+    
+    
+    
+    const listC = async()=>{
+        const response = await axios.get("http://localhost:5000/commentaire/listc");
+        if(response.status ==200){
+           setData(response.data);
+        }
+        }   
       
-   }
-   };
-   
-   const deleteL = async (id)=> {
+        const deleteC = async (id)=> {
+           
+              const response = await axios.delete(`http://localhost:5000/commentaire/deleteC/${id}`,
+              {withCredentials: true}).then(
+                 listC()
+        
+              
+              )
+              .catch((err)=>{
+                 console.error(err)
+                 
+        
+               }
+              );
+              return response.data;
+     
+        
+     
+        }     
       
-         const response = await axios.delete(`http://localhost:5000/library/deleteL/${id}`,
-         {withCredentials: true}).then(
-            listL()
-   
-         
-         )
-         .catch((err)=>{
-            console.error(err)
-            
-   
-          }
-         );
-         return response.data;
-
-   
-
-   }
-
-  
-
-
-
-
     return (
         <div id="content-page" class="content-page">          
 
@@ -77,12 +72,8 @@ const listL = async()=>{
                  
                                  <thead class="thead-dark">
                                     <tr>
-                                         <th>Image</th>
-                                       <th>name</th>
-                                       <th>adresse </th>
-                                       <th>email</th>
-                                       <th>Tel</th>
-                                       <th>id</th>
+                                         <th>description</th>
+                                      
                                        <th>Action</th>
 
                                     </tr>
@@ -92,24 +83,16 @@ const listL = async()=>{
                                 {data && data.map((item, index)=>{
                                  return(
                                     <tr >
-                                       <td>
-                                        {" "}
-                                       <img class="img-fluid img-thumbnail" src={process.env.PUBLIC_URL+"/images/"+item.img}></img>{" "} </td>
-                                       <td class="contenteditable">{item.name}</td>
-                                       <td class="contenteditable">{item.adresse}</td>
-                                       <td class="contenteditable">{item.email}</td>
-                                       <td class="contenteditable">{item.tel}</td>
-                                       <td class="contenteditable">{item._id}</td>
+                
+                                       <td class="contenteditable">{item.description}</td>
+                            
 
 
                               
                                        <td>
-                                          <Link to={`/updateL/${item._id}`}>
-                                           <button type="button"
-                                             class="btn iq-bg-danger btn-rounded btn-sm my-0">update</button>    
-                                             </Link> 
+                                          
                                               <button type="button"
-                                             class="btn iq-bg-danger btn-rounded btn-sm my-0" onClick={() => deleteL(item._id)} >delete</button>
+                                             class="btn iq-bg-danger btn-rounded btn-sm my-0" onClick={() => deleteC(item._id)} >delete</button>
                                        </td>        
                                     </tr> 
                                  )
@@ -124,6 +107,8 @@ const listL = async()=>{
 
     );
       
+
+
 }
 
-export default ShowLiabrary;
+export default ShowCmntr;

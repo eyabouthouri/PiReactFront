@@ -24,9 +24,19 @@ var history=useNavigate()
 const [state, setState] = useState(initialState);
 const { description}=initialState;
 const addC = async (data)=> {
-    const response = await axios.post("http://localhost:5000/commentaire/addc",data)
-    toast.sucess(response.data);
-    listL();
+    const response = await axios.post("http://localhost:5000/commentaire/addc",data,
+    {withCredentials: true}).then(
+      listL()
+
+   
+   )
+   .catch((err)=>{
+      console.error(err)
+      
+
+    }
+   );
+   return response.data;
 
  }
 const listL = async()=>{
@@ -62,7 +72,7 @@ const Handelsubmit=(e)=>{
    
             <div class="header-for-bg">
             <div class="background-header position-relative">
-               <img src="images/page-img/profile-bg7.jpg" class="img-fluid rounded w-100 rounded rounded" alt="profile-bg"/>
+               <img src="images/okok.jpg" width="20px" height="20px"class="img-fluid rounded w-100 rounded rounded"  alt="profile-bg"/>
                <div class="title-on-header">
                   <div class="data-block">
                      <h2>Library</h2>

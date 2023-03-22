@@ -20,6 +20,7 @@ import UpdateUser from './coach/views/updateuser';
 import Terms from './Home/Terms';
 import Rem from './Home/Rem';
 import AffCmntr from './Library/views/AffCmntr';
+import ShowCmntr from './Library/views/ShowCmntr';
 function App()  {
 
   let { id } = useParams();
@@ -42,6 +43,8 @@ function App()  {
         <Route path='/AddCoach' element={<AddCoach></AddCoach>}></Route>
         <Route path='/AddCourse' element={<AddCourse></AddCourse>}></Route>
         <Route path='/ShowLiabrary' element={<ShowLiabrary></ShowLiabrary>}></Route>
+        <Route path='/ShowCmntr' element={<ShowCmntr></ShowCmntr>}></Route>
+
         <Route path='/library' element={<Library></Library>}></Route>
         <Route path='/updateL/:id' element={<AddLibrary/>}></Route>
 
