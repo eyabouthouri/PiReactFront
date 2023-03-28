@@ -72,8 +72,9 @@ function ShowCmntr(props) {
                  
                                  <thead class="thead-dark">
                                     <tr>
+                                        <th>User</th>
                                          <th>description</th>
-                                      
+                                         
                                        <th>Action</th>
 
                                     </tr>
@@ -83,7 +84,9 @@ function ShowCmntr(props) {
                                 {data && data.map((item, index)=>{
                                  return(
                                     <tr >
-                
+
+                                      <td class="contenteditable">{item.username}</td>
+   
                                        <td class="contenteditable">{item.description}</td>
                             
 

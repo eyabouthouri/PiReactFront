@@ -21,6 +21,8 @@ import Terms from './Home/Terms';
 import Rem from './Home/Rem';
 import AffCmntr from './Library/views/AffCmntr';
 import ShowCmntr from './Library/views/ShowCmntr';
+import FormInputComment from './Library/views/FormInputComment';
+import Addabonnement from './Library/views/Addabonnement';
 function App()  {
 
   let { id } = useParams();
@@ -44,6 +46,7 @@ function App()  {
         <Route path='/AddCourse' element={<AddCourse></AddCourse>}></Route>
         <Route path='/ShowLiabrary' element={<ShowLiabrary></ShowLiabrary>}></Route>
         <Route path='/ShowCmntr' element={<ShowCmntr></ShowCmntr>}></Route>
+        <Route path='/in' element={<FormInputComment></FormInputComment>}></Route>
 
         <Route path='/library' element={<Library></Library>}></Route>
         <Route path='/updateL/:id' element={<AddLibrary/>}></Route>
@@ -55,8 +58,8 @@ function App()  {
         <Route path='/UpdateUser' element={<UpdateUser></UpdateUser>}></Route>
         <Route path='/rem' element={<Rem></Rem>}></Route>
         <Route path='/Affc' element={<AffCmntr></AffCmntr>}></Route>
+        <Route path='/adda' element={<Addabonnement></Addabonnement>}></Route>
 
-        
 
       </Routes>
    </div>   
