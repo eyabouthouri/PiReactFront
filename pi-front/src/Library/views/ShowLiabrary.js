@@ -79,6 +79,7 @@ const listL = async()=>{
                                     <tr>
                                          <th>Image</th>
                                        <th>name</th>
+                                       <th>pays</th>
                                        <th>adresse </th>
                                        <th>email</th>
                                        <th>Tel</th>
@@ -96,6 +97,7 @@ const listL = async()=>{
                                         {" "}
                                        <img class="img-fluid img-thumbnail" src={process.env.PUBLIC_URL+"/images/"+item.img}></img>{" "} </td>
                                        <td class="contenteditable">{item.name}</td>
+                                       <td class="contenteditable">{item.pays}</td>
                                        <td class="contenteditable">{item.adresse}</td>
                                        <td class="contenteditable">{item.email}</td>
                                        <td class="contenteditable">{item.tel}</td>

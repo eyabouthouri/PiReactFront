@@ -10,6 +10,7 @@ import { useNavigate,Link,NavLink } from 'react-router-dom';
 import axios from 'axios';
 import {toast} from "react-toastify";
 import { useParams } from 'react-router-dom';axios.defaults.withCredentials = true;
+
 const initialState= {
    nom:"",
    prenom:"",
@@ -21,29 +22,64 @@ const initialState= {
 
 }
 
-function Addabonnement() {
-  const [showPage, setShowPage] = useState(false);
-  const [data,setData]=useState([]);
-  const [state, setState] = useState(initialState);
-  const { nom, prenom, age, tel,email, city,image}=initialState;
- 
+function UpdateAbb(props) {
+    const [showPage, setShowPage] = useState(false);
+    const [data,setData]=useState([]);
+    const [state, setState] = useState(initialState);
+    const { nom, prenom, age, tel,email, city,image}=initialState;
 
-  const addL = async (data)=> {
-     const response = await axios.post("http://localhost:5000/abonnement/adda",data)
-     toast.sucess(response.data);
+    useEffect(()=>{
+        listA();
+     },[])
+     
+    const listA = async()=>{
+        const response = await axios.get("http://localhost:5000/abonnement/lista");
+        if(response.status ==200){
+           setData(response.data);
+           
+        }
+        };
+    const updateA = async(data,id)=> {
+        const response = await axios.put(`http://localhost:5000/abonnement/updatea/${id}`,data)
+        toast.sucess(response.data);
+        listA();
 
-  }
-  function handleaddclick() {
-    setShowPage(true);
-  }
+   
+     }
+     const getOneA = async (id) => {
+        const response = await axios.get(`http://localhost:5000/abonnement/getOneA/${id}`);
+           setState({ ...response.data[0]} );
+  
+        
+     };
+  
+    const addL = async (data)=> {
+       const response = await axios.post("http://localhost:5000/abonnement/adda",data)
+       toast.sucess(response.data);
+  
+    }
+    function handleaddclick() {
+      setShowPage(true);
+    } 
+    const { id } = useParams();
+    useEffect(() =>{
+        if (id) {
+  
+            getOneA(id);
+     }
+     },[id])
   var history=useNavigate()
 
   const Handelsubmit=(e)=>{
           
-   e.preventDefault();
-      addL(state);
+    if(id){
+    
+        updateA(state, id);
+
+
+    }
+    history("/showabb");
  
-  history("/library");
  
 };
    const  handleInputChange=(e) =>{
@@ -56,7 +92,7 @@ function Addabonnement() {
    fetch('https://restcountries.com/v2/all')
      .then(response => response.json())
      .then(countries => {
-       // Vider la liste déroulante
+       
        // Ajouter l'option par défaut
        const defaultOption = document.createElement('option');
        defaultOption.value = '';
@@ -76,14 +112,16 @@ function Addabonnement() {
  fillCountrySelect();
 
   return (
-   <div id="root">
+    <div id="content-page" class="content-page">          
 
-<Topnav/>
-<br></br><br></br><br></br><br></br>
-<br></br><br></br>
+        <div id="root"> 
+        <Navbarback/>
+        <div id="root">
+            <SideBar/>
+            </div>
+            </div>
 
     <div   class="container">
-
             <div class="row">   
             <div class="col-lg-12">
                      <div class="iq-edit-list-data">
@@ -92,22 +130,14 @@ function Addabonnement() {
                               <div class="iq-card">
                                  <div class="iq-card-header d-flex justify-content-between">
                                     <div class="iq-header-title">
-                                       <h4 class="card-title" ><i class="bi bi-file-earmark-person-fill"></i>  Abonnement</h4>
+                                       <h4 class="card-title" ><i class="bi bi-file-earmark-person-fill"></i>   Update Abonnement</h4>
                                     </div>
 
                                  </div>
-                                 <img src="images/janko-ferlic-sfL_QOnmy00-unsplash.jpg" width= "970px" height="200px" ></img>
 
                                  <div class="iq-card-body">
                                  <form id="form-wizard1" class="text-center mt-4"  methode="POST" onSubmit={Handelsubmit}>
-                                       <div class="form-group row align-items-center">
-                                          <div class="col-md-12">
-                                          <div className="form-group">
-                                          <i class="bi bi-filetype-jpg"></i><input id="file-upload" type="file" name="image"   onChange={handleInputChange}  value={state.image} />   
-                                               </div>
-                                            </div>
-
-                                       </div>
+                                     
                                        <div class=" row align-items-center">
                                           <div class="form-group col-sm-6">
                                              <label for="fname"><i class="bi bi-person-bounding-box"></i>  First Name:</label>
@@ -151,10 +181,10 @@ function Addabonnement() {
                                              <input  class="form-control" id="tel"  name="tel"   placeholder='Tel' onChange={handleInputChange}  value={state.tel}/>
                                           </div>
                                         
-                                       
+                                           
                                         
                                        </div>
-                                       <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                                       <input type="submit" value={id ? "Update" : "Add"}></input>
                                        <button type="reset" class="btn iq-bg-danger">Cancle</button>
                                     </form>
                                  </div>
@@ -183,8 +213,9 @@ function Addabonnement() {
             </div>
          </div>
       </footer>
-                           </div>
+       </div>
 
   );
-}
-export default Addabonnement
+
+  }
+export default UpdateAbb;

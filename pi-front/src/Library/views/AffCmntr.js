@@ -71,17 +71,19 @@ const listC = async()=>{
             <div class="d-flex flex-wrap">
             <div class="user-img">
                <img src="images/user/03.jpg" alt="userimg" class="avatar-35 rounded-circle img-fluid"/>
+               <h7>  Eya bouthouri</h7>
             </div>
 
             <div class="comment-data-block ml-3">
-               <h7>Eya</h7>
+              
       <p>{item.description}</p>
-      <p class="mb-0"></p>
       <div class="d-flex flex-wrap align-items-center comment-activity">
+
          <a href="javascript:void();" onClick={() => deleteC(item._id)} onnClick={refreshPage}>delete</a>
-         <a href="javascript:void();">reply</a>
          <a href="javascript:void();">translate</a>
-         <span> 5 min </span>
+
+         <span>{item.dateEnvoi}</span>
+         <br></br>
          </div></div>
 
 </div>

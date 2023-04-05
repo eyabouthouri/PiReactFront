@@ -12,11 +12,7 @@ function Topnav(props) {
                      <span>
                         Web Spirits</span>
                      </a>
-                     <div class="iq-menu-bt align-self-center">
-                     <div class="wrapper-menu">
-                        <div class="main-circle"><i class="ri-menu-line"></i></div>
-                     </div>
-                  </div>
+                 
                   </div>
                   <div class="collapse navbar-collapse" id="navbarNav">
                      <ul class="navbar-nav">
@@ -39,12 +35,7 @@ function Topnav(props) {
                   <div class="collapse navbar-collapse" id="navbarSupportedContent">
                      <ul class="navbar-nav ml-auto navbar-list">
                         <li>
-                           <a href="profile.html" class="iq-waves-effect d-flex align-items-center">
-                              <img src="images/user/1.jpg" class="img-fluid rounded-circle mr-3" alt="user"/>
-                              <div class="caption">
-                                 <h6 class="mb-0 line-height">Bni Cyst</h6>
-                              </div>
-                           </a>
+                          
                         </li>
                         <li>
                            <a href="index.html" class="iq-waves-effect d-flex align-items-center">

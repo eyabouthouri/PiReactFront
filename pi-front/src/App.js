@@ -24,6 +24,7 @@ import ShowCmntr from './Library/views/ShowCmntr';
 import FormInputComment from './Library/views/FormInputComment';
 import Addabonnement from './Library/views/Addabonnement';
 import ShowAbo from './Library/views/ShowAbo';
+import UpdateAbb from './Library/views/UpdateAbb';
 function App()  {
 
   let { id } = useParams();
@@ -61,7 +62,7 @@ function App()  {
         <Route path='/Affc' element={<AffCmntr></AffCmntr>}></Route>
         <Route path='/adda' element={<Addabonnement></Addabonnement>}></Route>
         <Route path='/showabb' element={<ShowAbo></ShowAbo>}></Route>
-
+        <Route path='/updateA/:id' element ={<UpdateAbb></UpdateAbb>}></Route>
 
       </Routes>
    </div>   

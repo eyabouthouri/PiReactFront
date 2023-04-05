@@ -81,6 +81,7 @@ const listA = async()=>{
                                        <th>Last Name </th>
                                        <th>email</th>
                                        <th>Tel</th>
+                                       <th>Duration</th>
                                        <th>city</th>
                                        <th>Age</th>
                                        <th>Id</th>
@@ -100,6 +101,7 @@ const listA = async()=>{
                                        <td class="contenteditable">{item.prenom}</td>
                                        <td class="contenteditable">{item.email}</td>
                                        <td class="contenteditable">{item.tel}</td>
+                                       <td class="contenteditable">{item.Duration}</td>
                                        <td class="contenteditable">{item.city}</td>
                                        <td class="contenteditable">{item.age}</td>
                                        <td class="contenteditable">{item._id}</td>
@@ -107,7 +109,7 @@ const listA = async()=>{
 
                               
                                        <td>
-                                          <Link to={`/updateL/${item._id}`}>
+                                          <Link to={`/updateA/${item._id}`}>
                                            <button type="button"
                                              class="btn iq-bg-danger btn-rounded btn-sm my-0">update</button>    
                                              </Link> 
