@@ -45,7 +45,7 @@ function Navbarback(props) {
         <nav class="navbar navbar-expand-lg navbar-light p-0">
           <div class="iq-navbar-logo d-flex justify-content-between">
             <a href="index.html">
-              <img src="images/logo.png" class="img-fluid" alt="" />
+              <img src="images/yc.png" class="img-fluid" alt="" />
               <span>SocialV</span>
             </a>
             <div class="iq-menu-bt align-self-center">

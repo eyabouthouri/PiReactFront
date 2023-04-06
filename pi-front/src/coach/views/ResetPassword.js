@@ -62,7 +62,7 @@ const ResetPassword = ({ history, match }) => {
           <div class="col-md-6 text-center pt-5">
             <div class="sign-in-detail text-white">
               <a class="sign-in-logo mb-5" href="#">
-              <img src="images/yc.png" class="img-fluid" alt="logo" style={{ width: 500, height: 300 }}  />
+              <img src="/images/yc.png" class="img-fluid" alt="logo" style={{ width: 500, height: 300 }}  />
               </a>
             </div>
           </div>

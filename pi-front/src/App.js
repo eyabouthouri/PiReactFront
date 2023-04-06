@@ -3,7 +3,6 @@ import "./helpers/axiosConfig";
 import Library from "./Library/views/Library";
 import Home from "./Home/Home";
 import Event from "./event/views/Event";
-import Course from "./course/views/Course";
 import NavbarModule from "./components/NavbarModule";
 import SignIn from "./Home/SignIn";
 import SignUp from "./Home/SignUp";
@@ -27,6 +26,12 @@ import { Provider } from "react-redux";
 import Homebeforsignin from "./Home/homebeforesignin";
 import PrivateRoute from "./components/PrivateRoute";
 import NotLoggedRoute from "./components/NotLoggedRoute";
+import ClientCourse from "./course/views/ClientCourse";
+import AddLesson from "./course/views/AddLesson";
+import ShowLessons from "./course/views/ShowLessons";
+import ClientLesson from "./course/views/ClientLesson";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -35,24 +40,81 @@ function App() {
     <div>
       <ReactNotifications />
       <Routes>
-      <Route path="/ShowCoach" element={<PrivateRoute isAdmin={true}><ShowCoach></ShowCoach></PrivateRoute>}></Route>
-        <Route path="/UpdateUser" element={<PrivateRoute><UpdateUser></UpdateUser></PrivateRoute>} />
-        <Route path="/AddCoach" element={<PrivateRoute><AddCoach></AddCoach></PrivateRoute>}></Route>
+        <Route
+          path="/ShowCoach"
+          element={
+            <PrivateRoute isAdmin={true}>
+              <ShowCoach></ShowCoach>
+            </PrivateRoute>
+          }
+        ></Route>
+        <Route
+          path="/UpdateUser"
+          element={
+            <PrivateRoute>
+              <UpdateUser></UpdateUser>
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/AddCoach"
+          element={
+            <PrivateRoute>
+              <AddCoach></AddCoach>
+            </PrivateRoute>
+          }
+        ></Route>
         <Route path="/forgotpassword" element={<ForgotPassword></ForgotPassword>} />
         <Route path="/resetpassword/:token" element={<ResetPassword></ResetPassword>} />
-        <Route path="/home" element={<PrivateRoute><Home></Home></PrivateRoute>}></Route>
+        <Route
+          path="/home"
+          element={
+            <PrivateRoute>
+              <Home></Home>
+            </PrivateRoute>
+          }
+          
+        ></Route>
         <Route path="/event" element={<Event></Event>}></Route>
         <Route path="/addevent" element={<AddEvent />}></Route>
-        <Route path="/Signin" element={<NotLoggedRoute><SignIn></SignIn></NotLoggedRoute>}></Route>
-        <Route path="/SignUp" element={<NotLoggedRoute><SignUp></SignUp></NotLoggedRoute>}></Route>
+        <Route
+          path="/Signin"
+          element={
+            <NotLoggedRoute>
+              <SignIn></SignIn>
+            </NotLoggedRoute>
+          }
+        ></Route>
+        <Route
+          path="/SignUp"
+          element={
+            <NotLoggedRoute>
+              <SignUp></SignUp>
+            </NotLoggedRoute>
+          }
+        ></Route>
         <Route path="/AddLibrary" element={<AddLibrary></AddLibrary>}></Route>
+        <Route path="/AddLesson/:courseId" element={<AddLesson></AddLesson>}/>
         <Route path="/AddCourse" element={<AddCourse></AddCourse>}></Route>
         <Route path="/ShowLiabrary" element={<ShowLiabrary></ShowLiabrary>}></Route>
         <Route path="/ShowCourse" element={<ShowCourse></ShowCourse>}></Route>
         <Route path="/ShowLiabrary" element={<ShowLiabrary></ShowLiabrary>}></Route>
+        <Route path="/Course" element={<ClientCourse></ClientCourse>}></Route>
         <Route path="/ShowEvent" element={<ShowEvent></ShowEvent>}></Route>
-        <Route path="/" element={<NotLoggedRoute><Homebeforsignin></Homebeforsignin></NotLoggedRoute>}></Route>
+        <Route
+          path="/"
+          element={
+            <NotLoggedRoute>
+              <Homebeforsignin></Homebeforsignin>
+            </NotLoggedRoute>
+          }
+        ></Route>
+        <Route path="/updateL/:id" element={<AddCourse />}></Route>
+        <Route path="/clientLesson/:courseId" element={<ClientLesson/>}></Route>
+        <Route path="/updateLesson/:id" element={<AddLesson />}></Route>
+        <Route path="/ShowCourseLessons/:courseId" element={<ShowLessons></ShowLessons>}></Route>
       </Routes>
+      <ToastContainer />
     </div>
   );
 }

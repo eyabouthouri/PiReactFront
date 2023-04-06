@@ -32,7 +32,7 @@ function ShowCoach(props) {
         withCredentials: true,
       })
       .catch((err) => console.log(err));
-      console.log(res.data)
+    console.log(res.data);
     setUser(res.data);
     return res.data;
   };
@@ -90,7 +90,7 @@ function ShowCoach(props) {
                   <thead class="thead-dark">
                     <tr>
                       <th>first Name</th>
-                    
+
                       <th>email</th>
                       <th>isBlocked</th>
                       <th>username</th>
@@ -104,13 +104,13 @@ function ShowCoach(props) {
                         return (
                           <tr>
                             <td contenteditable="true">{item.name}</td>
-                          
+
                             <td contenteditable="true">{item.email}</td>
-                            <td >{item.isBlocked.blocked.toString()}</td>
-                            <td >{item.username}</td>
+                            <td>{item.isBlocked.blocked.toString()}</td>
+                            <td>{item.username}</td>
                             <td contenteditable="true">{item.role}</td>
                             <td contenteditable="true">
-                              <img src={process.env.PUBLIC_URL + "/imagee/" + item.image} alt="image2" />
+                              <img src={process.env.PUBLIC_URL + "/imagee/" + item.image} alt="image2" style={{ width: 100, height: 70 }} />
                             </td>
 
                             <td>
@@ -120,7 +120,7 @@ function ShowCoach(props) {
                               </button>
                             </td>
                             <td>
-                              <button type="button" class="btn iq-bg-danger btn-rounded btn-sm my-0" onClick={()=>blockeduser(item._id)}>
+                              <button type="button" class="btn iq-bg-danger btn-rounded btn-sm my-0" onClick={() => blockeduser(item._id)}>
                                 {" "}
                                 bloquer
                               </button>

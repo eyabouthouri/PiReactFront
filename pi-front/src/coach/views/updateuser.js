@@ -9,37 +9,28 @@ import ShowCoach from "./ShowCoach";
 axios.defaults.withCredentials = true;
 function UpdateUser() {
   const [userconnecte, setUserconnecte] = useState([]);
-  const initialState = { name: "", lastname:"", email: "",pwd:"", image:"" };
+  const initialState = { name: "", lastname: "", email: "", pwd: "", image: "" };
 
-  const [input, setinput] = useState(
-   []
- );
- const[inputt,setinputt]=useState([]);
- const[msg,setmsg]=useState("");
- const [valid, setValid] = useState(true);
- 
+  const [input, setinput] = useState([]);
+  const [inputt, setinputt] = useState([]);
+  const [msg, setmsg] = useState("");
+  const [valid, setValid] = useState(true);
+
   var history = useNavigate();
- 
+
   useEffect(() => {
     userconnectee().then((d) => {
       setUserconnecte(d);
-      
-    
     });
-
-  },[]);
-  useEffect(()=>{
-    setinput(
-      {
-        name:userconnecte.name,
-        lastname:userconnecte.lastname,
-        email:userconnecte.email,
-        image:userconnecte.image,
-        
-      }
-    )
-  },[userconnecte])
- 
+  }, []);
+  useEffect(() => {
+    setinput({
+      name: userconnecte.name,
+      lastname: userconnecte.lastname,
+      email: userconnecte.email,
+      image: userconnecte.image,
+    });
+  }, [userconnecte]);
 
   const userconnectee = async () => {
     const res = await axios
@@ -51,7 +42,6 @@ function UpdateUser() {
 
     return res.data;
   };
- 
 
   const updateadmin = async () => {
     const resupdate = await axios
@@ -73,25 +63,20 @@ function UpdateUser() {
     return resupdate.data;
   };
   const updatepwd = async () => {
-   try{ const resupdate = await axios
-
-      .post(
+    try {
+      const resupdate = await axios.post(
         `http://localhost:5000/users/changerpwd/${userconnecte.username}`,
         {
           pwd: inputt.pwd,
           pwdd: inputt.pwdd,
-         
         },
         { withCredentials: true }
-      ); history("/ShowCoach");
-      } 
-      catch(err)  {
-        setValid(false);
-        console.error(err.response.data.message);
-        setmsg(err.response.data.message);
-      }
-    
-   
+      );
+    } catch (err) {
+      setValid(false);
+      console.error(err.response.data.message);
+      setmsg(err.response.data.message);
+    }
   };
   const Handelsubmit = (ee) => {
     ee.preventDefault();
@@ -105,18 +90,19 @@ function UpdateUser() {
   };
   const Handelsubmitt = (ee) => {
     ee.preventDefault();
-    updatepwd();
+    if(updatepwd()){
+      history("/ShowCoach");
+    }
   };
 
-  const handleInputChange = (e) =>{
-    let {name, value } = e.target;
+  const handleInputChange = (e) => {
+    let { name, value } = e.target;
     setinput({ ...input, [name]: value });
   };
- const handleChange = (a)=>{
-    let {name, value } = a.target;
+  const handleChange = (a) => {
+    let { name, value } = a.target;
     setinputt({ ...inputt, [name]: value });
-  }
-
+  };
 
   return (
     <div id="content-page" class="content-page">
@@ -126,31 +112,30 @@ function UpdateUser() {
           <SideBar />
         </div>
       </div>
-     
-            <div class="container">
-               <div class="row">
-                  <div class="col-lg-12">
-                     <div class="iq-card">
-                        <div class="iq-card-body p-0">
-                           <div class="iq-edit-list">
-                              <ul class="iq-edit-profile d-flex nav nav-pills">
-                                 <li class="col-md-3 p-0">
-                                    <a class="nav-link active" data-toggle="pill" href="#personal-information">
-                                    Personal Information
-                                    </a>
-                                 </li>
-                                 <li class="col-md-3 p-0">
-                                    <a class="nav-link" data-toggle="pill" href="#chang-pwd">
-                                    Change Password
-                                    </a>
-                                 </li>
-                              
-                              </ul>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-     
+
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="iq-card">
+              <div class="iq-card-body p-0">
+                <div class="iq-edit-list">
+                  <ul class="iq-edit-profile d-flex nav nav-pills">
+                    <li class="col-md-3 p-0">
+                      <a class="nav-link active" data-toggle="pill" href="#personal-information">
+                        Personal Information
+                      </a>
+                    </li>
+                    <li class="col-md-3 p-0">
+                      <a class="nav-link" data-toggle="pill" href="#chang-pwd">
+                        Change Password
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div class="col-lg-12">
             <div class="iq-edit-list-data">
               <div class="tab-content">
@@ -169,7 +154,6 @@ function UpdateUser() {
                               <img class="profile-pic" src={process.env.PUBLIC_URL + "/imagee/" + userconnecte.image} alt="profile-pic" />
                               <div class="p-image">
                                 <i></i>
-                                
                               </div>
                             </div>
                           </div>
@@ -177,19 +161,16 @@ function UpdateUser() {
                         <div class=" row align-items-center">
                           <div class="form-group col-sm-6">
                             <label for="fname">First Name:{input.name}</label>
-                            <input type="text" class="form-control" name="name" value={input.name} onChange={handleInputChange}  />
+                            <input type="text" class="form-control" name="name" value={input.name} onChange={handleInputChange} />
                           </div>
                           <div class="form-group col-sm-6">
                             <label for="lname">Last Name:</label>
-                            <input type="text" class="form-control" name="lastname" value={input.lastname} onChange={handleInputChange}  />
+                            <input type="text" class="form-control" name="lastname" value={input.lastname} onChange={handleInputChange} />
                           </div>
                           <div class="form-group col-sm-6">
                             <label for="uname">email:</label>
-                            <input type="text" class="form-control" name="email" value={input.email} onChange={handleInputChange}  />
+                            <input type="text" class="form-control" name="email" value={input.email} onChange={handleInputChange} />
                           </div>
-                         
-            
-            
                         </div>
 
                         <button type="submit" class="btn btn-primary mr-2">
@@ -200,32 +181,38 @@ function UpdateUser() {
                   </div>
                 </div>
                 <div class="tab-pane fade" id="chang-pwd" role="tabpanel">
-                              <div class="iq-card">
-                                 <div class="iq-card-header d-flex justify-content-between">
-                                    <div class="iq-header-title">
-                                       <h4 class="card-title">Change Password</h4>
-                                    </div>
-                                 </div>
-                                 <div class="iq-card-body">
-                                    <form onSubmit={Handelsubmitt}>
-                                       <div class="form-group">
-                                          <label for="cpass">Current Password:</label>
-                                          <Link to="/forgotpassword" class="float-right">Forgot Password</Link>
-                                         
-                                          <input type="text" class="form-control" name="pwd" value={inputt.pwd} onChange={handleChange} ></input>
-                                          {!valid && <span style={{ color: "red" }}>{msg}!! </span>}
-                                       </div>
-                                       <div class="form-group">
-                                          <label for="npass">New Password:</label>
-                                          <input type="text" class="form-control" name="pwdd" value={input.pwdd} onChange={handleChange} ></input>
-                                       </div>
-                  
-                                       <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                                       <button type="reset" class="btn iq-bg-danger">Cancle</button>
-                                    </form>
-                                 </div>
-                              </div>
-                           </div>
+                  <div class="iq-card">
+                    <div class="iq-card-header d-flex justify-content-between">
+                      <div class="iq-header-title">
+                        <h4 class="card-title">Change Password</h4>
+                      </div>
+                    </div>
+                    <div class="iq-card-body">
+                      <form onSubmit={Handelsubmitt}>
+                        <div class="form-group">
+                          <label for="cpass">Current Password:</label>
+                          <Link to="/forgotpassword" class="float-right">
+                            Forgot Password
+                          </Link>
+
+                          <input type="text" class="form-control" name="pwd" value={inputt.pwd} onChange={handleChange}></input>
+                          {!valid && <span style={{ color: "red" }}>{msg}!! </span>}
+                        </div>
+                        <div class="form-group">
+                          <label for="npass">New Password:</label>
+                          <input type="text" class="form-control" name="pwdd" value={input.pwdd} onChange={handleChange}></input>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary mr-2">
+                          Submit
+                        </button>
+                        <button type="reset" class="btn iq-bg-danger">
+                          Cancle
+                        </button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

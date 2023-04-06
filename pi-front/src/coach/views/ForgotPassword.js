@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Store } from "react-notifications-component";
-import { redirect, useNavigate } from "react-router-dom";
+import { Link, redirect, useNavigate } from "react-router-dom";
 
 const ForgotPassword = () => {
   const history = useNavigate();
@@ -49,7 +49,7 @@ const ForgotPassword = () => {
           <div className="col-md-6 text-center pt-5">
             <div className="sign-in-detail text-white">
               <a className="sign-in-logo mb-5" href="#">
-              <img src="images/yc.png" class="img-fluid" alt="logo" style={{ width: 500, height: 300 }}  />
+                <img src="images/yc.png" class="img-fluid" alt="logo" style={{ width: 500, height: 300 }} />
               </a>
             </div>
           </div>
@@ -80,6 +80,9 @@ const ForgotPassword = () => {
                   </button>
                 </div>
               </form>
+              <Link to="/" class="btn btn-primary mr-2">
+                Home
+              </Link>
             </div>
           </div>
         </div>

@@ -7,28 +7,23 @@ function Navbar(props) {
   const dispatch = useDispatch();
   const { isLoggedIn, isAdmin } = useSelector((state) => state.session);
   const [userconnecte, setUserconnecte] = useState([]);
-  
-  const [input, setinput] = useState(
-    []
-  );
-  var history = useNavigate;
+
+  const [input, setinput] = useState([]);
+  var history = useNavigate();
   useEffect(() => {
     userconnectee().then((d) => {
       setUserconnecte(d);
       console.log(userconnecte);
     });
   }, []);
-  useEffect(()=>{
-    setinput(
-      {
-        name:userconnecte.name,
-        lastname:userconnecte.lastname,
-        email:userconnecte.email,
-        image:userconnecte.image,
-        
-      }
-    )
-  },[userconnecte])
+  useEffect(() => {
+    setinput({
+      name: userconnecte.name,
+      lastname: userconnecte.lastname,
+      email: userconnecte.email,
+      image: userconnecte.image,
+    });
+  }, [userconnecte]);
   const userconnectee = async () => {
     const res = await axios
       .get("http://localhost:5000/users/userconnecte", {
@@ -52,9 +47,8 @@ function Navbar(props) {
     history("/Signin");
   };
   const updateadmin = async () => {
-    const resupdate = await axios
-
-      .post(
+    try {
+      const resupdate = await axios.post(
         `http://localhost:5000/users/updateuser/${userconnecte._id}`,
         {
           name: input.name,
@@ -63,19 +57,18 @@ function Navbar(props) {
           image: input.image,
         },
         { withCredentials: true }
-      )
-      .catch((err) => {
-        console.error(err);
-      });
-    history("/home");
-    return resupdate.data;
+      );
+      history("/home");
+    } catch (err) {
+      console.error(err);
+    }
   };
   const Handelsubmit = (ee) => {
     ee.preventDefault();
-    updateadmin()
+    updateadmin();
   };
-  const handleInputChange = (e) =>{
-    let {name, value } = e.target;
+  const handleInputChange = (e) => {
+    let { name, value } = e.target;
     setinput({ ...input, [name]: value });
   };
 
@@ -84,34 +77,34 @@ function Navbar(props) {
       <nav class="navbar navbar-expand-md navbar-light bg-light border-bottom shadow-sm">
         <div class="container">
           <a class="navbar-brand d-flex align-items-center">
-            <img src="/images/logo.png" class=" navbar-light " height="30" width="50" alt="Tiya Golf Club" />
+            <img src="/images/yc.png" style={{ width: 100, height: 50 }} class=" navbar-light " alt="Tiya Golf Club" />
           </a>
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ">
               <li class="nav-item active">
                 <a class="nav-link" href="profile-images.html">
-                  Library <span class="sr-only">(current)</span>
+                  Libraries <span class="sr-only">(current)</span>
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="profile-event.html">
-                  Event
+                  Events
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="profile-video.html">
-                  course
+                  Courses
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link " href="friend-list.html">
-                  coach
+                  Mental Health
                 </a>
               </li>
-              <li class="nav-item ml-auto">
+              <li>
                 {!isLoggedIn && (
                   <Link class="nav-link " to="/">
-                    sign in
+                    Sign in
                   </Link>
                 )}
               </li>
@@ -126,18 +119,19 @@ function Navbar(props) {
           </div>
           {isLoggedIn && (
             <>
-            &nbsp; <img class="profile-pic" src={process.env.PUBLIC_URL + "/imagee/" + userconnecte.image} alt="profile-pic"  height="70" width="50" />
+              &nbsp; <img class="profile-pic" src={process.env.PUBLIC_URL + "/imagee/" + userconnecte.image} alt="profile-pic" height="70" width="50" />
               <h6>
                 {" "}
-              &nbsp; {userconnecte.name} &nbsp;{userconnecte.lastname} 
-             
+                &nbsp; {userconnecte.name} &nbsp;{userconnecte.lastname}
               </h6>
               &nbsp; &nbsp; &nbsp;
               <Link class="nav-link " onClick={logout} to="/">
-                logout
+                Logout
               </Link>
               &nbsp; &nbsp; &nbsp;
-              <Link class="nav-link " data-toggle="modal" data-target="#exampleModal">updateprofile</Link>
+              <Link class="nav-link " data-toggle="modal" data-target="#exampleModal">
+                Update Profile
+              </Link>
             </>
           )}
         </div>
@@ -149,13 +143,10 @@ function Navbar(props) {
         <div class="container">
           <div class="row">
             <div class="col-lg-6 col-12 mb-5 mb-lg-0">
-              <h2 class="text-white">Welcome to Our web Sprints</h2>
-
               <h1 class="cd-headline rotate-1 text-white mb-4 pb-2">
-                <span>Tiya is</span>
                 <span class="cd-words-wrapper">
-                  <b class="is-visible">Modern</b>
-                  <b>Creative</b>
+                  <b class="is-visible">YouthConnect</b>
+                  Connect with the world - Events - Learning <b>Creative</b>
                   <b>Lifestyle</b>
                 </span>
               </h1>
@@ -182,52 +173,54 @@ function Navbar(props) {
         </svg>
       </section>
       <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Update Profile</h5>
-        
-       
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">
+                Update Profile
+              </h5>
 
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-       <form onSubmit={Handelsubmit}>
-       <div class="form-group row align-items-center">
-                          <div class="col-md-12">
-                            <div class="profile-img-edit">
-                              <img class="profile-pic" src={process.env.PUBLIC_URL + "/imagee/" + userconnecte.image} alt="profile-pic" />
-                              <div class="p-image">
-                                <i></i>
-                                
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-       <div class="form-group col-sm-6">
-           <label for="fname">First Name:{input.name}</label>
-           <input type="text" class="form-control" name="name" value={input.name} onChange={handleInputChange}  />
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form onSubmit={Handelsubmit}>
+                <div class="form-group row align-items-center">
+                  <div class="col-md-12">
+                    <div class="profile-img-edit">
+                      <img class="profile-pic" src={process.env.PUBLIC_URL + "/imagee/" + userconnecte.image} alt="profile-pic" style={{ width: 150, height: 150 }} />
+                      <div class="p-image">
+                        <i></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group col-sm-6">
+                  <label for="fname">First Name:{input.name}</label>
+                  <input type="text" class="form-control" name="name" value={input.name} onChange={handleInputChange} />
+                </div>
+                <div class="form-group col-sm-6">
+                  <label for="lname">Last Name:</label>
+                  <input type="text" class="form-control" name="lastname" value={input.lastname} onChange={handleInputChange} />
+                </div>
+                <div class="form-group col-sm-6">
+                  <label for="uname">email:</label>
+                  <input type="text" class="form-control" name="email" value={input.email} onChange={handleInputChange} />
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    Close
+                  </button>
+                  <button type="submit" class="btn btn-primary">
+                    Save changes
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
-      <div class="form-group col-sm-6">
-     <label for="lname">Last Name:</label>
-     <input type="text" class="form-control" name="lastname" value={input.lastname} onChange={handleInputChange}  />
-    </div>
-    <div class="form-group col-sm-6">
-        <label for="uname">email:</label>
-   <input type="text" class="form-control" name="email" value={input.email} onChange={handleInputChange}  />
-     </div>
-     <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Save changes</button>
-      </div>             
-       </form>
+        </div>
       </div>
-     
-    </div>
-  </div>
-</div>
 
       <section class="about-section section-padding" id="section_2">
         <div class="container">
@@ -324,7 +317,7 @@ function Navbar(props) {
           <div class="row">
             <div class="col-lg-6 col-12 me-auto mb-5 mb-lg-0">
               <a class="navbar-brand d-flex align-items-center" href="index.html">
-                <img src="images/logo.png" class="navbar-brand-image img-fluid" alt="" />
+                <img src="images/yc.png" class="navbar-brand-image img-fluid" alt="" />
                 <span class="navbar-brand-text">
                   Tiya
                   <small>Golf Club</small>
