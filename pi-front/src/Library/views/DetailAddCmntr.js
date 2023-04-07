@@ -65,7 +65,8 @@ const initialState= {
 
    return (
        <div id="root">
-   
+
+
        <form class="comment-text d-flex align-items-center mt-3"  methode="POST" onSubmit={Handelsubmit}>
                        
                        <input type="text" class="form-control rounded" name="description"  placeholder="commenter"   onChange={handleInputChange} value={state.description} />
