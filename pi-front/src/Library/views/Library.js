@@ -163,11 +163,13 @@ const Handelsubmit=(e)=>{
     <div class="card">
     <div class="card-body">
 
-    <div class="btn-group-toggle" data-toggle="buttons">
+ <div class="btn-group-toggle" data-toggle="buttons">
+ <Link to={`/det/${item._id}`}>
+
   <label  class="btn btn-info">
-               <input type="checkbox"  onClick={handleAccept} checked={isChecked} onChange={handleCheckboxChange} />
                <i class="bi bi-chat-dots"></i> commenter
- </label>
+ </label> </Link>
+
  <br></br> <br></br>
       {isChecked &&  <AffCmntr/>}
     </div> </div></div></div>
@@ -181,10 +183,7 @@ const Handelsubmit=(e)=>{
                               </Link></div>
                               <div class="card-body">
 
-<Link to={`/det/${item._id}`}>
-   <button type="button"
-      class="btn iq-bg-danger btn-rounded btn-sm my-0">Details</button>    
-                                           </Link>
+
                                            
 
   </div>
@@ -201,12 +200,7 @@ const Handelsubmit=(e)=>{
 </div>          
                         </div>  </div>
                      
-                                                                 
-                     <form class="comment-text d-flex align-items-center mt-3"  methode="POST" onSubmit={Handelsubmit}>
-                        
-                     <Details/>
-   
-                     </form>     
+               
             
                         </div>
                                        
