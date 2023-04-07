@@ -25,6 +25,8 @@ import FormInputComment from './Library/views/FormInputComment';
 import Addabonnement from './Library/views/Addabonnement';
 import ShowAbo from './Library/views/ShowAbo';
 import UpdateAbb from './Library/views/UpdateAbb';
+import DetailAddCmntr from './Library/views/DetailAddCmntr';
+import Details from './Library/views/Details';
 function App()  {
 
   let { id } = useParams();
@@ -52,6 +54,8 @@ function App()  {
 
         <Route path='/library' element={<Library></Library>}></Route>
         <Route path='/updateL/:id' element={<AddLibrary/>}></Route>
+        <Route path='/det/:Libraryid' element ={<DetailAddCmntr></DetailAddCmntr>}></Route>
+        <Route path='/det/:id' element ={<Details></Details>}></Route>
 
         <Route path='/ShowCoach' element={<ShowCoach></ShowCoach>}></Route>
         <Route path='/ShowCourse' element={<ShowCourse></ShowCourse>}></Route>
@@ -60,7 +64,7 @@ function App()  {
         <Route path='/UpdateUser' element={<UpdateUser></UpdateUser>}></Route>
         <Route path='/rem' element={<Rem></Rem>}></Route>
         <Route path='/Affc' element={<AffCmntr></AffCmntr>}></Route>
-        <Route path='/adda' element={<Addabonnement></Addabonnement>}></Route>
+        <Route path='/adda/:Libraryid' element={<Addabonnement></Addabonnement>}></Route>
         <Route path='/showabb' element={<ShowAbo></ShowAbo>}></Route>
         <Route path='/updateA/:id' element ={<UpdateAbb></UpdateAbb>}></Route>
 

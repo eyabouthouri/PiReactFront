@@ -2,18 +2,17 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import Topnav from '../../components/Topnav';
 import {toast} from "react-toastify";
-import { useNavigate,Link,NavLink } from 'react-router-dom';
+import { useNavigate,Link,NavLink, useParams } from 'react-router-dom';
 import AffCmntr from './AffCmntr';
 import Addabonnement from './Addabonnement';
 import ShowLiabrary from './ShowLiabrary';
+import Details from './Details';
 axios.defaults.withCredentials = true;
-const initialState= {
-    description:"",
-  
-}
+
 
 
 function Library(props) {
+
    const [accepted, setAccepted] = useState(false);
    const [isChecked, setIsChecked] = useState(false);
    const [showButton, setShowButton] = useState(false);
@@ -30,9 +29,15 @@ useEffect(()=>{
 
 },[])
 console.log(userconnecte,1)
+const { Libraryid } = useParams();
 
 var history=useNavigate()
 
+const initialState= {
+   description:"",
+   Libraryid
+
+}
 const [state, setState] = useState(initialState);
 const { description}=initialState;
 const addC = async (data)=> {
@@ -169,11 +174,22 @@ const Handelsubmit=(e)=>{
     <div class="col-sm-6">
     <div class="card">
     <div class="card-body">
-    <button class="btn btn-light"><a href="/adda"><i class="bi bi-person-plus"></i> S'abonner</a></button>
-      </div>
+    <Link to={`/adda/${item._id}`}>
+                                <button type="button" class="btn btn-light"><i class="bi bi-person-plus"></i> 
+                                  abonnement
+                                </button>
+                              </Link></div>
+                              <div class="card-body">
+
+<Link to={`/det/${item._id}`}>
+   <button type="button"
+      class="btn iq-bg-danger btn-rounded btn-sm my-0">Details</button>    
+                                           </Link>
+                                           
+
+  </div>
   </div>    </div>  </div>
-  
-    
+ 
                                    <br></br>                
                         <div class="d-flex flex-wrap">
                      <ul class="post-comments p-0 m-0">
@@ -188,14 +204,10 @@ const Handelsubmit=(e)=>{
                                                                  
                      <form class="comment-text d-flex align-items-center mt-3"  methode="POST" onSubmit={Handelsubmit}>
                         
-                        <input type="text" class="form-control rounded" name="description"  placeholder="commenter"   onChange={handleInputChange} value={state.description} />
-                        <div class="comment-attagement d-flex">
-                           <a href="javascript:void();"><i class="ri-link mr-3"></i></a>
-                           <a href="javascript:void();"><i class="ri-user-smile-line mr-3"></i></a>
-                           <a href="javascript:void();"><i class="ri-camera-line mr-3"></i></a>
-                        </div>
+                     <Details/>
    
                      </form>     
+            
                         </div>
                                        
                         <br></br>

@@ -102,6 +102,7 @@ const listL = async()=>{
                                        <td class="contenteditable">{item.email}</td>
                                        <td class="contenteditable">{item.tel}</td>
                                        <td class="contenteditable">{item._id}</td>
+                                       {console.log(item.tel,1)}
 
 
                               

@@ -9,26 +9,26 @@ import { useNavigate,Link,NavLink } from 'react-router-dom';
 
 import axios from 'axios';
 import {toast} from "react-toastify";
-import { useParams } from 'react-router-dom';axios.defaults.withCredentials = true;
-const initialState= {
-   nom:"",
-   prenom:"",
-   age:"",
-   tel:"",
-   city:"",
-   email:"",
-   image:"",
+import { useParams } from 'react-router-dom';
+axios.defaults.withCredentials = true;
 
-}
 
 function Addabonnement() {
   const [showPage, setShowPage] = useState(false);
   const [data,setData]=useState([]);
-  const [state, setState] = useState(initialState);
-  const { nom, prenom, age, tel,email, city,image}=initialState;
- 
+  const { Libraryid ,id} = useParams();
 
-  const addL = async (data)=> {
+  const [state, setState] = useState({nom:"",
+  prenom:"",
+  age:"",
+  tel:"",
+  city:"",
+  email:"",
+  image:"",
+  Libraryid
+});
+
+  const addA = async (data)=> {
      const response = await axios.post("http://localhost:5000/abonnement/adda",data)
      toast.sucess(response.data);
 
@@ -41,7 +41,7 @@ function Addabonnement() {
   const Handelsubmit=(e)=>{
           
    e.preventDefault();
-      addL(state);
+   addA(state);
  
   history("/library");
  

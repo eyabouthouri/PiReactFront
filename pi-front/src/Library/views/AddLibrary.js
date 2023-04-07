@@ -60,7 +60,7 @@ useEffect(()=>{
 
       getOneL(id);
    }
-   },[id])
+   },[id])    
 var self=this;
    const getOneL = async (id) => {
       const response = await axios.get(`http://localhost:5000/library/getOnel/${id}`);
