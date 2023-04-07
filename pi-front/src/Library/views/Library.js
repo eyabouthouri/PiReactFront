@@ -181,16 +181,8 @@ const Handelsubmit=(e)=>{
                                   abonnement
                                 </button>
                               </Link></div>
-                              <Link to={`/Aff/${item._id}`}>
-                                <button type="button" class="btn btn-light"><i class="bi bi-person-plus"></i> 
-                                  aff
-                                </button>
-                              </Link>
+                             
                               <div class="card-body">
-
-
-                                           
-
   </div>
   </div>    </div>  </div>
  
@@ -203,10 +195,7 @@ const Handelsubmit=(e)=>{
                                                    </li>
                                                 </ul>
 </div>          
-                        </div>  </div>
-                     
-               
-            
+                        </div>  </div>        
                         </div>
                                        
                         <br></br>

@@ -23,20 +23,10 @@ function Aff(props) {
       });
      },[])    
 
-    const getOneL = async (id) => {
-        const response = await axios.get(`http://localhost:5000/library/getOnel/${Libraryid}`);
-           setState({ ...response.data[0]} );
-           console.log("matba", response.data);
-
-  
-        
-     };
+   
     return (
         <div>
              <div id="root">
-      
-   
-
              <div class="card-body">
 
 <img class="card-img-top"  src={process.env.PUBLIC_URL+"/images/"+entity.img}></img>
