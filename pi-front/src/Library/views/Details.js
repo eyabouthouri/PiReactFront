@@ -115,28 +115,39 @@ const initialState= {
     return (
         <div id="root">
                         <Topnav/>
+                        <br></br><br></br><br></br><br></br>
+<br></br><br></br>
+                        <div   class="container">
 
-                        <div class="header-for-bg">
-     <div id="content-page" class="content-page">
-        <div class="container">
-           <div class="row">
+<div class="row">   
+<div class="col-lg-12">
+         <div class="iq-edit-list-data">
+            <div class="tab-content">
+               <div class="tab-pane fade active show" id="personal-information" role="tabpanel">
+                  <div class="iq-card">
+                     <div class="iq-card-header d-flex justify-content-between">
+                        <div class="iq-header-title">
+                           <h4 class="card-title" ><i class="bi bi-file-earmark-person-fill"></i>  Details Library</h4>
+                        </div>
 
+                     </div>
+                     <Aff/>
             
-              <div class="col-md-8">
-                 <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
-                    <div class="iq-card-body p-0  ">
-                       <div class="col-sm-6">
-                  <div class="card">
-                     <div class="card-body">
-            
-                            <Aff/>           
+                     &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;    
+                     <i class="bi bi-star-fill"></i>J'aime 
+                     &nbsp;  &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;   &nbsp; &nbsp; &nbsp; &nbsp;     <i class="bi bi-chat-dots"></i> commenter   &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+         
+             <i class="bi bi-facebook"></i>Partager        &nbsp;
+             &nbsp; &nbsp; &nbsp; &nbsp; 
+
+             <br></br>             <br></br>
 
       <div class="user-img">
       {data && data.map((item, index)=>{
          return(
             <div class="d-flex flex-wrap">
             <div class="user-img">
-               <h7>  Eya bouthouri</h7>
+            &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  <h7>  Eya bouthouri</h7>
             </div>
             <div class="comment-data-block ml-3">
               
@@ -151,16 +162,14 @@ const initialState= {
 
 </div>
          )
-    } )}     
+    } )}     <DetailAddCmntr/>
+   
     </div> 
 
    </div></div></div>
-   <DetailAddCmntr/>
 
-   </div></div></div></div></div></div></div>
-    
-      
-         </div>
+   </div></div></div>    
+</div></div>
 
     );
 }

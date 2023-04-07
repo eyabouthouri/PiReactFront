@@ -4,6 +4,7 @@ import Navbarback from '../../components/Navbarback';
 import SideBar from '../../components/SideBar';
 import StepDeux from '../../components/StepDeux';
 import Topnav from '../../components/Topnav';
+import Aff from './Aff';
 
 import { useNavigate,Link,NavLink } from 'react-router-dom';
 
@@ -90,7 +91,6 @@ function Addabonnement() {
 <Topnav/>
 <br></br><br></br><br></br><br></br>
 <br></br><br></br>
-
     <div   class="container">
 
             <div class="row">   
@@ -105,6 +105,7 @@ function Addabonnement() {
                                     </div>
 
                                  </div>
+                                 <Aff/>
 
                                  <div class="iq-card-body">
                                  <form id="form-wizard1" class="text-center mt-4"  methode="POST" onSubmit={Handelsubmit}>
