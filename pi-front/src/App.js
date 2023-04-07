@@ -54,8 +54,7 @@ function App()  {
 
         <Route path='/library' element={<Library></Library>}></Route>
         <Route path='/updateL/:id' element={<AddLibrary/>}></Route>
-        <Route path='/det/:Libraryid' element ={<DetailAddCmntr></DetailAddCmntr>}></Route>
-        <Route path='/det/:id' element ={<Details></Details>}></Route>
+        <Route path='/det/:Libraryid' element ={<Details></Details>}></Route>
 
         <Route path='/ShowCoach' element={<ShowCoach></ShowCoach>}></Route>
         <Route path='/ShowCourse' element={<ShowCourse></ShowCourse>}></Route>

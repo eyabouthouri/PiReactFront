@@ -87,7 +87,7 @@ const handleAccept = () => {
    setShowButton(!showButton);
  };
 const listC = async()=>{
-   const response = await axios.get("http://localhost:5000/commentaire/listc");
+   const response = await axios.get("http://localhost:5000/commentaire/listc"+Libraryid);
    if(response.status ==200){
       setData(response.data);
    }
