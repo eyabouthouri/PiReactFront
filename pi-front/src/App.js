@@ -70,7 +70,7 @@ function App()  {
         <Route path='/Affc' element={<AffCmntr></AffCmntr>}></Route>
         <Route path='/adda/:Libraryid' element={<Addabonnement></Addabonnement>}></Route>
         <Route path='/showabb' element={<ShowAbo></ShowAbo>}></Route>
-        <Route path='/updateA/:id' element ={<UpdateAbb></UpdateAbb>}></Route>
+        <Route path='/updatea/:id' element ={<UpdateAbb></UpdateAbb>}></Route>
 
       </Routes>
    </div>   

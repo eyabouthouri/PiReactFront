@@ -10,12 +10,7 @@ import Aff from './Aff';
 axios.defaults.withCredentials = true;
 function Details(props) {
     const { Libraryid ,id} = useParams();
-    const [state, setState]=useState({  description:"",Libraryid, name:"",
-    adresse:"",
-    pays:"",
-    email:"",
-    tel:"",
-   Image:""
+    const [state, setState]=useState({  description:"",Libraryid
 })
 
 const initialState= {
@@ -43,7 +38,20 @@ const initialState= {
         getOneL(Libraryid);
             listC();
      
-     },[Libraryid])    
+     },[Libraryid])  
+     const [comments, setComments] = useState([]);
+
+     useEffect(() => {
+      axios.get(`http://localhost:5000/commentaire/listc/${Libraryid}`)
+         .then((response) => {
+            setComments(response.data);
+         })
+         .catch((err) => {
+            console.error(err);
+         });
+   }, [Libraryid]);
+
+  
   var self=this;
      const getOneL = async (id) => {
         const response = await axios.get(`http://localhost:5000/library/getOnel/${Libraryid}`);
@@ -54,25 +62,10 @@ const initialState= {
         
      };
      console.log(data.name,3)
-     const addC = async (data)=> {
-        const response = await axios.post("http://localhost:5000/commentaire/addc",data,
-        {withCredentials: true}).then(
     
-       
-       )
-       .catch((err)=>{
-          console.error(err)
-          console.log(err)
     
-        }
-       );
-       return response.data;
+     
     
-     }
-     const  handleInputChange=(e) =>{
-        let{name, value}=e.target;
-        setState({...state, [name]:value });
-     };
      const [showPage, setShowPage] = useState(false);
      const deleteC = async (id)=> {
       
@@ -101,19 +94,6 @@ const initialState= {
    }
     
 
-     function handleaddclick() {
-        setShowPage(true);
-      }
-      const Handelsubmit=(e)=>{
-                
-         e.preventDefault();
-        
-            addC(state);
-      
-      
-       
-      };
-  
       
     return (
         <div id="root">

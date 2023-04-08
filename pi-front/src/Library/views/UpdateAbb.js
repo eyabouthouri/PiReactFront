@@ -31,15 +31,12 @@ function UpdateAbb(props) {
     const [valid, setValid] = useState(true);
     const [entity, setEntity] = useState({});
 
-    useEffect(()=>{
-          axios.get(`http://localhost:5000/abonnement/getOneA/${id}`)  .then(response => {
-         // Mettre à jour le state avec les données de l'entité récupérée
-         setEntity(response.data);
-       })
-       .catch(error => {
-         console.log(error);
-       });
-      },[])    
+ 
+    useEffect(() =>{
+      listA(); 
+   },[])    
+    
+       
      
     const listA = async()=>{
         const response = await axios.get("http://localhost:5000/abonnement/lista");
@@ -51,6 +48,8 @@ function UpdateAbb(props) {
     const updateA = async(data,id)=> {
       try{
         const response = await axios.put(`http://localhost:5000/abonnement/updatea/${id}`,data)
+        history("/showabb");
+
       }
       catch (err) {
         setValid(false);
@@ -60,13 +59,19 @@ function UpdateAbb(props) {
       }
   
     };
+
      const getOneA = async (id) => {
         const response = await axios.get(`http://localhost:5000/abonnement/getOneA/${id}`);
            setState({ ...response.data[0]} );
   
         
      };
-  
+     useEffect(() =>{
+      if (id) {
+
+         getOneA(id);
+   }
+   },[])   
     const addL = async (data)=> {
        const response = await axios.post("http://localhost:5000/abonnement/adda",data)
        toast.sucess(response.data);
@@ -147,11 +152,7 @@ function UpdateAbb(props) {
                                  <div class="iq-card-body">
                                  <form id="form-wizard1" class="text-center mt-4"  methode="POST" onSubmit={Handelsubmit}>
                                  <div class="col-md-12">
-                                          <div className="form-group">
-                                          <i class="bi bi-filetype-jpg"></i><input id="file-upload" type="file" name="image"   onChange={handleInputChange}  value={state.image} />   
-                                          {!valid && msg.image && <span style={{ color: "red" }}>{msg.image}!! </span>}
-
-                                               </div>
+                        
                                             </div>
 
                                        <div class=" row align-items-center">
@@ -185,13 +186,7 @@ function UpdateAbb(props) {
                                              </select>
 
                                           </div>
-      
-                                          <div class="form-group col-sm-6">
-                                             <label for="dob"><i class="bi bi-person-bounding-box"></i> Age:</label>
-                                             <input  class="form-control" type="number" id="dob"  name="age"  placeholder='Age' onChange={handleInputChange}  value={state.age}/>
-                                             {!valid && msg.age && <span style={{ color: "red" }}>{msg.age}!! </span>}
-
-                                          </div>
+                                          
                                           <div class="form-group col-sm-6">
                                              <label><i class="bi bi-calendar-week"></i> Duration:</label>
                                              <select class="form-control" id="exampleFormControlSelect1" name="Duration"  onChange={handleInputChange}  value={state.Duration}>
