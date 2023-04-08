@@ -27,10 +27,19 @@ function UpdateAbb(props) {
     const [data,setData]=useState([]);
     const [state, setState] = useState(initialState);
     const { nom, prenom, age, tel,email, city,image}=initialState;
+    const [msg, setmsg] = useState({});
+    const [valid, setValid] = useState(true);
+    const [entity, setEntity] = useState({});
 
     useEffect(()=>{
-        listA();
-     },[])
+          axios.get(`http://localhost:5000/abonnement/getOneA/${id}`)  .then(response => {
+         // Mettre à jour le state avec les données de l'entité récupérée
+         setEntity(response.data);
+       })
+       .catch(error => {
+         console.log(error);
+       });
+      },[])    
      
     const listA = async()=>{
         const response = await axios.get("http://localhost:5000/abonnement/lista");
@@ -40,12 +49,17 @@ function UpdateAbb(props) {
         }
         };
     const updateA = async(data,id)=> {
+      try{
         const response = await axios.put(`http://localhost:5000/abonnement/updatea/${id}`,data)
-        toast.sucess(response.data);
-        listA();
-
-   
-     }
+      }
+      catch (err) {
+        setValid(false);
+        console.error(err.response.data);
+        setmsg(err.response.data);
+  
+      }
+  
+    };
      const getOneA = async (id) => {
         const response = await axios.get(`http://localhost:5000/abonnement/getOneA/${id}`);
            setState({ ...response.data[0]} );
@@ -62,23 +76,18 @@ function UpdateAbb(props) {
       setShowPage(true);
     } 
     const { id } = useParams();
-    useEffect(() =>{
-        if (id) {
-  
-            getOneA(id);
-     }
-     },[id])
+    
   var history=useNavigate()
 
   const Handelsubmit=(e)=>{
           
     if(id){
-    
+      e.preventDefault();
+
         updateA(state, id);
 
 
     }
-    history("/showabb");
  
  
 };
@@ -137,15 +146,27 @@ function UpdateAbb(props) {
 
                                  <div class="iq-card-body">
                                  <form id="form-wizard1" class="text-center mt-4"  methode="POST" onSubmit={Handelsubmit}>
-                                     
+                                 <div class="col-md-12">
+                                          <div className="form-group">
+                                          <i class="bi bi-filetype-jpg"></i><input id="file-upload" type="file" name="image"   onChange={handleInputChange}  value={state.image} />   
+                                          {!valid && msg.image && <span style={{ color: "red" }}>{msg.image}!! </span>}
+
+                                               </div>
+                                            </div>
+
                                        <div class=" row align-items-center">
                                           <div class="form-group col-sm-6">
+                                          
                                              <label for="fname"><i class="bi bi-person-bounding-box"></i>  First Name:</label>
-                                             <input type="text" class="form-control" id="fname"  name="nom"  placeholder='First Name'  onChange={handleInputChange}  value={state.nom}/>
+                                             <input type="text" class="form-control" id="fname"  name="nom"  onChange={handleInputChange}  value={state.nom|| ''}   />
+                                             
+                                             {!valid && msg.nom && <span style={{ color: "red" }}>{msg.nom}!! </span>}
                                           </div>
                                           <div class="form-group col-sm-6">
                                              <label for="lname"><i class="bi bi-person-bounding-box"></i>  Last Name:</label>
                                              <input type="text" class="form-control" id="lname"  name="prenom"  placeholder='Last Name' onChange={handleInputChange}  value={state.prenom}/>
+                                             {!valid && msg.prenom && <span style={{ color: "red" }}>{msg.prenom}!! </span>}
+
                                           </div>
                                           <div class="form-group col-sm-6">
                                              <label for="uname"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-at" viewBox="0 0 16 16">
@@ -153,6 +174,8 @@ function UpdateAbb(props) {
                                              <path d="M14.247 14.269c1.01 0 1.587-.857 1.587-2.025v-.21C15.834 10.43 14.64 9 12.52 9h-.035C10.42 9 9 10.36 9 12.432v.214C9 14.82 10.438 16 12.358 16h.044c.594 0 1.018-.074 1.237-.175v-.73c-.245.11-.673.18-1.18.18h-.044c-1.334 0-2.571-.788-2.571-2.655v-.157c0-1.657 1.058-2.724 2.64-2.724h.04c1.535 0 2.484 1.05 2.484 2.326v.118c0 .975-.324 1.39-.639 1.39-.232 0-.41-.148-.41-.42v-2.19h-.906v.569h-.03c-.084-.298-.368-.63-.954-.63-.778 0-1.259.555-1.259 1.4v.528c0 .892.49 1.434 1.26 1.434.471 0 .896-.227 1.014-.643h.043c.118.42.617.648 1.12.648Zm-2.453-1.588v-.227c0-.546.227-.791.573-.791.297 0 .572.192.572.708v.367c0 .573-.253.744-.564.744-.354 0-.581-.215-.581-.8Z"/>
                                                 </svg>  Email:</label>
                                              <input type="text" class="form-control" id="uname" placeholder='exemple@exmpl.com' name="email"  onChange={handleInputChange}  value={state.email} />
+                                             {!valid && msg.email && <span style={{ color: "red" }}>{msg.email}!! </span>}
+
                                           </div>
                                           <div class="form-group col-sm-6">
                                              <label for="country-select"><i class="bi bi-joystick"></i> pays:</label>                               
@@ -166,6 +189,8 @@ function UpdateAbb(props) {
                                           <div class="form-group col-sm-6">
                                              <label for="dob"><i class="bi bi-person-bounding-box"></i> Age:</label>
                                              <input  class="form-control" type="number" id="dob"  name="age"  placeholder='Age' onChange={handleInputChange}  value={state.age}/>
+                                             {!valid && msg.age && <span style={{ color: "red" }}>{msg.age}!! </span>}
+
                                           </div>
                                           <div class="form-group col-sm-6">
                                              <label><i class="bi bi-calendar-week"></i> Duration:</label>
@@ -174,11 +199,16 @@ function UpdateAbb(props) {
                                                  <option>3 moins</option>
                                                 <option>6 moins</option>
                                                 <option>1 ans</option>
+
                                              </select>
+                                             {!valid && msg.Duration && <span style={{ color: "red" }}>{msg.Duration}!! </span>}
+
                                           </div>
                                           <div class="form-group col-sm-6">
                                              <label for="tel"> <i class="bi bi-telephone-inbound-fill"></i>Tel:</label>
                                              <input  class="form-control" id="tel"  name="tel"   placeholder='Tel' onChange={handleInputChange}  value={state.tel}/>
+                                             {!valid && msg.tel && <span style={{ color: "red" }}>{msg.tel}!! </span>}
+
                                           </div>
                                         
                                            

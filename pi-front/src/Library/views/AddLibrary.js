@@ -54,13 +54,17 @@ useEffect(()=>{
 
   };
    const updateL = async (data,id)=> {
+      try{
       const response = await axios.put(`http://localhost:5000/library/updatel/${id}`, data);
-      if(response.status ==200){
-         toast.sucess(response.data);
          history("/ShowLiabrary");
 
+      } catch (err) {
+         setValid(false);
+         console.error(err.response.data);
+         setmsg(err.response.data);
+   
+       }
       }
-   };
    var history=useNavigate()
 
 

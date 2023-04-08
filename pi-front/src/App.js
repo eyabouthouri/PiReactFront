@@ -28,6 +28,7 @@ import UpdateAbb from './Library/views/UpdateAbb';
 import DetailAddCmntr from './Library/views/DetailAddCmntr';
 import Details from './Library/views/Details';
 import Aff from './Library/views/Aff';
+import SearchBar from './Library/views/SearchBar';
 function App()  {
 
   let { id } = useParams();
@@ -40,8 +41,10 @@ function App()  {
        
         <Route path='/home' element={<Home></Home>}></Route>
         <Route path='/event' element={<Event></Event>}>
-          
         </Route>
+        <Route path='/rech' element={<SearchBar></SearchBar>}>
+
+</Route>
         <Route path="/addevent" element={<AddEvent/>}></Route>
         <Route path='/' element={<SignIn></SignIn>}></Route>
         <Route path='/SignUp' element={<SignUp></SignUp>}></Route>

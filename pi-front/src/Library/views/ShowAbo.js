@@ -109,7 +109,7 @@ const listA = async()=>{
 
                               
                                        <td>
-                                          <Link to={`/updateA/${item._id}`}>
+                                          <Link to={`/updatea/${item._id}`}>
                                            <button type="button"
                                              class="btn iq-bg-danger btn-rounded btn-sm my-0">update</button>    
                                              </Link> 

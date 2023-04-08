@@ -105,7 +105,7 @@ function Addabonnement() {
                                     </div>
 
                                  </div>
-                                 <Aff/>
+    <Aff/>
 
                                  <div class="iq-card-body">
                                  <form id="form-wizard1" class="text-center mt-4"  methode="POST" onSubmit={Handelsubmit}>

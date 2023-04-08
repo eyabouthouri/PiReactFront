@@ -6,6 +6,7 @@ import DetailAddCmntr from './DetailAddCmntr'
 import AffCmntr from './AffCmntr';
 import Topnav from '../../components/Topnav';
 import Aff from './Aff';
+
 axios.defaults.withCredentials = true;
 function Details(props) {
     const { Libraryid ,id} = useParams();
@@ -25,6 +26,8 @@ const initialState= {
     tel:"",
    Image:""
  }
+
+
 
  const listC = async()=>{
     const response = await axios.get(`http://localhost:5000/commentaire/listc/${Libraryid}`);
@@ -162,14 +165,19 @@ const initialState= {
 
 </div>
          )
-    } )}     <DetailAddCmntr/>
+    } )}   
+    
+    
+      <DetailAddCmntr/>
    
     </div> 
 
    </div></div></div>
 
    </div></div></div>    
-</div></div>
+</div>
+
+</div>
 
     );
 }
