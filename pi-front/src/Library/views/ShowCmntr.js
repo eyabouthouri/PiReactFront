@@ -9,12 +9,12 @@ function ShowCmntr(props) {
 
     const [data,setData]=useState([]);
     useEffect(()=>{
-        listC();
+      listc();
     },[])
     
     
     
-    const listC = async()=>{
+    const listc = async()=>{
         const response = await axios.get("http://localhost:5000/commentaire/listc");
         if(response.status ==200){
            setData(response.data);
@@ -22,24 +22,19 @@ function ShowCmntr(props) {
         }   
       
         const deleteC = async (id)=> {
+         
+         if(
+            window.confirm("Are u sure that u wanted to delete")
+         ){
            
-              const response = await axios.delete(`http://localhost:5000/commentaire/deleteC/${id}`,
-              {withCredentials: true}).then(
-                 listC()
-        
-              
-              )
-              .catch((err)=>{
-                 console.error(err)
-                 
-        
-               }
-              );
-              return response.data;
-     
+              const response = await axios.delete(`http://localhost:5000/commentaire/deleteC/${id}`);
+            
+              listc();
+         }
+        }  
         
      
-        }     
+         
       
     return (
         <div id="content-page" class="content-page">          

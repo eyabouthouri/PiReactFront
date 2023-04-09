@@ -29,6 +29,7 @@ import DetailAddCmntr from './Library/views/DetailAddCmntr';
 import Details from './Library/views/Details';
 import Aff from './Library/views/Aff';
 import SearchBar from './Library/views/SearchBar';
+import Cm from './Library/views/Cm';
 function App()  {
 
   let { id } = useParams();
@@ -71,6 +72,7 @@ function App()  {
         <Route path='/adda/:Libraryid' element={<Addabonnement></Addabonnement>}></Route>
         <Route path='/showabb' element={<ShowAbo></ShowAbo>}></Route>
         <Route path='/updatea/:id' element ={<UpdateAbb></UpdateAbb>}></Route>
+        <Route path='/cm' element={<Cm></Cm>}></Route>
 
       </Routes>
    </div>   

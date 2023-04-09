@@ -6,6 +6,7 @@ import SideBar from '../../components/SideBar';
 import { Link, useParams } from 'react-router-dom';
 import {toast} from "react-toastify";
 import AffCmntr from './AffCmntr';
+
 axios.defaults.withCredentials = true;
 
 function DetailAddCmntr(props) {
@@ -32,7 +33,8 @@ function DetailAddCmntr(props) {
       { withCredentials: true }).then(
          listC()
 
-     ) }
+     ) 
+   }
       catch (err) {
         setValid(false);
         console.error(err.response.data);
@@ -53,6 +55,7 @@ function DetailAddCmntr(props) {
       addC(state).then((newComment) => {
          setComments([...comments, newComment]);
          setState({ ...state, description: "" }); // clear the input field
+       
       });
       listC();
 

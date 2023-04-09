@@ -6,6 +6,7 @@ import DetailAddCmntr from './DetailAddCmntr'
 import AffCmntr from './AffCmntr';
 import Topnav from '../../components/Topnav';
 import Aff from './Aff';
+import { Store } from "react-notifications-component";
 
 axios.defaults.withCredentials = true;
 function Details(props) {
@@ -29,7 +30,7 @@ const initialState= {
     if (response.status == 200) {
         console.log("aaaaaaaaaaa", response.data);
         setData(response.data);
-      }
+      }  
     };
    
     const [data,setData,userconnecte, setUserconnecte]=useState([]);
@@ -68,21 +69,15 @@ const initialState= {
     
      const [showPage, setShowPage] = useState(false);
      const deleteC = async (id)=> {
-      
-        const response = await axios.delete(`http://localhost:5000/commentaire/deleteC/${id}`,
-        {withCredentials: true}).then(
+      if(
+         window.confirm("Are u sure that u wanted to delete")
+      ){
+        
+        const response = await axios.delete(`http://localhost:5000/commentaire/deleteC/${id}`);
            listC()
   
         
-        )
-        .catch((err)=>{
-           console.error(err)
-           
-  
-         }
-        );
-        return response.data;
-
+      }
   
 
   }     

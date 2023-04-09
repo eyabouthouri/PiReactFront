@@ -5,6 +5,7 @@ import SideBar from '../../components/SideBar';
 import StepDeux from '../../components/StepDeux';
 import Topnav from '../../components/Topnav';
 import Aff from './Aff';
+import { Store } from "react-notifications-component";
 
 import { useNavigate,Link,NavLink } from 'react-router-dom';
 
@@ -33,6 +34,8 @@ function Addabonnement() {
   const addA = async (data)=> {
    try{
      const response = await axios.post("http://localhost:5000/abonnement/adda",data)
+     
+    
      history("/library");
 
    }
@@ -43,6 +46,7 @@ function Addabonnement() {
 
     }
 
+
   };
   function handleaddclick() {
     setShowPage(true);
@@ -52,8 +56,9 @@ function Addabonnement() {
   const Handelsubmit=(e)=>{
           
    e.preventDefault();
- addA(state);
- 
+   addA(state);
+  
+
 
 };
    const  handleInputChange=(e) =>{

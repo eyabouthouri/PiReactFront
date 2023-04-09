@@ -21,24 +21,20 @@ const listA = async()=>{
    };
    
    const deleteA = async (id)=> {
-      
-         const response = await axios.delete(`http://localhost:5000/abonnement/deletea/${id}`,
-         {withCredentials: true}).then(
+      if(
+         window.confirm("Are u sure that u wanted to delete")
+      ){
+         const response = await axios.delete(`http://localhost:5000/abonnement/deletea/${id}`);
+        
             listA()
    
-         
-         )
-         .catch((err)=>{
-            console.error(err)
-            
-   
-          }
-         );
-         return response.data;
+         }
+      }  
+      
 
    
 
-   }
+   
 
   
 

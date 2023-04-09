@@ -1,15 +1,11 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useRef } from 'react';
 import Topnav from '../../components/Topnav';
-import {toast} from "react-toastify";
 import { useNavigate,Link,NavLink, useParams } from 'react-router-dom';
 import AffCmntr from './AffCmntr';
-import Addabonnement from './Addabonnement';
-import ShowLiabrary from './ShowLiabrary';
-import Details from './Details';
+import { toast } from "react-toastify";
+
 axios.defaults.withCredentials = true;
-
-
 
 function Library(props) {
 
@@ -17,116 +13,87 @@ function Library(props) {
    const [isChecked, setIsChecked] = useState(false);
    const [showButton, setShowButton] = useState(false);
    const [data,setData,userconnecte, setUserconnecte]=useState([]);
-useEffect(()=>{
-   userconnectee().then((d) => {
+   var history=useNavigate()
 
-      setUserconnecte(d);
+   const userconnectee = async()=>{
 
-      console.log(userconnecte,1)
-    
-   });
-   listL();
+      const res = await axios
+      .get("http://localhost:5000/users/userconnecte", {
+        withCredentials: true,
 
-},[])
-console.log(userconnecte,1)
+      })
+      .catch((err) => console.log(err));
+      setUserconnecte(res.data)
+      if(res.data == [])
+      {
+         history("/")
+
+      }
+      return res.data;
+   }
+
+   useEffect(()=>{
+      userconnectee().then((d) => {
+   
+         setUserconnecte(d);
+
+         console.log(userconnecte,2)
+       
+      });
+      listL();
+      console.log(userconnecte,2)
+
+   },[])
 const { Libraryid } = useParams();
 
-var history=useNavigate()
 
 const initialState= {
    description:"",
    Libraryid
 
 }
-const [state, setState] = useState(initialState);
-const { description}=initialState;
-const addC = async (data)=> {
-    const response = await axios.post("http://localhost:5000/commentaire/addc",data,
-    {withCredentials: true}).then(
-      listL()
+const timeOut = useRef(0);
+const search = async (text) => {
+   clearTimeout(timeOut.current);
+   timeOut.current = setTimeout(async ()=>{
 
-   
-   )
-   .catch((err)=>{
-      console.error(err)
-      
+      try{
+         if(!text){
+            listL();
+         }else{
+            const response= await axios.get(`http://localhost:5000/library/getbynom/${text}`);
+            setData(response.data);
+         }
+      }catch (e){
+         toast.error("error");
+      }
 
-    }
-   );
-   return response.data;
-
- }
- const userconnectee = async()=>{
-
-   const res = await axios
-   .get("http://localhost:5000/users/userconnecte", {
-     withCredentials: true,
-
-   })
-   .catch((err) => console.log(err));
-   setUserconnecte(res.data)
-   if(res.data == [])
-   {
-      history("/")
-
-   }
-   return res.data;
-}
+   },100)
+};
 const listL = async()=>{
 const response = await axios.get("http://localhost:5000/library/listL");
 if(response.status ==200){
    setData(response.data);
 }
 }
-const handleAccept = () => {
-    
-   setAccepted(true);
- }
- const handleCheckboxChange = () => {
-   setIsChecked(!isChecked);
-   setShowButton(!showButton);
- };
-const listC = async()=>{
-   const response = await axios.get("http://localhost:5000/commentaire/listc"+Libraryid);
-   if(response.status ==200){
-      setData(response.data);
-   }
-   }
-const  handleInputChange=(e) =>{
-   let{name, value}=e.target;
-   setState({...state, [name]:value });
-};
-const [showPage, setShowPage] = useState(false);
-
-function handleaddclick() {
-  setShowPage(true);
-}
-const Handelsubmit=(e)=>{
-          
-   e.preventDefault();
-  
-      addC(state);
-
-
- 
-};
-
 
    return (
       <div id="root">
             <Topnav/>
-        
+
             <div class="header-for-bg">
             <div class="background-header position-relative">
                <img src="images/okok.jpg" width="20px" height="20px"class="img-fluid rounded w-100 rounded rounded"  alt="profile-bg"/>
                <div class="title-on-header">
                   <div class="data-block">
                      <h2>Library</h2>
-
+                     <div class="iq-search-bar">
+                <input type="text"  class="text search-input" placeholder="Type here to search..."  onChange={(e) => search(e.target.value)} />  
+              </div>
                   </div>
                </div>
             </div>
-         
+ 
             <div   class="container">
             <div class="row">
 
@@ -144,7 +111,7 @@ const Handelsubmit=(e)=>{
   <path fill-rule="evenodd" d="M3.1 11.2a.5.5 0 0 1 .4-.2H6a.5.5 0 0 1 0 1H3.75L1.5 15h13l-2.25-3H10a.5.5 0 0 1 0-1h2.5a.5.5 0 0 1 .4.2l3 4a.5.5 0 0 1-.4.8H.5a.5.5 0 0 1-.4-.8l3-4z"/>
   <path fill-rule="evenodd" d="M4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999z"/>
 </svg>
-  Adresse : {item.adresse} <br></br>  
+  Adresse : {item.adresse } <br></br>  
 
   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-open-fill" viewBox="0 0 16 16">
   <path d="M8.941.435a2 2 0 0 0-1.882 0l-6 3.2A2 2 0 0 0 0 5.4v.314l6.709 3.932L8 8.928l1.291.718L16 5.714V5.4a2 2 0 0 0-1.059-1.765l-6-3.2ZM16 6.873l-5.693 3.337L16 13.372v-6.5Zm-.059 7.611L8 10.072.059 14.484A2 2 0 0 0 2 16h12a2 2 0 0 0 1.941-1.516ZM0 13.373l5.693-3.163L0 6.873v6.5Z"/>
