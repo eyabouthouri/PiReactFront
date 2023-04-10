@@ -21,7 +21,7 @@ function SideBar(props) {
                          
                              <li > <Link  class="ri-clockwise-line" to="/AddCoach">add admin </Link> </li>
                              <li > <Link  class="ri-clockwise-line" to="/ShowCoach">show users </Link> </li>
-                              <li > <Link  class="ri-clockwise-line" to="/AddCoach">add admin </Link> </li>
+                              <li > <Link  class="ri-clockwise-line" to="/ajoutercoach">add admin </Link> </li>
                        </li>
                        <li class="active">
                           <a href="#tables" class="iq-waves-effect collapsed" data-toggle="collapse" aria-expanded="true"><i class="ri-table-line"></i><span>Show Table</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>

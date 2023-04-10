@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsLoggedin } from "../redux/session";
 function Navbar(props) {
@@ -103,10 +103,12 @@ function Navbar(props) {
                   course
                 </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link " href="friend-list.html">
-                  coach
-                </a>
+              <li class="nav-item ml-auto">
+                {isLoggedIn && (
+                  <Link class="nav-link " to="/getallcoach">
+                    coach
+                  </Link>
+                )}
               </li>
               <li class="nav-item ml-auto">
                 {!isLoggedIn && (

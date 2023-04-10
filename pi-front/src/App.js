@@ -27,6 +27,11 @@ import { Provider } from "react-redux";
 import Homebeforsignin from "./Home/homebeforesignin";
 import PrivateRoute from "./components/PrivateRoute";
 import NotLoggedRoute from "./components/NotLoggedRoute";
+import GetallCoach from "./MentalHealth/getallcoach";
+import AjouterCoach from "./MentalHealth/coach";
+import GetRdv from "./MentalHealth/getrendezvous";
+import GetrdvPatient from "./MentalHealth/getrdvpatient";
+
 
 function App() {
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -52,6 +57,10 @@ function App() {
         <Route path="/ShowLiabrary" element={<ShowLiabrary></ShowLiabrary>}></Route>
         <Route path="/ShowEvent" element={<ShowEvent></ShowEvent>}></Route>
         <Route path="/" element={<NotLoggedRoute><Homebeforsignin></Homebeforsignin></NotLoggedRoute>}></Route>
+        <Route path="/getallcoach" element={<GetallCoach></GetallCoach>}></Route>
+        <Route path="/ajoutercoach" element={<AjouterCoach></AjouterCoach>}></Route>
+        <Route path="/getrdv" element={<GetRdv></GetRdv>}></Route>
+        <Route  path="/getrdvpatient" element={<GetrdvPatient></GetrdvPatient>}></Route>
       </Routes>
     </div>
   );
