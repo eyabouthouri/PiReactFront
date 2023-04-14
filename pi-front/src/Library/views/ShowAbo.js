@@ -4,13 +4,21 @@ import Navbarback from '../../components/Navbarback';
 import SideBar from '../../components/SideBar';
 import { Link, useParams } from 'react-router-dom';
 import {toast} from "react-toastify";
+import Pagination from './Pagination';
+
 function ShowLiabrary(props) {
    const [data,setData]=useState([]);
 useEffect(()=>{
     listA();
 },[])
 
+const [currentPage, setCurrentPage] = useState(1);
+const [itemsPerPage, setItemsPerPage] = useState(4);
+const totalItems = data.length;
 
+const indexOfLastItem = currentPage * itemsPerPage;
+const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
 
 const listA = async()=>{
    const response = await axios.get("http://localhost:5000/abonnement/lista");
@@ -31,16 +39,6 @@ const listA = async()=>{
          }
       }  
       
-
-   
-
-   
-
-  
-
-
-
-
     return (
         <div id="content-page" class="content-page">          
 
@@ -87,11 +85,11 @@ const listA = async()=>{
                                  </thead>
                                  
                                  <tbody>
-                                {data && data.map((item, index)=>{
-                                 return(
-                                    <tr >
-                                       <td>
-                                        {" "}
+                                 {currentItems.map((item, index)  => {
+  return (
+    <tr key={index}>
+      <td>
+        {" "}
                                        <img class="img-fluid img-thumbnail" src={process.env.PUBLIC_URL+"/images/"+item.image}></img>{" "} </td>
                                        <td class="contenteditable">{item.nom}</td>
                                        <td class="contenteditable">{item.prenom}</td>
@@ -116,7 +114,12 @@ const listA = async()=>{
                                  )
                                 })}
                                 
-                                       
+                                <Pagination
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        itemsPerPage={itemsPerPage}
+        totalItems={totalItems}
+      />        
                                  </tbody>
 
                               </table>

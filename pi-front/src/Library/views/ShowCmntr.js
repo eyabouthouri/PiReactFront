@@ -4,6 +4,7 @@ import Navbarback from '../../components/Navbarback';
 import SideBar from '../../components/SideBar';
 import { Link, useParams } from 'react-router-dom';
 import {toast} from "react-toastify";
+import Pagination from './Pagination';
 function ShowCmntr(props) {
 
 
@@ -12,7 +13,13 @@ function ShowCmntr(props) {
       listc();
     },[])
     
-    
+    const [currentPage, setCurrentPage] = useState(1);
+const [itemsPerPage, setItemsPerPage] = useState(4);
+const totalItems = data.length;
+
+const indexOfLastItem = currentPage * itemsPerPage;
+const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
     
     const listc = async()=>{
         const response = await axios.get("http://localhost:5000/commentaire/listc");
@@ -76,25 +83,32 @@ function ShowCmntr(props) {
                                  </thead>
                                  
                                  <tbody>
-                                {data && data.map((item, index)=>{
-                                 return(
+                                 {currentItems.map((item, index)  => {
+  return(
+    <tr key={index}>
+      <td>
+        {" "}
+        </td>
                                     <tr >
 
                                       <td class="contenteditable">{item.username}</td>
    
                                        <td class="contenteditable">{item.description}</td>
                             
-
-
-                              
+                                       </tr>
                                        <td>
-                                          
                                               <button type="button"
                                              class="btn iq-bg-danger btn-rounded btn-sm my-0" onClick={() => deleteC(item._id)} >delete</button>
                                        </td>        
-                                    </tr> 
-                                 )
-                                })}
+                                    </tr>
+                                ) })}
+                                
+                                <Pagination
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        itemsPerPage={itemsPerPage}
+        totalItems={totalItems}
+      />        
                                 
                                        
                                  </tbody>

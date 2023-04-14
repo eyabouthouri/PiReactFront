@@ -70,7 +70,7 @@ const listC = async()=>{
          return(
             <div class="d-flex flex-wrap">
             <div class="user-img">
-               <img src="images/user/03.jpg" alt="userimg" class="avatar-35 rounded-circle img-fluid"/>
+               <img src="/images/user/03.jpg" alt="userimg" class="avatar-35 rounded-circle img-fluid"/>
                <h7>  Eya bouthouri</h7>
             </div>
 

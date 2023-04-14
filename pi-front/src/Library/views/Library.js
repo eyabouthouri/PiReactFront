@@ -14,7 +14,7 @@ function Library(props) {
    const [showButton, setShowButton] = useState(false);
    const [data,setData,userconnecte, setUserconnecte]=useState([]);
    var history=useNavigate()
-
+ 
    const userconnectee = async()=>{
 
       const res = await axios
@@ -88,7 +88,11 @@ if(response.status ==200){
                   <div class="data-block">
                      <h2>Library</h2>
                      <div class="iq-search-bar">
+                     <form action="#" class="searchbox">
+
                 <input type="text"  class="text search-input" placeholder="Type here to search..."  onChange={(e) => search(e.target.value)} />  
+                <a class="search-link" href="#"><i class="ri-search-line"/><i/></a>
+</form>
               </div>
                   </div>
                </div>

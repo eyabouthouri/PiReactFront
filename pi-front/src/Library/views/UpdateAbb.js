@@ -9,7 +9,8 @@ import { useNavigate,Link,NavLink } from 'react-router-dom';
 
 import axios from 'axios';
 import {toast} from "react-toastify";
-import { useParams } from 'react-router-dom';axios.defaults.withCredentials = true;
+import { useParams } from 'react-router-dom';
+axios.defaults.withCredentials = true;
 
 const initialState= {
    nom:"",
@@ -26,7 +27,6 @@ function UpdateAbb(props) {
     const [showPage, setShowPage] = useState(false);
     const [data,setData]=useState([]);
     const [state, setState] = useState(initialState);
-    const { nom, prenom, age, tel,email, city,image}=initialState;
     const [msg, setmsg] = useState({});
     const [valid, setValid] = useState(true);
     const [entity, setEntity] = useState({});
@@ -46,17 +46,21 @@ function UpdateAbb(props) {
   
     };
     const { id } = useParams();
-     const getOneA = async () => {
-        const response = await axios.get(`http://localhost:5000/abonnement/getOneA/${id}`);
-           setState({ ...response.data[0]} );     
-     };
-     useEffect(() =>{
-
+   
+    useEffect(() => {
       if (id) {
-         getOneA();
-   }
-
-   },[])    
+        const getOneA = async () => {
+          try {
+            const response = await axios.get(`http://localhost:5000/abonnement/getOneA/${id}`);
+            setState({ ...response.data });
+            console.log(response.data);
+          } catch (error) {
+            console.log(error);
+          }
+        };
+        getOneA();
+      }
+    }, [id]);
 
   var history=useNavigate()
 

@@ -17,6 +17,8 @@ import ShowCourse from './course/views/ShowCourse';
 import ShowEvent from './event/views/ShowEvent';
 import { Route,Routes ,useParams } from 'react-router-dom';
 import UpdateUser from './coach/views/updateuser';
+import { useSelector } from "react-redux";
+
 import Terms from './Home/Terms';
 import Rem from './Home/Rem';
 import AffCmntr from './Library/views/AffCmntr';
@@ -30,6 +32,8 @@ import Details from './Library/views/Details';
 import Aff from './Library/views/Aff';
 import SearchBar from './Library/views/SearchBar';
 import Cm from './Library/views/Cm';
+import PrivateRoute from './components/PrivateRoute';
+import UpdateLibrary from './Library/views/UpdateLibrary'
 function App()  {
 
   let { id } = useParams();
@@ -53,18 +57,17 @@ function App()  {
         <Route path='/AddLibrary' element={<AddLibrary></AddLibrary>}></Route>
         <Route path='/AddCoach' element={<AddCoach></AddCoach>}></Route>
         <Route path='/AddCourse' element={<AddCourse></AddCourse>}></Route>
-        <Route path='/ShowLiabrary' element={<ShowLiabrary></ShowLiabrary>}></Route>
         <Route path='/ShowCmntr' element={<ShowCmntr></ShowCmntr>}></Route>
         <Route path='/in' element={<FormInputComment></FormInputComment>}></Route>
 
         <Route path='/library' element={<Library></Library>}></Route>
-        <Route path='/updateL/:id' element={<AddLibrary/>}></Route>
+        <Route path='/updateL/:id' element={<UpdateLibrary/>}></Route>
         <Route path='/det/:Libraryid' element ={<Details></Details>}></Route>
         <Route path='/Aff/:Libraryid' element ={<Aff></Aff>}></Route>
 
         <Route path='/ShowCoach' element={<ShowCoach></ShowCoach>}></Route>
         <Route path='/ShowCourse' element={<ShowCourse></ShowCourse>}></Route>
-        <Route path='/ShowLibrary' element={<ShowLiabrary></ShowLiabrary>}></Route>
+        <Route path='/ShowLiabrary' element={<ShowLiabrary></ShowLiabrary>}></Route>
         <Route path='/ShowEvent' element={<ShowEvent></ShowEvent>}></Route>
         <Route path='/UpdateUser' element={<UpdateUser></UpdateUser>}></Route>
         <Route path='/rem' element={<Rem></Rem>}></Route>
