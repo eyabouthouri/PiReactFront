@@ -135,6 +135,9 @@ function ShowLiabrary(props) {
           <button type="button" class="btn iq-bg-danger btn-rounded btn-sm my-0">update</button>    
         </Link> 
         <button type="button" class="btn iq-bg-danger btn-rounded btn-sm my-0" onClick={() => deleteL(item._id)} >delete</button>
+        <Link to={`/stat/${item._id}`}>
+          <button type="button" class="btn iq-bg-danger btn-rounded btn-sm my-0">statistique</button>    
+        </Link> 
       </td>        
     </tr> 
   )
