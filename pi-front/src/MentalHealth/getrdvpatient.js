@@ -46,6 +46,7 @@ function GetrdvPatient(){
         }).catch((err) => console.log(err));
         return res.data;
       };
+
     
 
     const getrdv = async (idcon) => {
@@ -162,6 +163,7 @@ function GetrdvPatient(){
      console.log(holidays)
   }
   console.log(holidays)
+  console.log(idd)
   
 
       function RenderEventContent(event) {
@@ -170,8 +172,9 @@ function GetrdvPatient(){
         
              <div>
              <b>{event.event.start.toLocaleTimeString( [],{ hour: "2-digit", minute: "2-digit" })}</b>
+
              
-          
+                
           <div>
           <button type="button" class="btn btn-danger" onClick={()=>{refresh(event.event.extendedProps._id)}} >
             annuler 

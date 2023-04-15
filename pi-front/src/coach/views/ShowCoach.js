@@ -4,21 +4,70 @@ import SideBar from "../../components/SideBar";
 import { useState } from "react";
 import { useNavigate, NavLink, Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
+
 
 import axios from "axios";
 function ShowCoach(props) {
   const [user, setUser] = useState([]);
+  const [message, setMessage] = useState('')
+  const [showCoach, setShowCoach] = useState(false);
+  const [usertri,setusertri]=useState([]);
   var history = useNavigate();
-  useEffect(() => {
-    sednRequest().then((d) => {
-      setUser(d);
-    });
-
-    let interval = setInterval(() => {
-      refreshtoken();
-    }, 1000 * 10000);
-  }, []);
-
+  const commands = [
+    {
+      command: 'I would like to order *',
+      callback: (order) => {
+        setShowCoach(true);
+      },
+    },
+    {
+      command: 'thank you * ',
+      callback: (condition) => setMessage(`ur welcome`)
+    }]
+   
+    const {
+     transcript,
+     resetTranscript,
+     browserSupportsSpeechRecognition
+   } = useSpeechRecognition({ commands });
+ 
+ console.log(showCoach)
+  useEffect(()=>{
+    async function fetchData() {
+      const data = await sednRequest();
+      return data;
+    }
+  
+    function sortUsersByName(users) {
+      return users.sort((a, b) => a.name.localeCompare(b.name));
+    }
+  
+    async function updateUserList() {
+      const userList = await fetchData();
+      if (showCoach) {
+        const sortedUsers = sortUsersByName(userList);
+        setUser(sortedUsers);
+      } else {
+        setUser(userList);
+      }
+    }
+  
+    updateUserList();
+ 
+  },[showCoach])
+  
+  
+  /*const sortdata =async (data)=> {
+   
+    if (!data) {
+      return [];
+    }
+    return data.sort((a, b) => a.name.localeCompare(b.name));
+      
+    
+   }
+  */
   const refreshtoken = async () => {
     const res = await axios
       .get("http://localhost:5000/users/refresh", {
@@ -32,8 +81,6 @@ function ShowCoach(props) {
         withCredentials: true,
       })
       .catch((err) => console.log(err));
-      console.log(res.data)
-    setUser(res.data);
     return res.data;
   };
 
@@ -61,19 +108,29 @@ function ShowCoach(props) {
 
     return resblock.data;
   };
+ 
+
+ 
+   if (!browserSupportsSpeechRecognition) {
+     return <span>Browser doesn't support speech recognition.</span>;
+   }
+  
 
   return (
+
     <div id="content-page" class="content-page">
       <div>
         <Navbarback />
         <div>
           <SideBar />
         </div>
+
       </div>
+
       <div class="row">
         <div class="col-sm-12">
           <div class="inner-page-title">
-            <h3 class="text-white">Editable Table Page</h3>
+        
             <p class="text-white">lorem ipsum</p>
           </div>
           <div class="col-sm-12">
@@ -81,7 +138,15 @@ function ShowCoach(props) {
               <div class="iq-card-header d-flex justify-content-between">
                 <div class="iq-header-title">
                   <h4 class="card-title">Editable Table</h4>
+                  &nbsp;   &nbsp;     &nbsp;
+                  &nbsp;
+                  
                 </div>
+                <button onClick={SpeechRecognition.startListening}>Start</button>
+               <button onClick={SpeechRecognition.stopListening}>Stop</button>
+                <button onClick={resetTranscript}>Reset</button>
+               <h6>{transcript}</h6>
+                <h6>{message}</h6>
               </div>{" "}
             </div>
             <div class="container">
@@ -99,7 +164,7 @@ function ShowCoach(props) {
                     </tr>
                   </thead>
                   <tbody>
-                    {user &&
+                    {
                       user.map((item, index) => {
                         return (
                           <tr>

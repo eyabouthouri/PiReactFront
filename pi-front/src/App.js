@@ -31,6 +31,7 @@ import GetallCoach from "./MentalHealth/getallcoach";
 import AjouterCoach from "./MentalHealth/coach";
 import GetRdv from "./MentalHealth/getrendezvous";
 import GetrdvPatient from "./MentalHealth/getrdvpatient";
+import Recherche from "./MentalHealth/speech-recognition";
 
 
 function App() {
@@ -61,6 +62,7 @@ function App() {
         <Route path="/ajoutercoach" element={<AjouterCoach></AjouterCoach>}></Route>
         <Route path="/getrdv" element={<GetRdv></GetRdv>}></Route>
         <Route  path="/getrdvpatient" element={<GetrdvPatient></GetrdvPatient>}></Route>
+        <Route path="/ai" element={<Recherche></Recherche>}></Route>
       </Routes>
     </div>
   );

@@ -21,7 +21,7 @@ function GetallCoach(){
     const[mintime,setmintime]=useState(new Date());
   const[exclusedtimee,setexclusedtimee]=useState([])
   const [rating, setRating] = useState()
-  const[idcoach,setidcoach]=useState();
+  const[coach,setcoach]=useState();
   const[userco,setUserco] = useState()
 
   
@@ -52,7 +52,8 @@ function GetallCoach(){
         setUser(d);
       });
 
-      
+      console.log(user)
+      console.log(usercon)
       
 
       
@@ -117,6 +118,20 @@ function GetallCoach(){
 
 
     }
+    const getcoachdetails = async(id)=>{
+      const coach=await axios.get(`http://localhost:5000/coach//getuserbyid/${id}`,{
+        withCredentials: true,
+      })
+      console.log(coach.data)
+      
+      
+    
+     
+     return coach.data
+
+
+    }
+    console.log()
   
   const  handleInputChange=(e) =>{
    console.log(e)
@@ -156,19 +171,21 @@ function GetallCoach(){
 const handleInputChangetel=(e)=>{
 setinputcoach({...inputcoach,tel:e.target.value})
 }
- 
+ console.log(inputcoach.datee)
  const Handelsubmit=(e)=>{
           
    e.preventDefault();
+ 
    addresndezvous(idd);
    
 
 
 };
 
+
  const handelsubmitt=(idcoach)=>{
    setid(idcoach);
-   getrendezvous(idcoach).then((obj,err)=>{
+  getrendezvous(idcoach).then((obj,err)=>{
     if(err){console.error(err)}
     else
       {setholidays(obj);
@@ -178,8 +195,13 @@ setinputcoach({...inputcoach,tel:e.target.value})
       }
 
    })
+ getcoachdetails(idcoach).then((obj,err)=>{
+    setcoach(obj)
+   })
+
+
    console.log(holidays)
- 
+ console.log(coach)
  
 
  }
@@ -205,10 +227,10 @@ setinputcoach({...inputcoach,tel:e.target.value})
  setRating(value)
   // other logic
   addavis(id,value)
-  /*sednRequest().then((d) => {
+  sednRequest().then((d) => {
     setUser(d);
   });
-*/
+
 
 }
 const handleRatingupdate = (value) => {
@@ -239,7 +261,7 @@ console.log(rating)
         <NavbarFront></NavbarFront>
            <div class=" d-flex justify-content-center align-items-center">
             <div class="background-header position-relative">
-               <img src="images/page-img/health.jpg" width="1500" height="400" alt="header-bg"/>
+               <img src="images/page-img/he.png" width="1500" height="400" alt="header-bg"/>
              
             </div>
          </div>
@@ -270,7 +292,9 @@ console.log(rating)
                                              <h4 class="">{item.name} {item.lastname}</h4>
                                              <h6>specialite : {item.specialite}</h6>
                                              <h6>telephone : {item.telephone}</h6>
+                                             <h6>adresse : {item.adresseCabinet}</h6>
                                              <p>{item.biographie}</p>
+
                                              <p>
                                              {item.avis && Array.isArray(item.avis) ? (
                                               (() => {
@@ -381,12 +405,43 @@ console.log(rating)
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+ 
+     
+      {
+                          (coach)&&(
+                 
       <div class="modal-body">
-      <Rating
+      <div class="user-data-block">
+      <div class="form-group row align-items-center">
+                          <div class="col-md-12">
+                      
+                              <img class="profile-pic" src={process.env.PUBLIC_URL + "/imagee/" + coach.image} alt="profile-pic" />
+                              
+                              <Rating
                                            
                                            
-       onClick={(value) => handleRating(idd, value)}/>
+                                           onClick={(value) => handleRating(idd, value)}/>
+                                        
+                           
+                            </div>
+                          </div>
+                        </div>
+             <h6 class="">   Nom coach </h6> 
+             <p>{coach.name} </p>
+              <h6 class="">   Prenom coach </h6> 
+              <p>{coach.lastname}</p>
+             <h6  class="">tel coach</h6>
+             <p>{coach.telephone}</p>
+             <h6  class="">specialite </h6>
+            <p>{coach.specialite}</p>
+
+
+           
+            
       </div>
+
+)
+}
      
     </div>
   </div>
@@ -400,11 +455,41 @@ console.log(rating)
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+      <div class="">
+                        {
+                          (coach)&&(
+                 
       <div class="modal-body">
+      <div class="user-data-block">
+      <div class="form-group row align-items-center">
+                          <div class="col-md-12">
+                      
+                              <img class="profile-pic" src={process.env.PUBLIC_URL + "/imagee/" + coach.image} alt="profile-pic" />
+                              
       <Rating
                                            
                                            
-       onClick={(value)=>{handleRatingupdate(value)}}/>
+                                           onClick={(value)=>{handleRatingupdate(value)}}/>
+                           
+                            </div>
+                          </div>
+                        </div>
+             <h6 class="">   Nom coach </h6> 
+             <p>{coach.name} </p>
+              <h6 class="">   Prenom coach </h6> 
+              <p>{coach.lastname}</p>
+             <h6  class="">tel coach</h6>
+             <p>{coach.telephone}</p>
+             <h6  class="">specialite </h6>
+            <p>{coach.specialite}</p>
+
+
+           
+            
+      </div>
+
+)
+}
       </div>
      
     </div>

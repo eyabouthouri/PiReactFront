@@ -49,7 +49,7 @@ function GetRdv(props){
     };
   
     const getrdv = async (idcon) => {
-      const res = await axios.get(`http://localhost:5000/coach/getrdvbycoach/${idcon}`, {
+      const res = await axios.get(`http://localhost:5000/coach/getallrdvbycoach/${idcon}`, {
         withCredentials: true,
       }).catch((err) => console.log(err));
       return res.data;
@@ -168,6 +168,7 @@ function GetRdv(props){
       </div>
       <div class="modal-body">
       <div class="user-data-block">
+        
              <h6 class="">   Nom patient </h6> 
              <p>{patient.name} </p>
               <h6 class="">   Prenom patient </h6> 
