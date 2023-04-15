@@ -5,6 +5,7 @@ import Chart from 'chart.js/auto';
 import { BarController } from 'chart.js';
 import Navbarback from '../../components/Navbarback';
 import SideBar from '../../components/SideBar';
+import DashboardAge from './DashboardAge';
 Chart.register(BarController);
 axios.defaults.withCredentials = true;
 
@@ -40,7 +41,7 @@ function StatDashbord(props) {
           const newChart = new Chart(ctx, {
             type: 'bar',
             data: {
-              labels: ['Total Libraries', 'Total Abonnements', 'Avg. Abonnements Per Library'],
+              labels: ['Total Libraries', 'Total Abonnements', 'AVG Abonnements Per Library'],
               datasets: [
                 {
                   label: 'Library Statistics',
@@ -82,17 +83,14 @@ function StatDashbord(props) {
     }
   
     return (
-<div id="content-page" class="content-page">
-      <Navbarback />
-      <div className="container-fluid">
-        <div className="row">
-          <SideBar />   
+
+        
            
           <div className="col-md-3 ms-sm-auto col-lg-12 px-md-4">
             <div className="d-flex justify-content-center">
               <div className="" style={{ width: '900px', height: '700px' }}>
               <canvas id="myChart" ></canvas>
-      </div></div></div></div></div></div>
+      </div></div></div>
     );
   }
   

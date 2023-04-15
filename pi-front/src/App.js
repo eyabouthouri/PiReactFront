@@ -36,6 +36,8 @@ import PrivateRoute from './components/PrivateRoute';
 import UpdateLibrary from './Library/views/UpdateLibrary'
 import AbonnementStat from './Library/views/AbonnementStat'
 import StatDashbord from './Library/views/StatDashbord';
+import DashbordAge from './Library/views/DashboardAge'
+import Dashboard from './Library/views/Dashboard';
 function App()  {
 
   let { id } = useParams();
@@ -79,7 +81,9 @@ function App()  {
         <Route path='/updatea/:id' element ={<UpdateAbb></UpdateAbb>}></Route>
         <Route path='/cm' element={<Cm></Cm>}></Route>
         <Route path='/stat/:Libraryid' element={<AbonnementStat></AbonnementStat>}></Route>
-        <Route path='/dashbord' element={<StatDashbord></StatDashbord>}></Route>
+        <Route path='/s' element={<StatDashbord></StatDashbord>}></Route>
+        <Route path='/age' element={<DashbordAge></DashbordAge>}></Route>
+        <Route path='/dashbord' element={<Dashboard></Dashboard>}></Route>
 
       </Routes>
    </div>   

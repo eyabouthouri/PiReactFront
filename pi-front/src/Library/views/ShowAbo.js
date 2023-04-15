@@ -11,6 +11,19 @@ function ShowLiabrary(props) {
 useEffect(()=>{
     listA();
 },[])
+useEffect(() => {
+   async function fetchData() {
+     try {
+       const response = await axios.get("http://localhost:5000/abonnementtri");
+       setData(response.data);
+     } catch (err) {
+       console.error(err);
+     }
+   }
+
+   fetchData();
+ }, []);
+ const [triAscendant, setTriAscendant] = useState(true);
 
 const [currentPage, setCurrentPage] = useState(1);
 const [itemsPerPage, setItemsPerPage] = useState(4);
@@ -19,6 +32,9 @@ const totalItems = data.length;
 const indexOfLastItem = currentPage * itemsPerPage;
 const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
+function handleTriChange(event) {
+   setTriAscendant(event.target.checked);
+ }
 
 const listA = async()=>{
    const response = await axios.get("http://localhost:5000/abonnement/lista");
@@ -63,6 +79,7 @@ const listA = async()=>{
                               <h4 class="card-title">Editable Table</h4>
                            </div>
                         </div> </div>
+                        
                   <div class="container">
                            <div id="table" class="table-editable">
                               <table class="table table-bordered table-responsive-md table-striped text-center">
