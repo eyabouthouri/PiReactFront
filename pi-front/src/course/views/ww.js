@@ -86,7 +86,7 @@ function Library(props) {
   };
 
   return (
-    <div id="root">
+    <div>
       <Topnav />
       <div class="header-for-bg">
         <div class="background-header position-relative">

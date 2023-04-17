@@ -90,7 +90,7 @@ function UpdateUser() {
   };
   const Handelsubmitt = (ee) => {
     ee.preventDefault();
-    if(updatepwd()){
+    if (updatepwd()) {
       history("/ShowCoach");
     }
   };
@@ -106,9 +106,9 @@ function UpdateUser() {
 
   return (
     <div id="content-page" class="content-page">
-      <div id="root">
+      <div>
         <Navbarback />
-        <div id="root">
+        <div>
           <SideBar />
         </div>
       </div>
@@ -174,7 +174,7 @@ function UpdateUser() {
                         </div>
 
                         <button type="submit" class="btn btn-primary mr-2">
-                          <Link to="/ShowCoach"></Link>update
+                          <Link to="/ShowCoach"></Link>update {/** state, replace, reloadDocument={true} */}
                         </button>
                       </form>
                     </div>

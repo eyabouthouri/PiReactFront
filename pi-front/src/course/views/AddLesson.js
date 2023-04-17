@@ -7,26 +7,60 @@ import { useParams } from "react-router-dom";
 
 import { useNavigate, Link, NavLink } from "react-router-dom";
 import Progress from "../../components/Progress";
+import { useForm } from "react-hook-form";
 axios.defaults.withCredentials = true;
 
 function AddLesson(props) {
   const { courseId, id } = useParams();
   const [uploadPercentage, setUploadPercentage] = useState(0);
   const [state, setState] = useState({ number: "", type: "", content: "", courseId });
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors, isValid, isDirty, dirtyFields, keepDefaultValues },
+  } = useForm({ mode: "onBlur", defaultValues: state });
+  console.log(state);
 
-  const addL = async (data, filePath) => {
-    const response = await axios.post("/lesson/addl", {
-      number: data.number,
-      type: data.type,
-      content: data.type === "text" || data.type === "youtube" ? data.content : filePath,
-      courseId: data.courseId,
-    });
-    toast.success("addeddddd");
+  useEffect(() => {
+    if (id) {
+      getLesson();
+    }
+  }, []);
+
+  const getLesson = async () => {
+    try {
+      const response = await axios.get("/lesson/getOneLesson/" + id);
+      setState(response.data);
+    } catch (e) {
+      toast.error("error add");
+    }
   };
-  const updateLesson = async (data, id) => {
-    const response = await axios.put(`http://localhost:5000/lesson/updatel/${id}`, data);
-    if (response.status == 200) {
-      toast.success("aaaaa333");
+
+  const addLesson = async (data, filePath) => {
+    try {
+      const response = await axios.post("/lesson/addLesson", {
+        number: data.number,
+        type: data.type,
+        content: data.type === "text" || data.type === "youtube" ? data.content : filePath,
+        courseId: data.courseId,
+      });
+      toast.success("addeddddd");
+      history("/ShowCourseLessons/" + courseId);
+    } catch (e) {
+      toast.error("error add lesson");
+    }
+  };
+  const updateLesson = async (data, id, filePath) => {
+    try {
+      const response = await axios.put(`/lesson/updateLesson/${id}`, {
+        ...data,
+        content: filePath ?? data.content,
+      });
+      toast.success("update success");
+      history("/ShowCourseLessons/" + state.courseId);
+    } catch (e) {
+      toast.error("error update");
     }
   };
   var history = useNavigate();
@@ -46,54 +80,45 @@ function AddLesson(props) {
   //   //   console.log(reader.error);
   //   // };
   // }
-  useEffect(() => {
-    if (id) {
-      getOneL(id);
-    }
-  }, [id]);
-  const getOneL = async (id) => {
-    const response = await axios.get(`http://localhost:5000/lesson/getOnel/${id}`);
-    setState({ ...response.data[0] });
-  };
 
   const Handelsubmit = async (e) => {
-    e.preventDefault();
     let filePath;
     try {
-      if (state.type === "video" || state.type === "image") {
-        const formData = new FormData();
-        formData.append("file", state.file);
-        const res = await axios.post("/upload", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-          onUploadProgress: (progressEvent) => {
-            setUploadPercentage(parseInt(Math.round((progressEvent.loaded * 100) / progressEvent.total)));
-          },
-        });
-        filePath = res.data.filePath;
+      if (state.file) {
+        if (state.type === "video" || state.type === "image") {
+          const formData = new FormData();
+          formData.append("file", state.file);
+          const res = await axios.post("/upload", formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+            onUploadProgress: (progressEvent) => {
+              setUploadPercentage(parseInt(Math.round((progressEvent.loaded * 100) / progressEvent.total)));
+            },
+          });
+          filePath = res.data.filePath;
+        }
       }
       // Clear percentage
       // setTimeout(() => setUploadPercentage(0), 30000);
-
       if (!id) {
-        addL(state, filePath);
+        addLesson(state, filePath);
       } else {
-        updateLesson(state, id);
+        updateLesson(state, id, filePath);
       }
     } catch (err) {
       toast.error("There was a problem with the server");
       setUploadPercentage(0);
     }
-    // history("/ShowCourseLessons/"+courseId);
   };
   const handleInputChange = (e) => {
     let { name, value } = e.target;
     if (name === "type") {
       setState({ ...state, [name]: value, content: null, fileName: null, file: null });
     } else {
-      if (e.target.type === "file") setState({ ...state, file: e.target.files[0], fileName: e.target.files[0].name });
-      else {
+      if (e.target.type === "file") {
+        setState({ ...state, file: e.target.files[0], fileName: e.target.files[0].name });
+      } else {
         setState({ ...state, [name]: value });
       }
     }
@@ -101,9 +126,9 @@ function AddLesson(props) {
 
   return (
     <div id="content-page" class="content-page">
-      <div id="root">
+      <div>
         <Navbarback />
-        <div id="root">
+        <div>
           <SideBar />
         </div>
       </div>
@@ -120,13 +145,7 @@ function AddLesson(props) {
                 <li class="active" id="account">
                   <a href="javascript:void();">
                     <i class="ri-lock-unlock-line"></i>
-                    <span>Account</span>
-                  </a>
-                </li>
-                <li id="payment">
-                  <a href="javascript:void();">
-                    <i class="ri-camera-fill"></i>
-                    <span>Image</span>
+                    <span>Add Lesson</span>
                   </a>
                 </li>
                 <li id="confirm">
@@ -136,7 +155,7 @@ function AddLesson(props) {
                   </a>
                 </li>
               </ul>
-              <form id="form-wizard1" class="text-center mt-4" methode="POST" onSubmit={Handelsubmit}>
+              <form id="form-wizard1" class="text-center mt-4" methode="POST" onSubmit={handleSubmit(Handelsubmit)}>
                 <div class="form-card text-left">
                   <div class="row">
                     <div class="col-7">
@@ -146,14 +165,15 @@ function AddLesson(props) {
                   <div class="row">
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label htmlFor="title">Number </label>
-                        <input type="text" className="form-control" name="number" placeholder="number" onChange={handleInputChange} value={state.number} />
+                        <label>Lesson number </label>
+                        <input type="number" className={"form-control " + (errors.number ? "is-invalid" : "")} name="number" placeholder="number" {...register("number", { required: true })} onChange={handleInputChange} value={state.number} />
+                        {errors.number && <span style={{ color: "red" }}> Lesson number is required</span>}
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label htmlFor="description">type</label>
+                          <label htmlFor="description">Content Type</label>
                           <div class="col-sm-10">
-                            <select name="type" class="form-control" onChange={handleInputChange}>
+                            <select name="type" className={"form-control " + (errors.type ? "is-invalid" : "")} {...register("type", { required: true })} onChange={handleInputChange}>
                               <option disabled selected value>
                                 {" "}
                                 -- select an option --{" "}
@@ -163,23 +183,24 @@ function AddLesson(props) {
                               <option value="text">Text</option>
                               <option value="youtube">Youtube</option>
                             </select>
+                            {errors.type && <span style={{ color: "red" }}>Select a lesson type</span>}
                           </div>
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label htmlFor="level">content</label>
-                          {state.type === "text" && <input type="text" className="form-control" name="content" placeholder="content" onChange={handleInputChange} value={state.content} />}
-                          {state.type === "image" && <input type="file" accept="image/*" className="form-control" name="content" placeholder="aa" onChange={handleInputChange} />}
-                          {state.type === "video" && <input type="file" accept="video/*" className="form-control" name="content" placeholder="content" onChange={handleInputChange} value={state.content} />}
+                          <label htmlFor="level">{state.type === "text" ? "Text" : state.type === "image" ? "Image" : state.type === "video" ? "Video" : "Youtube"}</label>
+                          {state.type === "text" && <textarea width={500} height={"250px"} rows={6} type="text" className="form-control" name="content" placeholder="content" onChange={handleInputChange} value={state.content} />}
+                          {state.type === "image" && <input type="file" accept="image/*" className="form-control" name="content" placeholder="aa" {...register("content", { required: true })} onChange={handleInputChange} />}
+                          {state.type === "video" && <input type="file" accept="video/*" className="form-control" name="content" placeholder="content" onChange={handleInputChange} />}
                           {state.type === "youtube" && <input type="text" className="form-control" name="content" placeholder="youtube" onChange={handleInputChange} value={state.content} />}
                         </div>
                       </div>
                       <Progress percentage={uploadPercentage} />
                     </div>
                   </div>
-
-                  <input type="submit" value={id ? "Update" : "Add"} />
+                  <br></br>
+                  <input type="submit" disabled={!isValid} className="btn btn-primary " value={id ? "Update" : "Add"} />
                 </div>
               </form>
             </div>

@@ -1,9 +1,7 @@
-import React, { Component, useState } from "react";
+import React from "react";
 import "./helpers/axiosConfig";
-import Library from "./Library/views/Library";
 import Home from "./Home/Home";
 import Event from "./event/views/Event";
-import NavbarModule from "./components/NavbarModule";
 import SignIn from "./Home/SignIn";
 import SignUp from "./Home/SignUp";
 import AddLibrary from "./Library/views/AddLibrary";
@@ -14,15 +12,12 @@ import ShowLiabrary from "./Library/views/ShowLiabrary";
 import ShowCoach from "./coach/views/ShowCoach";
 import ShowCourse from "./course/views/ShowCourse";
 import ShowEvent from "./event/views/ShowEvent";
-import { Link, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import UpdateUser from "./coach/views/updateuser";
 import ForgotPassword from "./coach/views/ForgotPassword";
 import ResetPassword from "./coach/views/ResetPassword";
 import { ReactNotifications } from "react-notifications-component";
 import "react-notifications-component/dist/theme.css";
-import { useSelector } from "react-redux";
-import store from "./redux/store";
-import { Provider } from "react-redux";
 import Homebeforsignin from "./Home/homebeforesignin";
 import PrivateRoute from "./components/PrivateRoute";
 import NotLoggedRoute from "./components/NotLoggedRoute";
@@ -30,8 +25,8 @@ import ClientCourse from "./course/views/ClientCourse";
 import AddLesson from "./course/views/AddLesson";
 import ShowLessons from "./course/views/ShowLessons";
 import ClientLesson from "./course/views/ClientLesson";
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -73,7 +68,6 @@ function App() {
               <Home></Home>
             </PrivateRoute>
           }
-          
         ></Route>
         <Route path="/event" element={<Event></Event>}></Route>
         <Route path="/addevent" element={<AddEvent />}></Route>
@@ -94,10 +88,31 @@ function App() {
           }
         ></Route>
         <Route path="/AddLibrary" element={<AddLibrary></AddLibrary>}></Route>
-        <Route path="/AddLesson/:courseId" element={<AddLesson></AddLesson>}/>
-        <Route path="/AddCourse" element={<AddCourse></AddCourse>}></Route>
+        <Route
+          path="/AddLesson/:courseId"
+          element={
+            <PrivateRoute isAdmin={true}>
+              <AddLesson></AddLesson>
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/AddCourse"
+          element={
+            <PrivateRoute isAdmin={true}>
+              <AddCourse></AddCourse>
+            </PrivateRoute>
+          }
+        ></Route>
         <Route path="/ShowLiabrary" element={<ShowLiabrary></ShowLiabrary>}></Route>
-        <Route path="/ShowCourse" element={<ShowCourse></ShowCourse>}></Route>
+        <Route
+          path="/ShowCourse"
+          element={
+            <PrivateRoute isAdmin={true}>
+              <ShowCourse></ShowCourse>
+            </PrivateRoute>
+          }
+        ></Route>
         <Route path="/ShowLiabrary" element={<ShowLiabrary></ShowLiabrary>}></Route>
         <Route path="/Course" element={<ClientCourse></ClientCourse>}></Route>
         <Route path="/ShowEvent" element={<ShowEvent></ShowEvent>}></Route>
@@ -109,9 +124,30 @@ function App() {
             </NotLoggedRoute>
           }
         ></Route>
-        <Route path="/updateL/:id" element={<AddCourse />}></Route>
-        <Route path="/clientLesson/:courseId" element={<ClientLesson/>}></Route>
-        <Route path="/updateLesson/:id" element={<AddLesson />}></Route>
+        <Route
+          path="/updateCourse/:id"
+          element={
+            <PrivateRoute isAdmin={true}>
+              <AddCourse />
+            </PrivateRoute>
+          }
+        ></Route>
+        <Route
+          path="/clientLesson/:courseId"
+          element={
+            <PrivateRoute>
+              <ClientLesson />
+            </PrivateRoute>
+          }
+        ></Route>
+        <Route
+          path="/updateLesson/:id"
+          element={
+            <PrivateRoute isAdmin={true}>
+              <AddLesson />
+            </PrivateRoute>
+          }
+        ></Route>
         <Route path="/ShowCourseLessons/:courseId" element={<ShowLessons></ShowLessons>}></Route>
       </Routes>
       <ToastContainer />

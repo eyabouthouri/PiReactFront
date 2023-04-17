@@ -71,7 +71,7 @@ function Navbarback(props) {
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto navbar-list">
               <li>
-                <a href="profile.html" class="iq-waves-effect d-flex align-items-center">
+                <a href="" class="iq-waves-effect d-flex align-items-center">
                   <img src={process.env.PUBLIC_URL + "/imagee/" + userconnecte.image} class="img-fluid rounded-circle mr-3" alt="user" />
 
                   <div class="caption">

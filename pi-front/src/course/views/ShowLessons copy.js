@@ -7,68 +7,24 @@ import ShowLessonContent from "./ShowLessonContent";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { setUsers } from "../../redux/theme";
 
 axios.defaults.withCredentials = true;
 
 function ShowLessons(props) {
-  const { courseId } = useParams();
-  const [data, setData] = useState([]);
-  const timeOut = useRef(0);
-
-  useEffect(() => {
-    listLessons();
-  }, []);
-
-  const listLessons = async () => {
-    try {
-      const response = await axios.get("/lesson/listLessons/" + courseId);
-      setData(response.data);
-    } catch (e) {
-      toast.error("samahni smeh");
-    }
-  };
-
-  const deleteLesson = async (id) => {
-    try {
-      const response = await axios.delete(`/lesson/deleteLesson/${id}`, { withCredentials: true });
-      toast.success("lesson tfaskhet");
-      listLessons();
-    } catch (e) {
-      toast.error("tfasakhch");
-    }
-  };
-
-  const confirmDelete = (id) => {
-    confirmAlert({
-      title: "Confirm delete",
-      message: "Are you sure you want to delete this item?",
-      buttons: [
-        {
-          label: "Yes",
-          onClick: () => deleteLesson(id),
-        },
-        {
-          label: "No",
-          onClick: () => {},
-        },
-      ],
-    });
-  };
-
-  const search = async (text) => {
-    clearTimeout(timeOut.current);
-    timeOut.current = setTimeout(async () => {
-      try {
-        if (!text) {
-          listLessons();
-        } else {
-          const response = await axios.get(`/lesson/searchLesson/${text}`);
-          setData(response.data);
-        }
-      } catch (e) {
-        toast.error("error");
-      }
-    }, 1000);
+  const [state, setState] = useState();
+  // const x = useState();
+  // const state = x[0];
+  // const setState = x[1];
+  const users = useSelector((state) => state.theme.users);
+  const dispatch = useDispatch();
+  const updateUsers = () => {
+    dispatch(
+      setUsers({
+        users: ["Sami", "Dorsaf", "Wassim"],
+      })
+    );
   };
 
   return (

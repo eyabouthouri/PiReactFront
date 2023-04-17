@@ -1,85 +1,111 @@
 import React, { useEffect, useState } from "react";
-import Fildest from "../../components/Fildest";
 import Navbarback from "../../components/Navbarback";
 import SideBar from "../../components/SideBar";
-import StepDeux from "../../components/StepDeux";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import Progress from "../../components/Progress";
+import { useForm } from "react-hook-form";
 
-import { useNavigate, Link, NavLink } from "react-router-dom";
-import Course from "./ClientCourse";
 axios.defaults.withCredentials = true;
-const initialState = {
-  title: "",
-  description: "",
-  level: "",
-  category: "",
-  duration: "",
-  img: "",
-};
 
 function AddCourse(props) {
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    listL();
-  }, []);
-
-  const [state, setState] = useState(initialState);
-  const { title, desciption, level, category, duration, img } = state;
-  const listL = async () => {
-    const response = await axios.get("http://localhost:5000/course/listL");
-    if (response.status == 200) {
-      setData(response.data);
-    }
-  };
-
-  const addL = async (data) => {
-    const response = await axios.post("http://localhost:5000/course/addl", data);
-    toast.success(response.data);
-    listL();
-  };
-  const updateL = async (data, id) => {
-    const response = await axios.put(`http://localhost:5000/course/updatel/${id}`, data);
-    if (response.status == 200) {
-      toast.success(response.data);
-      listL();
-    }
-  };
-  var history = useNavigate();
-
+  const [uploadPercentage, setUploadPercentage] = useState(0);
+  const [state, setState] = useState({ title: "", description: "", level: "", category: "", duration: "", img: "" });
   const { id } = useParams();
+  var history = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm({ mode: "onBlur" });
+
   useEffect(() => {
     if (id) {
-      getOneL(id);
+      getCourse();
     }
-  }, [id]);
-  var self = this;
-  const getOneL = async (id) => {
-    const response = await axios.get(`http://localhost:5000/course/getOnel/${id}`);
-    setState({ ...response.data[0] });
+  }, []);
+
+  const getCourse = async () => {
+    try {
+      const response = await axios.get("/course/getOneCourse/" + id);
+      setState(response.data);
+    } catch (e) {
+      toast.error("error add");
+    }
   };
 
-  const Handelsubmit = (e) => {
-    e.preventDefault();
-    if (!id) {
-      addL(state);
-    } else {
-      updateL(state, id);
+  const addCourse = async (data, filePath) => {
+    try {
+      const response = await axios.post("/course/addCourse", {
+        title: data.title,
+        description: data.description,
+        level: data.level,
+        category: data.category,
+        duration: data.duration,
+        img: filePath,
+      });
+      toast.success("Course added Successfully");
+      history("/ShowCourse");
+    } catch (e) {
+      toast.error("Error Add");
     }
-    history("/ShowCourse");
+  };
+  const updateCourse = async (data, id, filePath) => {
+    try {
+      const response = await axios.put(`/course/updateCourse/${id}`, {
+        ...data,
+        img: filePath ?? data.img,
+      });
+      toast.success("Course Updated");
+      history("/ShowCourse");
+    } catch (e) {
+      toast.error("Update course error");
+    }
+  };
+
+  const Handelsubmit = async (e) => {
+    
+    let filePath;
+    try {
+      if (state.file) {
+        const formData = new FormData();
+        formData.append("file", state.file);
+        const res = await axios.post("/upload", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+          onUploadProgress: (progressEvent) => {
+            setUploadPercentage(parseInt(Math.round((progressEvent.loaded * 100) / progressEvent.total)));
+          },
+        });
+        filePath = res.data.filePath;
+      }
+      if (!id) {
+        addCourse(state, filePath);
+      } else {
+        updateCourse(state, id, filePath);
+      }
+    } catch (err) {
+      toast.error("There was a problem with the server");
+      setUploadPercentage(0);
+    }
   };
   const handleInputChange = (e) => {
     let { name, value } = e.target;
-    setState({ ...state, [name]: value });
+    if (e.target.type === "file") {
+      setState({ ...state, file: e.target.files[0], fileName: e.target.files[0].name });
+    } else {
+      setState({ ...state, [name]: value });
+    }
   };
 
   return (
     <div id="content-page" class="content-page">
-      <div id="root">
+      <div>
         <Navbarback />
-        <div id="root">
+        <div>
           <SideBar />
         </div>
       </div>
@@ -96,13 +122,7 @@ function AddCourse(props) {
                 <li class="active" id="account">
                   <a href="javascript:void();">
                     <i class="ri-lock-unlock-line"></i>
-                    <span>Account</span>
-                  </a>
-                </li>
-                <li id="payment">
-                  <a href="javascript:void();">
-                    <i class="ri-camera-fill"></i>
-                    <span>Image</span>
+                    <span>Add Course</span>
                   </a>
                 </li>
                 <li id="confirm">
@@ -112,53 +132,79 @@ function AddCourse(props) {
                   </a>
                 </li>
               </ul>
-              <form id="form-wizard1" class="text-center mt-4" methode="POST" onSubmit={Handelsubmit}>
-                <div class="form-card text-left">
-                  <div class="row">
-                    <div class="col-7">
-                      <h3 class="mb-4">Course Information:</h3>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label htmlFor="title">Title </label>
-                        <input type="text" className="form-control" name="title" placeholder="title" onChange={handleInputChange} value={state.title} />
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label htmlFor="description">Description</label>
-                          <input type="text" className="form-control" name="description" placeholder="description" onChange={handleInputChange} value={state.description} />
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label htmlFor="level">Level</label>
-                          <input type="text" className="form-control" name="level" placeholder="level" onChange={handleInputChange} value={state.level} />
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label htmlFor="category">category</label>
-                          <input type="text" className="form-control" name="category" placeholder="category" onChange={handleInputChange} value={state.category} />
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label htmlFor="Duration">duration</label>
-                          <input type="number" className="form-control" name="duration" placeholder="duration" onChange={handleInputChange} value={state.duration} />
-                        </div>
-                      </div>
-                      <div className="form-group">
-                        <label for="file-upload">Photo</label>
-                        <input id="file-upload" type="file" name="img" onChange={handleInputChange} value={state.img}></input>
+              {(!id || state._id) && (
+                <form id="form-wizard1" class="text-center mt-4" methode="POST" onSubmit={handleSubmit(Handelsubmit)}>
+                  <div class="form-card text-left">
+                    <div class="row">
+                      <div class="col-7">
+                        <h3 class="mb-4">Course Information:</h3>
                       </div>
                     </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label htmlFor="title">Title </label>
+                          <input type="text" className={"form-control " + (errors.title ? "is-invalid" : "")} name="title" placeholder="title" {...register("title", { required: true, minLength: 5 })} onChange={handleInputChange} value={state.title} />
+                          {errors.title && <span style={{ color: "red" }}> Title is required and must be more than 5 caracteres</span>}
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label htmlFor="description">Description</label>
+                            <textarea type="text" className={"form-control " + (errors.description ? "is-invalid" : "")} name="description" {...register("description", { required: true, minLength: 2 })} placeholder="description" onChange={handleInputChange} value={state.description} />
+                            {errors.description && <span style={{ color: "red" }}> Description is required and must be more than 5 caracteres</span>}
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label htmlFor="level">Level</label>
+                            <input type="text" className={"form-control " + (errors.level ? "is-invalid" : "")} name="level" placeholder="level" {...register("level", { required: true, minLength: 2 })} onChange={handleInputChange} value={state.level} />
+                            {errors.level && <span style={{ color: "red" }}> Level is required and must be more than 5 caracteres</span>}
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label htmlFor="category">Category</label>
+                            <select value={state.category} name="type" className={"form-control " + (errors.category ? "is-invalid" : "")} {...register("category", { required: true })} onChange={handleInputChange}>
+                              <option disabled selected value>
+                                {" "}
+                                -- select an option --{" "}
+                              </option>
+                              <option value="Music">Music</option>
+                              <option value="Painting">Painting</option>
+                              <option value="Fitness">Fitness</option>
+                              <option value="Langues">Langues</option>
+                              
+                            </select>
+                            {errors.category && <span style={{ color: "red" }}> Category is required and must be more than 5 caracteres</span>}
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label htmlFor="Duration">duration</label>
+                            <input type="number" className={"form-control " + (errors.duration ? "is-invalid" : "")}  name="duration" {...register("duration", { required: true })} placeholder="duration" onChange={handleInputChange} value={state.duration} />
+                            {errors.duration && <span style={{ color: "red" }}> Duration is required and must be more than 5 caracteres</span>}
+                          </div>
+                        </div>
+                        <div className="form-group">
+                          <label for="file-upload">Photo</label>
+                          <br></br>
+                          <input id="file-upload" type="file" name="img" {...register("img" , {required: !id})} onChange={handleInputChange}></input>
+                          {errors.img && <span style={{ color: "red" }}> Select a picture</span>}
+                          {id && state._id && <img width={200} height={200} src={state.img}></img>}
+                        </div>
+                        <Progress percentage={uploadPercentage} />
+                      </div>
+                    </div>
+                    <br></br>
+                    <input className="btn btn-primary " type="submit" value={id ? "Update" : "Add"} disabled={!isValid} />
                   </div>
-
-                  <input type="submit" value={id ? "Update" : "Add"} />
+                </form>
+              )}
+              {!state._id && id && (
+                <div class="spinner-border text-primary" role="status">
+                  <span class="sr-only">Loading...</span>
                 </div>
-              </form>
+              )}
             </div>
             <div />
           </div>

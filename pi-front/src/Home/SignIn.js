@@ -6,12 +6,12 @@ import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 import { useDispatch } from "react-redux";
 import { setIsLoggedin } from "../redux/session";
 import ReCAPTCHA from "react-google-recaptcha";
-import { LoginSocialFacebook } from 'reactjs-social-login';
-import { FacebookLoginButton } from 'react-social-login-buttons';
+import { LoginSocialFacebook } from "reactjs-social-login";
+import { FacebookLoginButton } from "react-social-login-buttons";
 
 axios.defaults.withCredentials = true;
 function SignIn(props) {
-  const onChange=()=>{};
+  const onChange = () => {};
   const dispatch = useDispatch();
 
   const [error, setError] = useState("");
@@ -54,7 +54,7 @@ function SignIn(props) {
       });
 
     const data = res.data;
-    dispatch(setIsLoggedin({token: data.token, isAdmin:data.userexisting?.role=="admin"}));
+    dispatch(setIsLoggedin({ token: data.token, isAdmin: data.userexisting?.role == "admin" }));
     console.log(data);
     return data;
   };
@@ -91,7 +91,7 @@ function SignIn(props) {
       const { data } = await axios.post("/users/googlelogin", {
         token: response.credential,
       });
-      dispatch(setIsLoggedin({token : data.token, isAdmin: false}));
+      dispatch(setIsLoggedin({ token: data.token, isAdmin: false }));
       history("/home");
     } catch (err) {
       setError(error.response.data.error);
@@ -169,10 +169,10 @@ function SignIn(props) {
                         Sign in
                       </button>
                       <ReCAPTCHA
-    sitekey="6LcSCQAlAAAAAPa-MzAuKjh1TewNVr7-xf-RUTJQ
+                        sitekey="6LcSCQAlAAAAAPa-MzAuKjh1TewNVr7-xf-RUTJQ
     "
-    onChange={onChange}
-  />
+                        onChange={onChange}
+                      />
                     </div>
                     <br></br>
                     <br></br>
@@ -182,24 +182,21 @@ function SignIn(props) {
                         <GoogleOAuthProvider clientId="89869161971-9i90tpaak744qss86o926bg663jctuie.apps.googleusercontent.com">
                           <GoogleLogin locale="en" text="signin with google" onSuccess={responseSuccessGoogle} onError={responseErrorGoogle} auto_select={false} useOneTap={false} style={{ zIndex: 50 }} />
                         </GoogleOAuthProvider>
-                        
                       </li>
                       <li>
-                     
-                      <LoginSocialFacebook
- appId="933278841178337"
- onResolve={(response)=>{
-   console.log(response);
-   history("/home")
- }}
- onReject={(error)=>{
-   console.log(error);
- }}
- >
- <FacebookLoginButton/>
-</LoginSocialFacebook>
+                        <LoginSocialFacebook
+                          appId="933278841178337"
+                          onResolve={(response) => {
+                            console.log(response);
+                            history("/home");
+                          }}
+                          onReject={(error) => {
+                            console.log(error);
+                          }}
+                        >
+                          <FacebookLoginButton />
+                        </LoginSocialFacebook>
                       </li>
-                      
                     </ul>
                     <br></br>
                     <div className="sign-info">
