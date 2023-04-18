@@ -1,6 +1,41 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState,setState } from 'react';
+import { Link, useParams,useNavigate } from 'react-router-dom';
 
+import { Store } from "react-notifications-component";
 function Topnav(props) {
+
+   const [userconnecte, setUserconnecte] = useState([]);
+    
+ const [data,setData]=useState([]);
+ var history = useNavigate
+ useEffect(() => {
+      
+   userconnectee().then((d) => {
+
+    setUserconnecte(d);
+    console.log(userconnecte)
+  
+ });
+  
+  
+}, [])
+ const userconnectee = async()=>{
+
+   const res = await axios
+   .get("http://localhost:5000/users/userconnecte", {
+     withCredentials: true,
+
+   })
+   .catch((err) => console.log(err));
+   setUserconnecte(res.data)
+   if(res.data == [])
+   {
+      history("/")
+
+   }
+   return res.data;
+}
     return (
         <div>
           <div class="iq-top-navbar">
@@ -34,9 +69,16 @@ function Topnav(props) {
                   </button>
                   <div class="collapse navbar-collapse" id="navbarSupportedContent">
                      <ul class="navbar-nav ml-auto navbar-list">
-                        <li>
-                          
-                        </li>
+                     <li>
+                       <a href="profile.html" class="iq-waves-effect d-flex align-items-center">
+                          <img src={process.env.PUBLIC_URL+"/imagee/"+userconnecte.image} class="img-fluid rounded-circle mr-3" alt="user"/>
+
+                          <div class="caption">
+                             <h6 class="mb-0 line-height">{userconnecte.name} {userconnecte.lastname}</h6>
+                          </div>
+                       </a>
+                    </li>
+                    
                         <li>
                            <a href="index.html" class="iq-waves-effect d-flex align-items-center">
                            <i class="ri-home-line"></i>

@@ -24,6 +24,7 @@ useEffect(() => {
    fetchData();
  }, []);
  const [triAscendant, setTriAscendant] = useState(true);
+ const [user, setUser] = useState([]);
 
 const [currentPage, setCurrentPage] = useState(1);
 const [itemsPerPage, setItemsPerPage] = useState(4);
@@ -95,7 +96,7 @@ const listA = async()=>{
                                        <th>Duration</th>
                                        <th>city</th>
                                        <th>Age</th>
-                                       <th>Id</th>
+                                       <th>Id Library</th>
                                        <th>Action</th>
 
                                     </tr>
@@ -115,7 +116,7 @@ const listA = async()=>{
                                        <td class="contenteditable">{item.Duration}</td>
                                        <td class="contenteditable">{item.city}</td>
                                        <td class="contenteditable">{item.age}</td>
-                                       <td class="contenteditable">{item._id}</td>
+                                       <td class="contenteditable">{item.Libraryid}</td>
 
 
                               

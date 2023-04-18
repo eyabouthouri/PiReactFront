@@ -20,6 +20,8 @@ function Addabonnement() {
   const { Libraryid ,id} = useParams();
   const [msg, setmsg] = useState({});
   const [valid, setValid] = useState(true);
+  const [user, setUser] = useState([]);
+  const [userconnecte, setUserconnecte] = useState([]);
   const [state, setState] = useState({nom:"",
   prenom:"",
   age:"",
@@ -28,26 +30,62 @@ function Addabonnement() {
   email:"",
   image:"",
   Duration:"",
-  Libraryid
-});
+  Libraryid,
+  userid:userconnecte._id,
 
-  const addA = async (data)=> {
-   try{
-     const response = await axios.post("http://localhost:5000/abonnement/adda",data)
-     
-    
-     history("/library");
+});
+useEffect(() => {
+      
+   userconnectee().then((d) => {
+
+    setUserconnecte(d);
+    console.log(userconnecte)
+  
+ });
+  
+  
+}, [])
+const userconnectee = async()=>{
+
+   const res = await axios
+   .get("http://localhost:5000/users/userconnecte", {
+     withCredentials: true,
+
+   })
+   .catch((err) => console.log(err));
+   setUserconnecte(res.data)
+   if(res.data == [])
+   {
+      history("/")
 
    }
-    catch (err) {
-      setValid(false);
-      console.error(err.response.data);
-      setmsg(err.response.data);
-
-    }
-
-
-  };
+   return res.data;
+}
+const addA = async (data)=> {
+   try{
+     const response = await axios.post("http://localhost:5000/abonnement/adda", {
+       nom: state.nom,
+       prenom: state.prenom,
+       age: state.age,
+       tel: state.tel,
+       city: state.city,
+       email: state.email,
+       image: state.image,
+       Duration: state.Duration,
+       userid: userconnecte._id,
+       Libraryid: state.Libraryid
+     });
+     
+     history("/library");
+ 
+   }
+   catch (err) {
+     setValid(false);
+     console.error(err.response.data);
+     setmsg(err.response.data);
+   }
+ };
+ 
   function handleaddclick() {
     setShowPage(true);
   }
@@ -65,6 +103,25 @@ function Addabonnement() {
       let{name, value}=e.target;
       setState({...state, [name]:value });
  };
+ const getuserbyid = async(id)=>{
+   const pa = await axios.get(`http://localhost:5000/commentaire/getuserbyid/${id}`, {
+    withCredentials: true,
+  }).catch((err) => console.log(err));
+//  setpatient(res.data)
+  return pa.data;
+}
+  
+useEffect(() => {
+   
+getuserbyid(data).then((d) => {
+
+   setUser(d);
+ console.log(user)
+
+});
+
+
+}, []) 
  const countrySelect = document.querySelector('#country-select');
 
  function fillCountrySelect() {

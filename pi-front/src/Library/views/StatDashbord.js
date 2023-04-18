@@ -84,13 +84,15 @@ function StatDashbord(props) {
   
     return (
 
-        
+      <div class="content-page">
+
            
           <div className="col-md-3 ms-sm-auto col-lg-12 px-md-4">
             <div className="d-flex justify-content-center">
-              <div className="" style={{ width: '900px', height: '700px' }}>
+              <div  id="stat-content" style={{ width: '900px', height: '700px' }}>
               <canvas id="myChart" ></canvas>
-      </div></div></div>
+      </div></div></div></div>
+
     );
   }
   

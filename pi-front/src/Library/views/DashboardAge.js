@@ -55,11 +55,12 @@ function DashboardAge() {
   
 
   return (
-    <div >
+<div id="content-page" class="content-page">
+<div  id="stat-content" style={{ width: '1000px', height: '500px' }}>
 
                 {error && <div className="error">{error}</div>}
                  <canvas ref={chartRef} />
-
+</div>
             </div>
      
   );

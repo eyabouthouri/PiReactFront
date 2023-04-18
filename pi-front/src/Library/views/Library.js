@@ -4,6 +4,13 @@ import Topnav from '../../components/Topnav';
 import { useNavigate,Link,NavLink, useParams } from 'react-router-dom';
 import AffCmntr from './AffCmntr';
 import { toast } from "react-toastify";
+import { Map, GoogleApiWrapper } from "google-maps-react";
+import MapContainer from './MapContainer';
+
+const mapStyles = {
+  width: "100%",
+  height: "100%",
+};
 
 axios.defaults.withCredentials = true;
 
@@ -73,6 +80,7 @@ const search = async (text) => {
 const listL = async()=>{
 const response = await axios.get("http://localhost:5000/library/listL");
 if(response.status ==200){
+   
    setData(response.data);
 }
 }
@@ -115,7 +123,7 @@ if(response.status ==200){
   <path fill-rule="evenodd" d="M3.1 11.2a.5.5 0 0 1 .4-.2H6a.5.5 0 0 1 0 1H3.75L1.5 15h13l-2.25-3H10a.5.5 0 0 1 0-1h2.5a.5.5 0 0 1 .4.2l3 4a.5.5 0 0 1-.4.8H.5a.5.5 0 0 1-.4-.8l3-4z"/>
   <path fill-rule="evenodd" d="M4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999z"/>
 </svg>
-  Adresse : {item.adresse } <br></br>  
+  Adresse : {item.location } <br></br>  
 
   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-open-fill" viewBox="0 0 16 16">
   <path d="M8.941.435a2 2 0 0 0-1.882 0l-6 3.2A2 2 0 0 0 0 5.4v.314l6.709 3.932L8 8.928l1.291.718L16 5.714V5.4a2 2 0 0 0-1.059-1.765l-6-3.2ZM16 6.873l-5.693 3.337L16 13.372v-6.5Zm-.059 7.611L8 10.072.059 14.484A2 2 0 0 0 2 16h12a2 2 0 0 0 1.941-1.516ZM0 13.373l5.693-3.163L0 6.873v6.5Z"/>
@@ -152,7 +160,7 @@ if(response.status ==200){
                                   abonnement
                                 </button>
                               </Link></div>
-                             
+
                               <div class="card-body">
   </div>
   </div>    </div>  </div>
@@ -165,14 +173,16 @@ if(response.status ==200){
                                                           </div>
                                                    </li>
                                                 </ul>
-</div>          
+</div>
                         </div>  </div>        
                         </div>
                                        
                         <br></br>
 
 
-                     </div>   )                           
+                     </div> 
+                     
+                     )                           
                               })}  
 
                      </div>              

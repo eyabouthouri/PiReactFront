@@ -38,6 +38,8 @@ import AbonnementStat from './Library/views/AbonnementStat'
 import StatDashbord from './Library/views/StatDashbord';
 import DashbordAge from './Library/views/DashboardAge'
 import Dashboard from './Library/views/Dashboard';
+import Pdf from './Library/views/Pdf';
+import MapContainer from './Library/views/MapContainer';
 function App()  {
 
   let { id } = useParams();
@@ -62,7 +64,6 @@ function App()  {
         <Route path='/AddCoach' element={<AddCoach></AddCoach>}></Route>
         <Route path='/AddCourse' element={<AddCourse></AddCourse>}></Route>
         <Route path='/ShowCmntr' element={<ShowCmntr></ShowCmntr>}></Route>
-        <Route path='/in' element={<FormInputComment></FormInputComment>}></Route>
 
         <Route path='/library' element={<Library></Library>}></Route>
         <Route path='/updateL/:id' element={<UpdateLibrary/>}></Route>
@@ -81,9 +82,9 @@ function App()  {
         <Route path='/updatea/:id' element ={<UpdateAbb></UpdateAbb>}></Route>
         <Route path='/cm' element={<Cm></Cm>}></Route>
         <Route path='/stat/:Libraryid' element={<AbonnementStat></AbonnementStat>}></Route>
-        <Route path='/s' element={<StatDashbord></StatDashbord>}></Route>
-        <Route path='/age' element={<DashbordAge></DashbordAge>}></Route>
         <Route path='/dashbord' element={<Dashboard></Dashboard>}></Route>
+        <Route path='/pdf' element={<Pdf></Pdf>}></Route>
+        <Route path='/map' element={<MapContainer></MapContainer>}></Route>
 
       </Routes>
    </div>   

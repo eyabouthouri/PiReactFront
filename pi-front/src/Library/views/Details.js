@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState,setState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams,useNavigate } from 'react-router-dom';
 import Library from './Library';
 import DetailAddCmntr from './DetailAddCmntr'
 import AffCmntr from './AffCmntr';
@@ -22,18 +22,50 @@ const initialState= {
     tel:"",
    Image:""
  }
+ const [userconnecte, setUserconnecte] = useState([]);
+    
+ const [data,setData]=useState([]);
+ var history = useNavigate
+ useEffect(() => {
+      
+   userconnectee().then((d) => {
 
+    setUserconnecte(d);
+    console.log(userconnecte)
+  
+ });
+  
+  
+}, [])
+ const userconnectee = async()=>{
 
+   const res = await axios
+   .get("http://localhost:5000/users/userconnecte", {
+     withCredentials: true,
 
+   })
+   .catch((err) => console.log(err));
+   setUserconnecte(res.data)
+   if(res.data == [])
+   {
+      history("/")
+
+   }
+   return res.data;
+}
  const listC = async()=>{
     const response = await axios.get(`http://localhost:5000/commentaire/listc/${Libraryid}`);
     if (response.status == 200) {
-        console.log("aaaaaaaaaaa", response.data);
-        setData(response.data);
-      }  
-    };
-   
-    const [data,setData,userconnecte, setUserconnecte]=useState([]);
+      const newData = await Promise.all(
+        response.data.map(async (comment) => {
+          const user = await getuserbyid(comment.userid);
+          return { ...comment, user };
+        })
+      );
+      setData(newData);
+    }
+     }  
+
     useEffect(() =>{
        
         getOneL(Libraryid);
@@ -41,6 +73,7 @@ const initialState= {
      
      },[Libraryid])  
      const [comments, setComments] = useState([]);
+     const [user, setUser] = useState([]);
 
      useEffect(() => {
       axios.get(`http://localhost:5000/commentaire/listc/${Libraryid}`)
@@ -81,7 +114,25 @@ const initialState= {
   
 
   }     
+  const getuserbyid = async(id)=>{
+   const pa = await axios.get(`http://localhost:5000/commentaire/getuserbyid/${id}`, {
+    withCredentials: true,
+  }).catch((err) => console.log(err));
+//  setpatient(res.data)
+  return pa.data;
+}
+  
+useEffect(() => {
+   
+getuserbyid(data).then((d) => {
 
+   setUser(d);
+ console.log(user)
+
+});
+
+
+}, []) 
  
  
   function refreshPage() {
@@ -101,6 +152,13 @@ const initialState= {
 <div class="col-lg-12">
          <div class="iq-edit-list-data">
             <div class="tab-content">
+            <ul class="navbar-nav ml-auto navbar-list">
+                    <li>
+                       <a href="profile.html" class="iq-waves-effect d-flex align-items-center">
+                      
+                       </a>
+                    </li>
+                    </ul>
                <div class="tab-pane fade active show" id="personal-information" role="tabpanel">
                   <div class="iq-card">
                      <div class="iq-card-header d-flex justify-content-between">
@@ -125,7 +183,8 @@ const initialState= {
          return(
             <div class="d-flex flex-wrap">
             <div class="user-img">
-            &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  <h7>  Eya bouthouri</h7>
+            &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+            {item.user.username} {item.user.lastname}
             </div>
             <div class="comment-data-block ml-3">
               

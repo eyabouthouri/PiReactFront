@@ -107,7 +107,7 @@ function ShowLiabrary(props) {
                       <th>Image</th>
                       <th>name</th>
                       <th>pays</th>
-                      <th>adresse </th>
+                      <th>location </th>
                       <th>email</th>
                       <th>Tel</th>
                       <th>id</th>
@@ -124,7 +124,7 @@ function ShowLiabrary(props) {
       </td>
       <td class="contenteditable">{item.name}</td>
       <td class="contenteditable">{item.pays}</td>
-      <td class="contenteditable">{item.adresse}</td>
+      <td class="contenteditable">{item.location}</td>
       <td class="contenteditable">{item.email}</td>
       <td class="contenteditable">{item.tel}</td>
       <td class="contenteditable">{item._id}</td>

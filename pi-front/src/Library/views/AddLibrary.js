@@ -12,7 +12,7 @@ const initialState = {
   name: "",
   pays: "",
   email: "",
-  adresse: "",
+  location: "",
   tel: "",
   img: ""
 };
@@ -130,9 +130,9 @@ function AddLibrary(props) {
                               {!valid && msg.pays && <span style={{ color: "red" }}>{msg.pays}!! </span>}
                             </div>
                             <div className="form-group col-sm-6">
-                              <label htmlFor="adresse">Adresse:</label>
-                              <textarea type="text" className="form-control" name="adresse" placeholder="write your complete address please..." onChange={handleInputChange} value={state.adresse}/>
-                              {!valid && msg.adresse && <span style={{ color: "red" }}>{msg.adresse}!! </span>}
+                              <label htmlFor="location">Adresse:</label>
+                              <textarea type="text" className="form-control" name="location" placeholder="write your complete address please..." onChange={handleInputChange} value={state.location}/>
+                              {!valid && msg.location && <span style={{ color: "red" }}>{msg.location}!! </span>}
                             </div>
                                         <div className="form-group col-sm-6">
                                            <label Htmlfor="email"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-envelope-at" viewBox="0 0 16 16">
