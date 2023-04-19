@@ -96,11 +96,13 @@ function ShowLessons(props) {
             </div>
             <div class="container">
               <div id="table" class="table-editable">
-                <Link to={`/AddLesson/${courseId}`}>
-                  <button type="button" class="btn iq-bg-danger btn-rounded btn-sm my-0">
+                <Link to={`/AddLesson/${courseId}`} style={{ float: "right" }}>
+                  <button type="button" class="btn btn-primary" style={{ float: "right" }}>
                     Add new lesson
                   </button>
                 </Link>
+                <br></br>
+                <br></br>
                 <div class="iq-search-bar">
                   <div class="searchbox">
                     <input type="text" class="text search-input" placeholder="Type here to search..." onChange={(e) => search(e.target.value)} />
@@ -111,12 +113,12 @@ function ShowLessons(props) {
                   </div>
                 </div>
                 <table class="table table-bordered table-responsive-md table-striped text-center">
-                  <thead class="thead-dark">
+                  <thead class="thead-ligh" style={{ backgroundColor: "#4d8cc4", color: "white" }}>
                     <tr>
                       <th>Number</th>
                       <th>Type </th>
                       <th>Content</th>
-                      <th>Action</th>
+                      <th colspan="2">Action</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -131,12 +133,14 @@ function ShowLessons(props) {
                             </td>
                             <td>
                               <Link to={`/updateLesson/${item._id}`}>
-                                <button type="button" class="btn iq-bg-danger btn-rounded btn-sm my-0">
-                                  update
+                                <button type="button" className="btn btn-danger ">
+                                  Update
                                 </button>
                               </Link>
-                              <button type="button" class="btn iq-bg-danger btn-rounded btn-sm my-0" onClick={() => confirmDelete(item._id)}>
-                                delete
+                            </td>
+                            <td>
+                              <button type="button" className="btn btn-danger " onClick={() => confirmDelete(item._id)}>
+                                Delete
                               </button>
                             </td>
                           </tr>

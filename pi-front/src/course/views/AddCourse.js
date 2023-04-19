@@ -66,7 +66,6 @@ function AddCourse(props) {
   };
 
   const Handelsubmit = async (e) => {
-    
     let filePath;
     try {
       if (state.file) {
@@ -157,23 +156,34 @@ function AddCourse(props) {
                         <div class="col-md-6">
                           <div class="form-group">
                             <label htmlFor="level">Level</label>
-                            <input type="text" className={"form-control " + (errors.level ? "is-invalid" : "")} name="level" placeholder="level" {...register("level", { required: true, minLength: 2 })} onChange={handleInputChange} value={state.level} />
-                            {errors.level && <span style={{ color: "red" }}> Level is required and must be more than 5 caracteres</span>}
+                            <select value={state.level} name="level" className={"form-control " + (errors.level ? "is-invalid" : "")} {...register("level", { required: true })} onChange={handleInputChange}>
+                              <option selected value="" disabled hidden>
+                                -- select an option --
+                              </option>
+                              <option value="beginner">Beginner</option>
+                              <option selected value="competent">
+                                Competent
+                              </option>
+                              <option value="proficient">Proficient</option>
+                              <option value="expert">Expert</option>
+                            </select>
+                            {errors.level && <span style={{ color: "red" }}> Select a level</span>}
                           </div>
                         </div>
                         <div class="col-md-6">
                           <div class="form-group">
                             <label htmlFor="category">Category</label>
-                            <select value={state.category} name="type" className={"form-control " + (errors.category ? "is-invalid" : "")} {...register("category", { required: true })} onChange={handleInputChange}>
-                              <option disabled selected value>
-                                {" "}
-                                -- select an option --{" "}
+                            <select value={state.category} name="category" className={"form-control " + (errors.category ? "is-invalid" : "")} {...register("category", { required: true })} onChange={handleInputChange}>
+                              <option selected value="" disabled hidden>
+                                -- select an option --
                               </option>
-                              <option value="Music">Music</option>
-                              <option value="Painting">Painting</option>
-                              <option value="Fitness">Fitness</option>
-                              <option value="Langues">Langues</option>
-                              
+                              <option value="music">Music</option>
+                              <option value="painting">Painting</option>
+                              <option value="fitness">Fitness</option>
+                              <option value="yoga">Yoga</option>
+                              <option value="dance">Dance</option>
+                              <option value="cooking">Cooking</option>
+                              <option value="langues">Langage</option>
                             </select>
                             {errors.category && <span style={{ color: "red" }}> Category is required and must be more than 5 caracteres</span>}
                           </div>
@@ -181,14 +191,14 @@ function AddCourse(props) {
                         <div class="col-md-6">
                           <div class="form-group">
                             <label htmlFor="Duration">duration</label>
-                            <input type="number" className={"form-control " + (errors.duration ? "is-invalid" : "")}  name="duration" {...register("duration", { required: true })} placeholder="duration" onChange={handleInputChange} value={state.duration} />
+                            <input type="number" className={"form-control " + (errors.duration ? "is-invalid" : "")} name="duration" {...register("duration", { required: true })} placeholder="duration" onChange={handleInputChange} value={state.duration} />
                             {errors.duration && <span style={{ color: "red" }}> Duration is required and must be more than 5 caracteres</span>}
                           </div>
                         </div>
                         <div className="form-group">
                           <label for="file-upload">Photo</label>
                           <br></br>
-                          <input id="file-upload" type="file" name="img" {...register("img" , {required: !id})} onChange={handleInputChange}></input>
+                          <input id="file-upload" type="file" name="img" {...register("img", { required: !id })} onChange={handleInputChange}></input>
                           {errors.img && <span style={{ color: "red" }}> Select a picture</span>}
                           {id && state._id && <img width={200} height={200} src={state.img}></img>}
                         </div>

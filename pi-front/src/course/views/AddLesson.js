@@ -171,20 +171,18 @@ function AddLesson(props) {
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label htmlFor="description">Content Type</label>
-                          <div class="col-sm-10">
-                            <select name="type" className={"form-control " + (errors.type ? "is-invalid" : "")} {...register("type", { required: true })} onChange={handleInputChange}>
-                              <option disabled selected value>
-                                {" "}
-                                -- select an option --{" "}
-                              </option>
-                              <option value="image">Image</option>
-                              <option value="video">Video</option>
-                              <option value="text">Text</option>
-                              <option value="youtube">Youtube</option>
-                            </select>
-                            {errors.type && <span style={{ color: "red" }}>Select a lesson type</span>}
-                          </div>
+                          <label htmlFor="content">Content Type</label>
+                          <select value={state.type} name="type" className={"form-control " + (errors.type ? "is-invalid" : "")} {...register("type", { required: true })} onChange={handleInputChange}>
+                            <option selected value="" disabled hidden>
+                              {" "}
+                              -- select an option --{" "}
+                            </option>
+                            <option value="image">Image</option>
+                            <option value="video">Video</option>
+                            <option value="text">Text</option>
+                            <option value="youtube">Youtube</option>
+                          </select>
+                          {errors.type && <span style={{ color: "red" }}>Select a lesson type</span>}
                         </div>
                       </div>
                       <div class="col-md-6">

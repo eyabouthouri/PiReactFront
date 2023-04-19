@@ -35,14 +35,17 @@ function ClientCourse(props) {
         <Navbar className="navbar" />
         <div class="header-for-bg" style={{ marginTop: 0 }}>
           <div class="background-header position-relative">
-            <img src="/images/page-img/profile-bg9.jpg" class="img-fluid w-100 rounded rounded" alt="profile-bg" />
+            <img src="/images/oo.jpg" class="img-fluid w-100 rounded rounded" style={{ height: 450 }} alt="profile-bg" />
             <div class="title-on-header">
-              <div class="data-block">
-                <h2>Learn and Enjoy!</h2>
-              </div>
+              {/* <div class="data-block">
+                {/* <h2>Learn and Enjoy!</h2> 
+              </div> */}
             </div>
           </div>
         </div>
+        <br></br>
+        <br></br>
+
         <div className="content-page">
           <ThemeButton />
           <div className="container">
@@ -65,18 +68,21 @@ function ClientCourse(props) {
                             <div class="events-detail ml-3">
                               <p style={{ marginBottom: 0 }}>Description : {item.description}</p>
                               <p style={{ marginBottom: 0 }}>Level : {item.level}</p>
-                              <p style={{ marginBottom: 30 }}>Category : {item.category}</p>
+                              <p style={{ marginBottom: 0 }}>Category : {item.category}</p>
+                              <p style={{ marginBottom: 30 }}>
+                                <i class="bi bi-clock"></i> Duration : {item.duration} Hours
+                              </p>
                             </div>
                           </div>
                           <div class="col-sm-24 d-flex row justify-content-center">
                             {item.lessons.length === 0 && (
                               <i className="bi bi-info-circle" style={{ color: "orange" }}>
                                 {" "}
-                                This course has no lessons{" "}
+                                This class has no lessons{" "}
                               </i>
                             )}
                             <div data-tooltip-id={"my-tooltip" + index}>
-                              <Tooltip id={"my-tooltip" + index} content={item.lessons.length === 0 ? "Course has no lessons" : ""} />
+                              <Tooltip id={"my-tooltip" + index} content={item.lessons.length === 0 ? "Class has no lessons" : ""} />
                               <div className={"btn buttonLink " + (item.lessons.length === 0 ? "disabled" : "")} data-toggle={isLoggedIn ? "" : "modal"} data-target="#CourseSignIn">
                                 {isLoggedIn ? (
                                   <Link to={`/clientLesson/${item._id}`} className="buttonLink">
