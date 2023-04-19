@@ -72,19 +72,17 @@ const [user, setUser] = useState([]);
          Libraryid:state.Libraryid,
          dateEnvoi:state.dateEnvoi
       
-      }
-      
-      ,{withCredentials: true }).then(
+      });
+      setState({ ...state, description: "" }); // clear the input field
 
-     ) 
-     listC();
+     toast.success("comment added Successfully");
 
    }
       catch (err) {
         setValid(false);
         console.error(err.response.data);
         setmsg(err.response.data);
-  
+
       }
   
     };
@@ -121,7 +119,6 @@ const [user, setUser] = useState([]);
          setState({ ...state, description: "" }); // clear the input field
        
       });
-      listC();
 
    };
 

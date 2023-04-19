@@ -6,6 +6,7 @@ import StepDeux from '../../components/StepDeux';
 import Topnav from '../../components/Topnav';
 import Aff from './Aff';
 import { Store } from "react-notifications-component";
+import Navbar from "../../components/Navbar";
 
 import { useNavigate,Link,NavLink } from 'react-router-dom';
 
@@ -76,15 +77,16 @@ const addA = async (data)=> {
        Libraryid: state.Libraryid
      });
      
+     toast.success("abonement added Successfully");
      history("/library");
- 
-   }
-   catch (err) {
-     setValid(false);
-     console.error(err.response.data);
-     setmsg(err.response.data);
+   } catch (e) {
+      setValid(false);
+      setmsg(e.response.data);
+
+     toast.error("Error Add");
    }
  };
+  
  
   function handleaddclick() {
     setShowPage(true);
@@ -150,7 +152,7 @@ getuserbyid(data).then((d) => {
   return (
    <div id="root">
 
-<Topnav/>
+<Navbar className="navbar" />
 <br></br><br></br><br></br><br></br>
 <br></br><br></br>
     <div   class="container">
@@ -246,8 +248,7 @@ getuserbyid(data).then((d) => {
                                  </div>
                               </div>
                            </div>
-                          
-                                 </div>
+                                        </div>
                               </div>
                            </div>
                         

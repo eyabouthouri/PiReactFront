@@ -38,10 +38,11 @@ function AddLibrary(props) {
   const addL = async (data) => {
     try {
       const response = await axios.post('http://localhost:5000/library/addl', data);
+      toast.success("abonement added Successfully");
       history('/ShowLiabrary');
     } catch (err) {
       setValid(false);
-      console.error(err.response.data);
+      toast.error("Error Add");
       setmsg(err.response.data);
     }
   };

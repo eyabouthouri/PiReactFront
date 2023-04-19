@@ -141,8 +141,6 @@ function Details(props) {
                     </div>
                     <Aff />
                     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                    <i class="bi bi-star-fill"></i>J'aime &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <i class="bi bi-chat-dots"></i> commenter &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                    <i class="bi bi-facebook"></i>Partager &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                     <br></br> <br></br>
                     <div class="user-img">
                       {data &&
@@ -159,7 +157,6 @@ function Details(props) {
                                   <a href="javascript:void();" onClick={() => deleteC(item._id)} onnClick={refreshPage}>
                                     delete
                                   </a>
-                                  <a href="javascript:void();">translate</a>
                                   <span>{item.dateEnvoi}</span>
                                 </div>
                               </div>
