@@ -1,114 +1,164 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState,useRef } from 'react';
 import Navbarback from '../../components/Navbarback';
 import SideBar from '../../components/SideBar';
-function ShowLiabrary(props) {
-    return (
-        <div id="content-page" class="content-page">          
+import { Link, useParams } from 'react-router-dom';
+import { toast } from "react-toastify";
+import Library from './Library';
+import Pagination from './Pagination';
 
-        <div id="root"> 
-        <Navbarback/>
+function ShowLiabrary(props) {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+
+    listL();
+
+  }, []);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(4);
+  const totalItems = data.length;
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
+
+  const timeOut = useRef(0);
+  const search = async (text) => {
+     clearTimeout(timeOut.current);
+     timeOut.current = setTimeout(async ()=>{
+  
+        try{
+           if(!text){
+              listL();
+           }else{
+              const response= await axios.get(`http://localhost:5000/library/getbynom/${text}`);
+              setData(response.data);
+           }
+        }catch (e){
+           toast.error("error");
+        }
+  
+     },100)
+  };
+  const [query, setQuery] = useState('');
+  const [results, setResults] = useState([]);
+
+
+
+  const listL = async () => {
+    const response = await axios.get("http://localhost:5000/library/listL");
+    if (response.status == 200) {
+      setData(response.data);
+    }
+  };
+   
+ 
+
+  const deleteL = async (id) => {
+    if (window.confirm("Are u sure that u wanted to delete")) {
+      const response = await axios.delete(`http://localhost:5000/library/deleteL/${id}`);
+      if (response.status == 200) {
+        listL();
+      }
+    }
+  }
+
+ 
+
+  return (
+    <div id="content-page" class="content-page">
+      <div id="root">
+        <Navbarback />
         <div id="root">
-            <SideBar/>
-            </div>
+          <SideBar />
+        </div>
+      </div>
+    
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="inner-page-title">
+            <h3 class="text-white">Editable Table Page</h3>
+            <p class="text-white">lorem ipsum</p>
+          </div>
+          <div class="col-sm-12">
+            <div class="iq-card">
+              <div class="iq-card-header d-flex justify-content-between">
+                <div class="iq-header-title">
+                  <h4 class="card-title">Editable Table</h4>
+                </div>
+              </div>
             </div>
            
-            <div class="row">
-                  <div class="col-sm-12">
-                        <div class="inner-page-title">
-                           <h3 class="text-white">Editable Table Page</h3>
-                           <p class="text-white">lorem ipsum</p>
-                        </div>
+            <div class="container">
+            <div class="iq-search-bar">
 
-                        <div class="col-sm-12">
-                     <div class="iq-card">
-                        <div class="iq-card-header d-flex justify-content-between">
-                           <div class="iq-header-title">
-                              <h4 class="card-title">Editable Table</h4>
-                           </div>
-                        </div> </div>
-                  <div class="iq-card-body">
-                           <div id="table" class="table-editable">
-                              <table class="table table-bordered table-responsive-md table-striped text-center">
-                                
-                 
-                                 <thead>
-                                    <tr>
-                                       <th>Name</th>
-                                       <th>Age</th>
-                                       <th>Company Name</th>
-                                       <th>Country</th>
-                                       <th>City</th>
-                                       <th>Sort</th>
-                                       <th>Remove</th>
-                                    </tr>
-                                 </thead>
-                                 <tbody>
-                                    <tr>
-                                       <td contenteditable="true">Gio Metric</td>
-                                       <td contenteditable="true">25</td>
-                                       <td contenteditable="true">Deepends</td>
-                                       <td contenteditable="true">Spain</td>
-                                       <td contenteditable="true">Madrid</td>
-                                       <td>
-                                          <span class="table-up"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-up" aria-hidden="true"></i></a></span>
-                                          <span class="table-down"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-down" aria-hidden="true"></i></a></span>
-                                       </td>
-                                       <td>
-                                          <span class="table-remove"><button type="button"
-                                             class="btn iq-bg-danger btn-rounded btn-sm my-0">Remove</button></span>
-                                       </td>
-                                    </tr>
-                                    <tr>
-                                       <td contenteditable="true">Manny Petty</td>
-                                       <td contenteditable="true">45</td>
-                                       <td contenteditable="true">Insectus</td>
-                                       <td contenteditable="true">France</td>
-                                       <td contenteditable="true">San Francisco</td>
-                                       <td>
-                                          <span class="table-up"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-up" aria-hidden="true"></i></a></span>
-                                          <span class="table-down"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-down" aria-hidden="true"></i></a></span>
-                                       </td>
-                                       <td>
-                                          <span class="table-remove"><button type="button"
-                                             class="btn iq-bg-danger btn-rounded btn-sm my-0">Remove</button></span>
-                                       </td>
-                                    </tr>
-                                    <tr>
-                                       <td contenteditable="true">Lucy Tania</td>
-                                       <td contenteditable="true">26</td>
-                                       <td contenteditable="true">Isotronic</td>
-                                       <td contenteditable="true">Germany</td>
-                                       <td contenteditable="true">Frankfurt am Main</td>
-                                       <td>
-                                          <span class="table-up"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-up" aria-hidden="true"></i></a></span>
-                                          <span class="table-down"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-down" aria-hidden="true"></i></a></span>
-                                       </td>
-                                       <td>
-                                          <span class="table-remove"><button type="button"
-                                             class="btn iq-bg-danger btn-rounded btn-sm my-0">Remove</button></span>
-                                       </td>
-                                    </tr>
-                                    <tr class="hide">
-                                       <td contenteditable="true">Anna Mull</td>
-                                       <td contenteditable="true">35</td>
-                                       <td contenteditable="true">Portica</td>
-                                       <td contenteditable="true">USA</td>
-                                       <td contenteditable="true">Oregon</td>
-                                       <td>
-                                          <span class="table-up"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-up" aria-hidden="true"></i></a></span>
-                                          <span class="table-down"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-down" aria-hidden="true"></i></a></span>
-                                       </td>
-                                       <td>
-                                          <span class="table-remove"><button type="button"
-                                             class="btn iq-bg-danger btn-rounded btn-sm my-0">Remove</button></span>
-                                       </td>
-                                    </tr>
+            <form action="#" class="searchbox">
+                <input type="text"  class="text search-input" placeholder="Type here to search..."  onChange={(e) => search(e.target.value)} />  
+                <a class="search-link" href="#"><i class="ri-search-line"/><i/></a>
+
+              </form>
+              </div>
+
+              <div id="table" class="table-editable">
+                <table class="table table-bordered table-responsive-md table-striped text-center">
+                  <thead class="thead-dark">
+                    <tr>
+                      <th>Image</th>
+                      <th>name</th>
+                      <th>pays</th>
+                      <th>location </th>
+                      <th>email</th>
+                      <th>Tel</th>
+                      <th>id</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {currentItems.map((item, index)  => {
+  return (
+    <tr key={index}>
+      <td>
+        {" "}
+        <img class="img-fluid img-thumbnail" src={process.env.PUBLIC_URL + "/images/" + item.img}></img>{" "}
+      </td>
+      <td class="contenteditable">{item.name}</td>
+      <td class="contenteditable">{item.pays}</td>
+      <td class="contenteditable">{item.location}</td>
+      <td class="contenteditable">{item.email}</td>
+      <td class="contenteditable">{item.tel}</td>
+      <td class="contenteditable">{item._id}</td>
+      {console.log(item.tel,1)}
+
+      <td>
+        <Link to={`/updateL/${item._id}`}>
+          <button type="button" class="btn iq-bg-danger btn-rounded btn-sm my-0">update</button>    
+        </Link> 
+        <button type="button" class="btn iq-bg-danger btn-rounded btn-sm my-0" onClick={() => deleteL(item._id)} >delete</button>
+        <Link to={`/stat/${item._id}`}>
+          <button type="button" class="btn iq-bg-danger btn-rounded btn-sm my-0">statistique</button>    
+        </Link> 
+      </td>        
+    </tr> 
+  )
+})}
+
+    
+    <Pagination
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        itemsPerPage={itemsPerPage}
+        totalItems={totalItems}
+      />
+    
                                  </tbody>
+
                               </table>
                            </div> </div></div> </div></div>
                      </div>
 
     );
+      
 }
 
 export default ShowLiabrary;
