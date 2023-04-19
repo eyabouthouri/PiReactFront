@@ -33,6 +33,8 @@ function SideBar(props) {
                              <li ><a href="/showabb"><i class="ri-database-line"></i>abonnement</a></li>                             <li class="active"><a href="data-table.html"><i class="ri-database-line"></i>event</a></li>
                              <li><a href="table-editable.html"><i class="ri-refund-line"></i>Course </a></li>
                              <li><a href="table-coach.html"><i class="ri-refund-line"></i>Coach </a></li>
+                             <li > <Link  class="ri-refund-line" to="/ShowCoach">show users </Link> </li>
+
 
                           </ul>
                        </li>

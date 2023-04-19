@@ -66,21 +66,21 @@ function App() {
         <Route path="/addevent" element={<AddEvent />}></Route>
         <Route path="/Signin" element={<NotLoggedRoute><SignIn></SignIn></NotLoggedRoute>}></Route>
         <Route path="/SignUp" element={<NotLoggedRoute><SignUp></SignUp></NotLoggedRoute>}></Route>
-        <Route path='/AddLibrary' element={<AddLibrary></AddLibrary>}></Route>
-        <Route path='/ShowCmntr' element={<ShowCmntr></ShowCmntr>}></Route>
+        <Route path='/AddLibrary' element={<PrivateRoute isAdmin={true}><AddLibrary></AddLibrary></PrivateRoute>}></Route>
+        <Route path='/ShowCmntr' element={<PrivateRoute isAdmin={true}><ShowCmntr></ShowCmntr></PrivateRoute>}></Route>
         <Route path='/library' element={<Library></Library>}></Route>
-        <Route path='/updateL/:id' element={<UpdateLibrary/>}></Route>
+        <Route path='/updateL/:id' element={<PrivateRoute isAdmin={true}><UpdateLibrary/></PrivateRoute>}></Route>
         <Route path='/det/:Libraryid' element ={<Details></Details>}></Route>
         <Route path='/Aff/:Libraryid' element ={<Aff></Aff>}></Route>
-        <Route path='/ShowLiabrary' element={<ShowLiabrary></ShowLiabrary>}></Route>
+        <Route path='/ShowLiabrary' element={<PrivateRoute isAdmin={true}><ShowLiabrary></ShowLiabrary></PrivateRoute>}></Route>
         <Route path='/rem' element={<Rem></Rem>}></Route>
         <Route path='/Affc' element={<AffCmntr></AffCmntr>}></Route>
         <Route path='/adda/:Libraryid' element={<Addabonnement></Addabonnement>}></Route>
-        <Route path='/showabb' element={<ShowAbo></ShowAbo>}></Route>
-        <Route path='/updatea/:id' element ={<UpdateAbb></UpdateAbb>}></Route>
+        <Route path='/showabb' element={<PrivateRoute isAdmin={true}><ShowAbo></ShowAbo></PrivateRoute>}></Route>
+        <Route path='/updatea/:id' element={<PrivateRoute isAdmin={true}><UpdateAbb></UpdateAbb></PrivateRoute>}></Route>
         <Route path='/cm' element={<Cm></Cm>}></Route>
-        <Route path='/stat/:Libraryid' element={<AbonnementStat></AbonnementStat>}></Route>
-        <Route path='/dashbord' element={<Dashboard></Dashboard>}></Route>
+        <Route path='/stat/:Libraryid' element={<PrivateRoute isAdmin={true}><AbonnementStat></AbonnementStat></PrivateRoute>}></Route>
+        <Route path='/dashbord'  element={<PrivateRoute isAdmin={true}><Dashboard></Dashboard></PrivateRoute>}></Route>
         <Route path='/pdf' element={<Pdf></Pdf>}></Route>
       
         <Route path="/ShowEvent" element={<ShowEvent></ShowEvent>}></Route>
