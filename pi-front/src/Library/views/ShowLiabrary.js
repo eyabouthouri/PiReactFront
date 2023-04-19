@@ -1,19 +1,17 @@
-import axios from 'axios';
-import React, { useEffect, useState,useRef } from 'react';
-import Navbarback from '../../components/Navbarback';
-import SideBar from '../../components/SideBar';
-import { Link, useParams } from 'react-router-dom';
+import axios from "axios";
+import React, { useEffect, useState, useRef } from "react";
+import Navbarback from "../../components/Navbarback";
+import SideBar from "../../components/SideBar";
+import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import Library from './Library';
-import Pagination from './Pagination';
+import Library from "./Library";
+import Pagination from "./Pagination";
 
 function ShowLiabrary(props) {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-
     listL();
-
   }, []);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(4);
@@ -25,26 +23,22 @@ function ShowLiabrary(props) {
 
   const timeOut = useRef(0);
   const search = async (text) => {
-     clearTimeout(timeOut.current);
-     timeOut.current = setTimeout(async ()=>{
-  
-        try{
-           if(!text){
-              listL();
-           }else{
-              const response= await axios.get(`http://localhost:5000/library/getbynom/${text}`);
-              setData(response.data);
-           }
-        }catch (e){
-           toast.error("error");
+    clearTimeout(timeOut.current);
+    timeOut.current = setTimeout(async () => {
+      try {
+        if (!text) {
+          listL();
+        } else {
+          const response = await axios.get(`http://localhost:5000/library/getbynom/${text}`);
+          setData(response.data);
         }
-  
-     },100)
+      } catch (e) {
+        toast.error("error");
+      }
+    }, 100);
   };
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
-
-
 
   const listL = async () => {
     const response = await axios.get("http://localhost:5000/library/listL");
@@ -52,8 +46,6 @@ function ShowLiabrary(props) {
       setData(response.data);
     }
   };
-   
- 
 
   const deleteL = async (id) => {
     if (window.confirm("Are u sure that u wanted to delete")) {
@@ -62,9 +54,7 @@ function ShowLiabrary(props) {
         listL();
       }
     }
-  }
-
- 
+  };
 
   return (
     <div id="content-page" class="content-page">
@@ -74,7 +64,7 @@ function ShowLiabrary(props) {
           <SideBar />
         </div>
       </div>
-    
+
       <div class="row">
         <div class="col-sm-12">
           <div class="inner-page-title">
@@ -89,20 +79,20 @@ function ShowLiabrary(props) {
                 </div>
               </div>
             </div>
-           
+
             <div class="container">
-            <div class="iq-search-bar">
-
-            <form action="#" class="searchbox">
-                <input type="text"  class="text search-input" placeholder="Type here to search..."  onChange={(e) => search(e.target.value)} />  
-                <a class="search-link" href="#"><i class="ri-search-line"/><i/></a>
-
-              </form>
+              <div class="iq-search-bar">
+                <form action="#" class="searchbox">
+                  <input type="text" class="text search-input" placeholder="Type here to search..." onChange={(e) => search(e.target.value)} />
+                  <a class="search-link" href="#">
+                    <i class="ri-search-line" />
+                    <i />
+                  </a>
+                </form>
               </div>
-
               <div id="table" class="table-editable">
                 <table class="table table-bordered table-responsive-md table-striped text-center">
-                  <thead class="thead-dark">
+                  <thead class="thead-ligh" style={{ backgroundColor: "#4d8cc4", color: "white" }}>
                     <tr>
                       <th>Image</th>
                       <th>name</th>
@@ -115,50 +105,50 @@ function ShowLiabrary(props) {
                     </tr>
                   </thead>
                   <tbody>
-                  {currentItems.map((item, index)  => {
-  return (
-    <tr key={index}>
-      <td>
-        {" "}
-        <img class="img-fluid img-thumbnail" src={process.env.PUBLIC_URL + "/images/" + item.img}></img>{" "}
-      </td>
-      <td class="contenteditable">{item.name}</td>
-      <td class="contenteditable">{item.pays}</td>
-      <td class="contenteditable">{item.location}</td>
-      <td class="contenteditable">{item.email}</td>
-      <td class="contenteditable">{item.tel}</td>
-      <td class="contenteditable">{item._id}</td>
-      {console.log(item.tel,1)}
+                    {currentItems.map((item, index) => {
+                      return (
+                        <tr key={index}>
+                          <td>
+                            {" "}
+                            <img class="img-fluid img-thumbnail" src={process.env.PUBLIC_URL + "/images/" + item.img}></img>{" "}
+                          </td>
+                          <td class="contenteditable">{item.name}</td>
+                          <td class="contenteditable">{item.pays}</td>
+                          <td class="contenteditable">{item.location}</td>
+                          <td class="contenteditable">{item.email}</td>
+                          <td class="contenteditable">{item.tel}</td>
+                          <td class="contenteditable">{item._id}</td>
+                          {console.log(item.tel, 1)}
 
-      <td>
-        <Link to={`/updateL/${item._id}`}>
-          <button type="button" class="btn iq-bg-danger btn-rounded btn-sm my-0">update</button>    
-        </Link> 
-        <button type="button" class="btn iq-bg-danger btn-rounded btn-sm my-0" onClick={() => deleteL(item._id)} >delete</button>
-        <Link to={`/stat/${item._id}`}>
-          <button type="button" class="btn iq-bg-danger btn-rounded btn-sm my-0">statistique</button>    
-        </Link> 
-      </td>        
-    </tr> 
-  )
-})}
+                          <td>
+                            <Link to={`/updateL/${item._id}`}>
+                              <button type="button" class="btn iq-bg-danger btn-rounded btn-sm my-0">
+                                update
+                              </button>
+                            </Link>
+                            <button type="button" class="btn iq-bg-danger btn-rounded btn-sm my-0" onClick={() => deleteL(item._id)}>
+                              delete
+                            </button>
+                            <Link to={`/stat/${item._id}`}>
+                              <button type="button" class="btn iq-bg-danger btn-rounded btn-sm my-0">
+                                statistique
+                              </button>
+                            </Link>
+                          </td>
+                        </tr>
+                      );
+                    })}
 
-    
-    <Pagination
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        itemsPerPage={itemsPerPage}
-        totalItems={totalItems}
-      />
-    
-                                 </tbody>
-
-                              </table>
-                           </div> </div></div> </div></div>
-                     </div>
-
-    );
-      
+                    <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} itemsPerPage={itemsPerPage} totalItems={totalItems} />
+                  </tbody>
+                </table>
+              </div>{" "}
+            </div>
+          </div>{" "}
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default ShowLiabrary;

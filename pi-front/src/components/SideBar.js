@@ -1,56 +1,74 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 function SideBar(props) {
-    return (
-        <div class="iq-sidebar">
-        <div id="sidebar-scrollbar">
-           <nav class="iq-sidebar-menu">
-              <ul id="iq-sidebar-toggle" class="iq-menu">
-               
-                 <li>
-                    <li><a href="/dashbord"><i class="ri-table-line"></i>Dashbord</a></li>
-                    <a href="profile.html" class="iq-waves-effect"><i class="las la-user"></i><span>Profile</span></a>
-                 </li> 
-               
-               
-                
-                 <li class="active">
-        
-                     
-                      
-                       <li>
-                             <li><a href='/AddLibrary'><i class="ri-clockwise-line"></i>Add Liabrary</a></li>
-                             <li > <Link  class="ri-clockwise-line" to="/AddCoach">add admin </Link> </li>
-                             <li > <Link  class="ri-clockwise-line" to="/ShowCoach">show users </Link> </li>
-                              <li > <Link  class="ri-clockwise-line" to="/AddCoach">add admin </Link> </li>
-                       </li>
-                       <li class="active">
-                          <a href="#tables" class="iq-waves-effect collapsed" data-toggle="collapse" aria-expanded="true"><i class="ri-table-line"></i><span>Show Table</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
-                          <ul id="tables" class="iq-submenu collapse show" data-parent="#ui-elements">
-                          <li><a href="/ShowLiabrary"><i class="ri-table-line"></i>Liabrary</a></li>
+  return (
+    <div class="iq-sidebar">
+      <div id="sidebar-scrollbar">
+        <nav class="iq-sidebar-menu">
+          <ul id="iq-sidebar-toggle" class="iq-menu">
+            <li>
+              <li>
+                <a href="/dashbord">
+                  <i class="ri-table-line"></i>Dashbord
+                </a>
+              </li>
+              <Link class="-waves-effect" to="/ShowCoach">
+                <i class="las la-user"></i>
+                <span>Users</span>
+              </Link>
+            </li>
 
-                             <li><a href="/ShowCmntr"><i class="ri-table-line"></i>Commentaires</a></li>
-                             <li ><a href="/showabb"><i class="ri-database-line"></i>abonnement</a></li>                             <li class="active"><a href="data-table.html"><i class="ri-database-line"></i>event</a></li>
-                             <li><a href="table-editable.html"><i class="ri-refund-line"></i>Course </a></li>
-                             <li><a href="table-coach.html"><i class="ri-refund-line"></i>Coach </a></li>
-                             <li > <Link  class="ri-refund-line" to="/ShowCoach">show users </Link> </li>
+            <li class="">
+              <Link class="-waves-effect" to="/ShowLiabrary">
+                <i class="bi bi-journal-richtext"></i>
+                <span>Libraries</span>
+              </Link>
+            </li>
+            <ul id="tables" class="iq-submenu collapse show" data-parent="#ui-elements">
+              <li>
+                <Link to="/AddLibrary">
+                  {" "}
+                  <i class="bi bi-cloud-plus"></i>
+                  Add Library
+                </Link>
+              </li>
+              <li>
+                <Link to="/ShowCmntr">
+                  <i class="bi bi-card-text"></i>
+                  Comments
+                </Link>
+              </li>
+              <li>
+                <Link to="/showabb">
+                  <i class="bi bi-card-checklist"></i>
+                  Subscriptions
+                </Link>
+              </li>
+            </ul>
+            <li>
+              <Link class="-waves-effect" to="/ShowCourse">
+                <i class="bi bi-youtube"></i>
+                <span>Courses</span>
+              </Link>{" "}
+            </li>
+            <li>
+              <Link class="-waves-effect" to="">
+                <i class="bi bi-calendar-event"></i>
+                <span>Events</span>
+              </Link>
+            </li>
 
-
-                          </ul>
-                       </li>
-                      
-                 </li>
-                 
-              
-                    
-                    </ul>
-               
-                 
-           </nav>
-          
-        </div>
-     </div>
-    );
+            <li>
+              <Link class="-waves-effect" to="">
+                <i class="las la-user"></i>
+                <span>Coaches</span>
+              </Link>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  );
 }
 
 export default SideBar;
