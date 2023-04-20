@@ -75,7 +75,9 @@ const [user, setUser] = useState([]);
       });
       setState({ ...state, description: "" }); // clear the input field
 
-     toast.success("comment added Successfully");
+      window.location.reload();
+
+      toast.success("comment added Successfully");
 
    }
       catch (err) {
