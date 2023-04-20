@@ -35,7 +35,7 @@ function ClientCourse(props) {
         <Navbar className="navbar" />
         <div class="header-for-bg" style={{ marginTop: 0 }}>
           <div class="background-header position-relative">
-            <img src="/images/hobbyy.png" class="img-fluid w-100 rounded rounded" style={{ height: 420 }} alt="profile-bg" />
+            <img src="/images/je.png" class="img-fluid w-100 rounded rounded" style={{ height: 420 }} alt="profile-bg" />
             <div class="title-on-header">
               {/* <div class="data-block">
                 {/* <h2>Learn and Enjoy!</h2> 
