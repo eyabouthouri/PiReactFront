@@ -53,7 +53,7 @@ function GetallCoach(){
       });
 
       console.log(user)
-      console.log(usercon)
+     
       
 
       
@@ -63,7 +63,7 @@ function GetallCoach(){
       }, 1000 * 10000);
     }, []);
 
-  
+    console.log(usercon)
     const refreshtoken = async () => {
       const res = await axios
         .get("http://localhost:5000/users/refresh", {
@@ -119,7 +119,7 @@ function GetallCoach(){
 
     }
     const getcoachdetails = async(id)=>{
-      const coach=await axios.get(`http://localhost:5000/coach//getuserbyid/${id}`,{
+      const coach=await axios.get(`http://localhost:5000/coach/getuserbyid/${id}`,{
         withCredentials: true,
       })
       console.log(coach.data)
@@ -342,6 +342,8 @@ console.log(rating)
      
     </div>
                                        </div>
+                                       
+                                       
                                       
                                        <button type="button" class="btn btn-primary" data-toggle="modal"  data-target="#exampleModal2"  onClick={() =>handelsubmitt(item._id)}>rende vous </button>
                                        {(() => {

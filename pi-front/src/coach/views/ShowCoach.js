@@ -12,7 +12,10 @@ function ShowCoach(props) {
   const [user, setUser] = useState([]);
   const [message, setMessage] = useState('')
   const [showCoach, setShowCoach] = useState(false);
-  const [usertri,setusertri]=useState([]);
+  const [find,setfind]=useState(false);
+  const [role,setrole]=useState("")
+
+
   var history = useNavigate();
   const commands = [
     {
@@ -22,10 +25,30 @@ function ShowCoach(props) {
       },
     },
     {
-      command: 'thank you * ',
-      callback: (condition) => setMessage(`ur welcome`)
+      command: 'I would like to find *',
+      callback: (order) => {
+        const keywords = ['coach', 'user', 'admin','is blocked'];
+        let found = false;
+        keywords.forEach((keyword) => {
+          if (order.includes(keyword)) {
+            found = true;
+            setrole(keyword)
+          }
+        });
+        if (found) {
+          setfind(true);
+        } else {
+          console.log("Aucun des mots clés n'a été trouvé dans la commande.");
+        }
+      }
+    },{
+      command: 'Go back to *',
+      callback: (order) => {
+        setfind(false);
+        setShowCoach(false);
+      }
     }]
-   
+  // console.log(role)
     const {
      transcript,
      resetTranscript,
@@ -33,6 +56,7 @@ function ShowCoach(props) {
    } = useSpeechRecognition({ commands });
  
  console.log(showCoach)
+ console.log(find)
   useEffect(()=>{
     async function fetchData() {
       const data = await sednRequest();
@@ -42,22 +66,36 @@ function ShowCoach(props) {
     function sortUsersByName(users) {
       return users.sort((a, b) => a.name.localeCompare(b.name));
     }
+    async function filtre(users){
+      if(role === "is blocked"){
+        return users.filter((f)=>f.isBlocked === true)
+      }
+      else
+       return  users.filter((f) => f.role === role);
+    }
   
     async function updateUserList() {
       const userList = await fetchData();
       if (showCoach) {
         const sortedUsers = sortUsersByName(userList);
         setUser(sortedUsers);
-      } else {
-        setUser(userList);
+      } else if(find) {
+        const userr = await filtre(userList)
+        setUser(userr);
+      }else{
+        setUser(userList)
       }
+
     }
   
     updateUserList();
  
-  },[showCoach])
-  
-  
+  },[showCoach,find])
+
+  async function search(){
+   
+  }
+  console.log(message)
   /*const sortdata =async (data)=> {
    
     if (!data) {

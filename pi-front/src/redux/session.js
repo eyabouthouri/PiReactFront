@@ -5,11 +5,12 @@ export const slice = createSlice({
   initialState: {
     isLoggedIn: localStorage.getItem("token") ? true : false,
     isAdmin: localStorage.getItem("isAdmin") === "true" ? true : false,
-    isUser: localStorage.getItem("isUser") === "true" ? true : false
+    isUser: localStorage.getItem("isUser") === "true" ? true : false,
+    userexisting : localStorage.getItem("userexisting") 
   },
   reducers: {
     setIsLoggedin: (state, action) => {
-      console.log(action.payload)
+     
       if (action.payload) {
         state.isLoggedIn = true;
         state.isAdmin = action.payload.isAdmin;
@@ -17,7 +18,7 @@ export const slice = createSlice({
         localStorage.setItem("token", action.payload.token);
         localStorage.setItem("isAdmin", action.payload.isAdmin);
         localStorage.setItem("isUser",action.payload.isUser);
-        console.log(action.payload.isUser)
+        localStorage.setItem("userexisting",JSON.stringify(action.payload.userexisting));
         
       } else {
         state.isLoggedIn = false;
@@ -26,6 +27,7 @@ export const slice = createSlice({
         localStorage.removeItem("token");
         localStorage.removeItem("isAdmin");
         localStorage.removeItem("isUser");
+        localStorage.removeItem("userexisting")
       }
       return state;
     },
