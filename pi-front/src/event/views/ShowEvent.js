@@ -1,112 +1,143 @@
-import React from 'react';
-import Navbarback from '../../components/Navbarback';
-import SideBar from '../../components/SideBar';
+import React, { useEffect } from "react";
+import Navbarback from "../../components/Navbarback";
+import SideBar from "../../components/SideBar";
+import { useState } from "react";
+import { useNavigate, NavLink, Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import { confirmAlert } from "react-confirm-alert"; // Import
+import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
+import axios from "axios";
 function ShowEvent(props) {
-    return (
-        <div id="content-page" class="content-page">          
+   const [event, setEvent] = useState([]);
+   var history = useNavigate();
+   useEffect(() => {
+      sednRequest().then((d) => {
+        setEvent(d);
+      });
+    }, []);
 
-        <div id="root"> 
-        <Navbarback/>
-        <div id="root">
-            <SideBar/>
-            </div>
-            </div>
-            <div class="row">
-                  <div class="col-sm-12">
-                        <div class="inner-page-title">
-                           <h3 class="text-white">Editable Table Page</h3>
-                           <p class="text-white">lorem ipsum</p>
-                        </div>
 
-                        <div class="col-sm-12">
-                     <div class="iq-card">
-                        <div class="iq-card-header d-flex justify-content-between">
-                           <div class="iq-header-title">
-                              <h4 class="card-title">Editable Table</h4>
-                           </div>
-                        </div> </div>
-                  <div class="iq-card-body">
-                           <div id="table" class="table-editable">
-                              <table class="table table-bordered table-responsive-md table-striped text-center">
-                                
-                 
-                                 <thead>
-                                    <tr>
-                                       <th>Name</th>
-                                       <th>Age</th>
-                                       <th>Company Name</th>
-                                       <th>Country</th>
-                                       <th>City</th>
-                                       <th>Sort</th>
-                                       <th>Remove</th>
-                                    </tr>
-                                 </thead>
-                                 <tbody>
-                                    <tr>
-                                       <td contenteditable="true">Gio Metric</td>
-                                       <td contenteditable="true">25</td>
-                                       <td contenteditable="true">Deepends</td>
-                                       <td contenteditable="true">Spain</td>
-                                       <td contenteditable="true">Madrid</td>
-                                       <td>
-                                          <span class="table-up"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-up" aria-hidden="true"></i></a></span>
-                                          <span class="table-down"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-down" aria-hidden="true"></i></a></span>
-                                       </td>
-                                       <td>
-                                          <span class="table-remove"><button type="button"
-                                             class="btn iq-bg-danger btn-rounded btn-sm my-0">Remove</button></span>
-                                       </td>
-                                    </tr>
-                                    <tr>
-                                       <td contenteditable="true">Manny Petty</td>
-                                       <td contenteditable="true">45</td>
-                                       <td contenteditable="true">Insectus</td>
-                                       <td contenteditable="true">France</td>
-                                       <td contenteditable="true">San Francisco</td>
-                                       <td>
-                                          <span class="table-up"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-up" aria-hidden="true"></i></a></span>
-                                          <span class="table-down"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-down" aria-hidden="true"></i></a></span>
-                                       </td>
-                                       <td>
-                                          <span class="table-remove"><button type="button"
-                                             class="btn iq-bg-danger btn-rounded btn-sm my-0">Remove</button></span>
-                                       </td>
-                                    </tr>
-                                    <tr>
-                                       <td contenteditable="true">Lucy Tania</td>
-                                       <td contenteditable="true">26</td>
-                                       <td contenteditable="true">Isotronic</td>
-                                       <td contenteditable="true">Germany</td>
-                                       <td contenteditable="true">Frankfurt am Main</td>
-                                       <td>
-                                          <span class="table-up"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-up" aria-hidden="true"></i></a></span>
-                                          <span class="table-down"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-down" aria-hidden="true"></i></a></span>
-                                       </td>
-                                       <td>
-                                          <span class="table-remove"><button type="button"
-                                             class="btn iq-bg-danger btn-rounded btn-sm my-0">Remove</button></span>
-                                       </td>
-                                    </tr>
-                                    <tr class="hide">
-                                       <td contenteditable="true">Anna Mull</td>
-                                       <td contenteditable="true">35</td>
-                                       <td contenteditable="true">Portica</td>
-                                       <td contenteditable="true">USA</td>
-                                       <td contenteditable="true">Oregon</td>
-                                       <td>
-                                          <span class="table-up"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-up" aria-hidden="true"></i></a></span>
-                                          <span class="table-down"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-down" aria-hidden="true"></i></a></span>
-                                       </td>
-                                       <td>
-                                          <span class="table-remove"><button type="button"
-                                             class="btn iq-bg-danger btn-rounded btn-sm my-0">Remove</button></span>
-                                       </td>
-                                    </tr>
-                                 </tbody>
-                              </table>
-                           </div> </div></div> </div></div>
-                     </div>
-    );
+    const sednRequest = async () => {
+      const res = await axios
+        .get("http://localhost:5000/events/listev", {
+          withCredentials: true,
+        })
+        .catch((err) => console.log(err));
+        console.log(res.data)
+      setEvent(res.data);
+      return res.data;
+    };
+    const deleteev = async (id) => {
+      const resdelete = await axios
+        .get(`http://localhost:5000/events/deleteev/${id}`, {
+          withCredentials: true,
+        })
+        .then(sednRequest())
+        .catch((err) => {
+          console.error(err);
+        });
+  
+      return resdelete.data;
+    };
+    const confirmDelete = (id) => {
+      confirmAlert({
+        title: "Confirm delete",
+        message: "Are you sure you want to delete this event?",
+        buttons: [
+          {
+            label: "Yes",
+            onClick: () => deleteev(id),
+          },
+          {
+            label: "No",
+            onClick: () => {},
+          },
+        ],
+      });
+    };
+
+  return (
+    <div id="content-page" class="content-page">
+      <div>
+        <Navbarback />
+        <div>
+          <SideBar />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="inner-page-title">
+            <h3 class="text-white">Editable Table Page</h3>
+            <p class="text-white">lorem ipsum</p>
+          </div>
+          <div class="col-sm-12">
+            <div class="iq-card">
+              <div class="iq-card-header d-flex justify-content-between">
+                <div class="iq-header-title " >
+                  <h2 class="card-title" >Events</h2>
+                </div>
+              </div>
+            </div>
+            <div class="container">
+              <div id="table" class="table-editable">
+                <table class="table table-bordered table-responsive-md table-striped text-center">
+                  <thead class="thead-dark">
+                    <tr>
+                                    <th>title</th>
+                                    <th>description</th>
+                                    <th>location</th>
+                                    <th>organizer</th>
+                                    <th>date</th>
+                                    <th>image</th>
+                                    <th>DELETE</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {event &&
+                      event.map((item, index) => {
+                        return (
+                          <tr>
+                            <td contenteditable="true">{item.title}</td> 
+                            <td contenteditable="true">{item.description}</td>                     
+                            <td contenteditable="true">{item.location}</td>                     
+                            <td contenteditable="true">{item.organizer}</td>                     
+                            <td contenteditable="true">{item.date}</td>                     
+                             
+                            <td contentEditable={true}>
+  <img id="my-image" src={process.env.PUBLIC_URL + "/imagee/" + item.img} alt="" style={{ maxWidth: '100px', maxHeight: '100px' }} />
+</td>
+
+
+
+                            <td>
+                            <button type="button" class="btn iq-bg-danger btn-rounded btn-sm my-0" onClick={() => confirmDelete(item._id)}>
+                                {" "}
+                                Remove
+                              </button>
+
+                             <br></br> 
+                              <Link to={`/Updateev/${item._id}`}>
+          <button type="button" class="btn iq-bg-danger btn-rounded btn-sm my-0">update</button>    
+        </Link> 
+                         
+                            </td>
+
+                       
+                          </tr>
+                        );
+                      })}
+                  </tbody>
+                </table>
+              </div>{" "}
+            </div>
+          </div>{" "}
+        </div>
+      </div>
+      
+    </div>
+    
+  );
 }
+
 
 export default ShowEvent;
