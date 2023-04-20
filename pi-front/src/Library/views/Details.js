@@ -7,7 +7,9 @@ import AffCmntr from "./AffCmntr";
 import Topnav from "../../components/Topnav";
 import Aff from "./Aff";
 import { Store } from "react-notifications-component";
+import { toast } from "react-toastify";
 import Navbar from "../../components/Navbar";
+import { confirmAlert } from "react-confirm-alert"; 
 
 axios.defaults.withCredentials = true;
 function Details(props) {
@@ -85,10 +87,11 @@ function Details(props) {
 
   const [showPage, setShowPage] = useState(false);
   const deleteC = async (id) => {
-    if (window.confirm("Are u sure that u wanted to delete")) {
       const response = await axios.delete(`http://localhost:5000/commentaire/deleteC/${id}`);
+      toast.success("comment deleteed");
+
       listC();
-    }
+    
   };
   const getuserbyid = async (id) => {
     const pa = await axios
@@ -110,7 +113,22 @@ function Details(props) {
   function refreshPage() {
     window.location.reload(false);
   }
-
+  const confirmDelete = (id) => {
+    confirmAlert({
+      title: "Confirm delete",
+      message: "Are you sure you want to delete this comment ?",
+      buttons: [
+        {
+          label: "Yes",
+          onClick: () => deleteC(id),
+        },
+        {
+          label: "No",
+          onClick: () => {},
+        },
+      ],
+    });
+  };
   return (
     <div>
       <Navbar className="navbar" />
@@ -152,13 +170,18 @@ function Details(props) {
                                 {item.user.username} {item.user.lastname}
                               </div>
                               <div class="comment-data-block ml-3">
+                              <td>
+
                                 <p>{item.description}</p>
+                                <span>{item.dateEnvoi}</span>
+                                </td>
+                              <td> 
                                 <div class="d-flex flex-wrap align-items-center comment-activity">
-                                  <a href="javascript:void();" onClick={() => deleteC(item._id)} onnClick={refreshPage}>
+                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  <a href="javascript:void();" onClick={() => confirmDelete(item._id)} onnClick={refreshPage}>
                                     delete
                                   </a>
-                                  <span>{item.dateEnvoi}</span>
                                 </div>
+                                </td>
                               </div>
                             </div>
                           );

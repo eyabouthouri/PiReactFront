@@ -38,11 +38,12 @@ function Dashboard(props) {
       <SideBar></SideBar>
       <div className="row">
         <div id="dashboard-content" className="col-md-9">
+          <h1>age</h1>
           <DashboardAge />
         </div>
         <div>
-          <button class="btn btn-info" onClick={exportPDF}>
-            Export{" "}
+          <button type="button" className="btn btn-danger "  onClick={exportPDF}>
+            Export The statistics PDF{" "}
           </button>
         </div>
 

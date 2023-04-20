@@ -103,7 +103,7 @@ function Library(props) {
                       <div class="card-body">
                         <img class="card-img-top" src={process.env.PUBLIC_URL + "/images/" + item.img}></img>
                         <div class="card-body">
-                          <h2 class="p1">{item.name}</h2>
+                          <h2 className=" text-center" style={{ marginTop: 20, color: "#fca638" }}>{item.name}</h2>
                           <p class="l1">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pin-map-fill" viewBox="0 0 16 16">
                               <path fill-rule="evenodd" d="M3.1 11.2a.5.5 0 0 1 .4-.2H6a.5.5 0 0 1 0 1H3.75L1.5 15h13l-2.25-3H10a.5.5 0 0 1 0-1h2.5a.5.5 0 0 1 .4.2l3 4a.5.5 0 0 1-.4.8H.5a.5.5 0 0 1-.4-.8l3-4z" />
@@ -132,11 +132,11 @@ function Library(props) {
                             <div class="col-sm-6">
                               <div class="card">
                                 <div class="card-body">
-                                  <div class="btn-group-toggle" data-toggle="buttons">
-                                    <Link to={`/det/${item._id}`}>
-                                      <label class="btn btn-info">
+                                  <div  data-toggle="buttons">
+                                    <Link className="buttonLink" to={`/det/${item._id}`}>
+                                    <button type="button" className="buttonLink">
                                         <i class="bi bi-chat-dots"></i> commenter
-                                      </label>{" "}
+                                      </button>{" "}
                                     </Link>
                                     <br></br> <br></br>
                                     {isChecked && <AffCmntr />}
@@ -148,7 +148,7 @@ function Library(props) {
                               <div class="card">
                                 <div class="card-body">
                                   <Link to={`/adda/${item._id}`}>
-                                    <button type="button" class="btn btn-light">
+                                    <button type="button" className="buttonLink">
                                       <i class="bi bi-person-plus"></i>
                                       abonnement
                                     </button>

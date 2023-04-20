@@ -6,6 +6,7 @@ import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import Library from "./Library";
 import Pagination from "./Pagination";
+import { confirmAlert } from "react-confirm-alert"; 
 
 function ShowLiabrary(props) {
   const [data, setData] = useState([]);
@@ -48,14 +49,31 @@ function ShowLiabrary(props) {
   };
 
   const deleteL = async (id) => {
-    if (window.confirm("Are u sure that u wanted to delete")) {
       const response = await axios.delete(`http://localhost:5000/library/deleteL/${id}`);
       if (response.status == 200) {
-        listL();
-      }
-    }
-  };
+        toast.success("library deleteed");
 
+        listL();
+
+      }
+    
+  };
+  const confirmDelete = (id) => {
+    confirmAlert({
+      title: "Confirm delete",
+      message: "Are you sure you want to delete this item?",
+      buttons: [
+        {
+          label: "Yes",
+          onClick: () => deleteL(id),
+        },
+        {
+          label: "No",
+          onClick: () => {},
+        },
+      ],
+    });
+  };
   return (
     <div id="content-page" class="content-page">
       <div id="root">
@@ -100,8 +118,7 @@ function ShowLiabrary(props) {
                       <th>location </th>
                       <th>email</th>
                       <th>Tel</th>
-                      <th>id</th>
-                      <th>Action</th>
+                      <th colspan="3"> Action</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -117,24 +134,28 @@ function ShowLiabrary(props) {
                           <td class="contenteditable">{item.location}</td>
                           <td class="contenteditable">{item.email}</td>
                           <td class="contenteditable">{item.tel}</td>
-                          <td class="contenteditable">{item._id}</td>
                           {console.log(item.tel, 1)}
 
                           <td>
                             <Link to={`/updateL/${item._id}`}>
-                              <button type="button" class="btn iq-bg-danger btn-rounded btn-sm my-0">
+                              <button type="button" className="btn btn-danger ">
                                 update
                               </button>
                             </Link>
-                            <button type="button" class="btn iq-bg-danger btn-rounded btn-sm my-0" onClick={() => deleteL(item._id)}>
-                              delete
-                            </button>
+                            </td>
+                            <td>
+                            <button type="button" className="btn btn-danger " onClick={() => confirmDelete(item._id)}>
+                                  Delete
+                                </button>
+                                </td>
+                                <td>
                             <Link to={`/stat/${item._id}`}>
                               <button type="button" class="btn iq-bg-danger btn-rounded btn-sm my-0">
                                 statistique
                               </button>
                             </Link>
                           </td>
+                          
                         </tr>
                       );
                     })}

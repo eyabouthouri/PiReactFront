@@ -5,6 +5,7 @@ import SideBar from "../../components/SideBar";
 import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import Pagination from "./Pagination";
+import { confirmAlert } from "react-confirm-alert"; 
 
 function ShowLiabrary(props) {
   const [data, setData] = useState([]);
@@ -45,13 +46,28 @@ function ShowLiabrary(props) {
   };
 
   const deleteA = async (id) => {
-    if (window.confirm("Are u sure that u wanted to delete")) {
       const response = await axios.delete(`http://localhost:5000/abonnement/deletea/${id}`);
+      toast.success("items deleteed");
 
       listA();
-    }
+    
   };
-
+  const confirmDelete = (id) => {
+    confirmAlert({
+      title: "Confirm delete",
+      message: "Are you sure you want to delete this items?",
+      buttons: [
+        {
+          label: "Yes",
+          onClick: () => deleteA(id),
+        },
+        {
+          label: "No",
+          onClick: () => {},
+        },
+      ],
+    });
+  };
   return (
     <div id="content-page" class="content-page">
       <div id="root">
@@ -90,7 +106,7 @@ function ShowLiabrary(props) {
                       <th>city</th>
                       <th>Age</th>
                       <th>Id Library</th>
-                      <th>Action</th>
+                      <th >Action</th>
                     </tr>
                   </thead>
 
@@ -113,13 +129,15 @@ function ShowLiabrary(props) {
 
                           <td>
                             <Link to={`/updatea/${item._id}`}>
-                              <button type="button" class="btn iq-bg-danger btn-rounded btn-sm my-0">
+                              <button type="button" class="btn btn-danger">
                                 update
                               </button>
                             </Link>
-                            <button type="button" class="btn iq-bg-danger btn-rounded btn-sm my-0" onClick={() => deleteA(item._id)}>
-                              delete
-                            </button>
+                            <br></br>
+                            <br></br>
+                            <button type="button" className="btn btn-danger " onClick={() => confirmDelete(item._id)}>
+                                  Delete
+                                </button>
                           </td>
                         </tr>
                       );

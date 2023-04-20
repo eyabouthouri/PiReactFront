@@ -5,6 +5,8 @@ import SideBar from "../../components/SideBar";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Pagination from "./Pagination";
+import { confirmAlert } from "react-confirm-alert"; 
+
 function ShowCmntr(props) {
   const [user, setUser] = useState([]);
 
@@ -81,11 +83,11 @@ function ShowCmntr(props) {
   };
 
   const deleteC = async (id) => {
-    if (window.confirm("Are u sure that u wanted to delete")) {
       const response = await axios.delete(`http://localhost:5000/commentaire/deleteC/${id}`);
+      toast.success("comment deleteed");
 
       listc();
-    }
+    
   };
   const getuserbyid = async (id) => {
     const pa = await axios
@@ -103,7 +105,22 @@ function ShowCmntr(props) {
       console.log(user);
     });
   }, []);
-
+  const confirmDelete = (id) => {
+    confirmAlert({
+      title: "Confirm delete",
+      message: "Are you sure you want to delete this comment?",
+      buttons: [
+        {
+          label: "Yes",
+          onClick: () => deleteC(id),
+        },
+        {
+          label: "No",
+          onClick: () => {},
+        },
+      ],
+    });
+  };
   return (
     <div id="content-page" class="content-page">
       <div id="root">
@@ -150,9 +167,9 @@ function ShowCmntr(props) {
                           <td> {item.Libraryid}</td>
 
                           <td>
-                            <button type="button" class="btn iq-bg-danger btn-rounded btn-sm my-0" onClick={() => deleteC(item._id)}>
-                              delete
-                            </button>
+                          <button type="button" className="btn btn-danger " onClick={() => confirmDelete(item._id)}>
+                                  Delete
+                                </button>
                           </td>
                         </tr>
                       );
