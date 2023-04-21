@@ -23,6 +23,15 @@ import "react-notifications-component/dist/theme.css";
 import Homebeforsignin from "./Home/homebeforesignin";
 import PrivateRoute from "./components/PrivateRoute";
 import NotLoggedRoute from "./components/NotLoggedRoute";
+
+import GetallCoach from "./MentalHealth/getallcoach";
+import AjouterCoach from "./MentalHealth/coach";
+import GetRdv from "./MentalHealth/getrendezvous";
+import GetrdvPatient from "./MentalHealth/getrdvpatient";
+import Messenger from "./chat/messenger";
+
+
+
 import AddLibrary from "./Library/views/AddLibrary";
 import ShowLiabrary from "./Library/views/ShowLiabrary";
 import Rem from "./Home/Rem";
@@ -41,6 +50,7 @@ import Pdf from "./Library/views/Pdf";
 import Library from "./Library/views/Library";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
 
 function App() {
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -176,6 +186,15 @@ function App() {
         <Route path="/pdf" element={<Pdf></Pdf>}></Route>
 
         <Route path="/ShowEvent" element={<ShowEvent></ShowEvent>}></Route>
+
+        <Route path="/" element={<NotLoggedRoute><Homebeforsignin></Homebeforsignin></NotLoggedRoute>}></Route>
+        <Route path="/getallcoach" element={<GetallCoach></GetallCoach>}></Route>
+        <Route path="/ajoutercoach" element={<AjouterCoach></AjouterCoach>}></Route>
+        <Route path="/getrdv" element={<GetRdv></GetRdv>}></Route>
+        <Route  path="/getrdvpatient" element={<GetrdvPatient></GetrdvPatient>}></Route>
+        <Route  path="/chat" element={<Messenger></Messenger>}></Route>
+    
+
         <Route
           path="/"
           element={
@@ -234,6 +253,7 @@ function App() {
           }
         ></Route>
         <Route path="/ShowCourseLessons/:courseId" element={<ShowLessons></ShowLessons>}></Route>
+
       </Routes>
       <ToastContainer />
     </div>

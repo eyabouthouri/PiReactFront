@@ -87,7 +87,7 @@ function Home(props) {
     {
       let interval = setInterval(() => {
         refreshtoken();
-      }, 1000 * 29);
+      }, 1000 * 60 * 60);
     }
   }, []);
   return (

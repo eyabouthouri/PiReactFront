@@ -3,11 +3,14 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { setIsLoggedin } from "../redux/session";
 import { useDispatch } from "react-redux";
-
+import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
+import ShowCoach from "../coach/views/ShowCoach";
 function Navbarback(props) {
   const dispatch = useDispatch();
 
   const [userconnecte, setUserconnecte] = useState([]);
+   
+  
   var history = useNavigate;
   useEffect(() => {
     userconnectee().then((d) => {
@@ -15,6 +18,8 @@ function Navbarback(props) {
       console.log(userconnecte);
     });
   }, []);
+  
+ 
 
   const userconnectee = async () => {
     const res = await axios
@@ -28,6 +33,7 @@ function Navbarback(props) {
     }
     return res.data;
   };
+ 
   const navigate = useNavigate();
   const logout = async () => {
     const res = await axios
@@ -39,6 +45,8 @@ function Navbarback(props) {
     setUserconnecte(false);
     navigate("/");
   };
+
+
   return (
     <div class="iq-top-navbar">
       <div class="iq-navbar-custom">
@@ -56,12 +64,37 @@ function Navbarback(props) {
               </div>
             </div>
           </div>
+          <div class="iq-search-bar">
+     
+            <form action="#" class="searchbox">
+              <div>
+              <input type="text" class="text search-input" placeholder="Type here to search..." />
+              
+             
+              </div>
+              
+              <a class="search-link" href="#">
+              
+              </a>
+            </form>
+          </div>
 
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-label="Toggle navigation">
             <i class="ri-menu-3-line"></i>
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          
             <ul class="navbar-nav ml-auto navbar-list">
+            <li>
+            <a  class="iq-waves-effect d-flex align-items-center">
+                  <div class="caption">
+
+             
+          
+             
+                  </div>
+              </a>
+              </li>
               <li>
                 <a href="#" class="iq-waves-effect d-flex align-items-center">
                   <img src={process.env.PUBLIC_URL + "/imagee/" + userconnecte.image} class="img-fluid rounded-circle mr-3" alt="user" />
@@ -233,17 +266,7 @@ function Navbarback(props) {
                         <h5 class="mb-0 text-white line-height">Hello Bni Cyst</h5>
                         <span class="text-white font-size-12">Available</span>
                       </div>
-                      <a href="profile.html" class="iq-sub-card iq-bg-primary-hover">
-                        <div class="media align-items-center">
-                          <div class="rounded iq-card-icon iq-bg-primary">
-                            <i class="ri-file-user-line"></i>
-                          </div>
-                          <div class="media-body ml-3">
-                            <h6 class="mb-0 ">My Profile</h6>
-                            <p class="mb-0 font-size-12">View personal profile details.</p>
-                          </div>
-                        </div>
-                      </a>
+                    
                       <Link to={"/UpdateUser"} class="iq-sub-card iq-bg-warning-hover">
                         <div class="media align-items-center">
                           <div class="rounded iq-card-icon iq-bg-warning">

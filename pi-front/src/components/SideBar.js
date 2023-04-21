@@ -1,23 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { FaComment } from 'react-icons/fa';
 function SideBar(props) {
   return (
     <div class="iq-sidebar">
-      <div id="sidebar-scrollbar">
-        <nav class="iq-sidebar-menu">
+    <div id="sidebar-scrollbar">
+       <nav class="iq-sidebar-menu">
           <ul id="iq-sidebar-toggle" class="iq-menu">
-            <li>
-              <li>
-                <a href="/dashbord">
-                  <i class="ri-table-line"></i>Dashbord
-                </a>
-              </li>
-              <Link class="-waves-effect" to="/ShowCoach">
-                <i class="las la-user"></i>
-                <span>Users</span>
-              </Link>
-            </li>
-
+           
+             <li>
+                <a href="profile.html" class="iq-waves-effect"><i class="las la-user"></i><span>Profile</span></a>
+             </li> 
+           
+           
+            
+           
             <li class="">
               <Link class="-waves-effect" to="/ShowLiabrary">
                 <i class="bi bi-journal-richtext"></i>
@@ -59,12 +56,28 @@ function SideBar(props) {
             </li>
 
             <li>
-              <Link class="-waves-effect" to="">
+              <Link class="-waves-effect" to="/ShowCoach">
                 <i class="las la-user"></i>
-                <span>Coaches</span>
+              
+                <span>  users</span>
               </Link>
             </li>
+            <li > <Link  class="ri-clockwise-line" to="/AddCoach"> <i class="las la-user"></i>
+              
+              <span>  add admin</span></Link> </li>
+                          <li > <Link  class="ri-clockwise-line" to="/ajoutercoach"><i class="las la-user"></i>
+              
+              <span>  add coach</span> </Link> </li>
+                          <li>
+              <Link class="-waves-effect" to="/chat">
+              
+              
+                <span>     <FaComment /> chat</span>
+              </Link>
+            </li>
+                      
           </ul>
+
         </nav>
       </div>
     </div>

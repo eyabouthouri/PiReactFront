@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsLoggedin } from "../redux/session";
+import { FaComment } from "react-icons/fa";
+import { BiRefresh } from 'react-icons/bi';
 function Navbar(props) {
   const dispatch = useDispatch();
-  const { isLoggedIn, isAdmin } = useSelector((state) => state.session);
+  const { isLoggedIn, isAdmin,isUser ,isCoach} = useSelector((state) => state.session);
   const [userconnecte, setUserconnecte] = useState([]);
 
   const [input, setinput] = useState([]);
@@ -46,6 +48,7 @@ function Navbar(props) {
     setUserconnecte(false);
     history("/Signin");
   };
+  
   const updateadmin = async () => {
     try {
       const resupdate = await axios.post(
@@ -102,10 +105,16 @@ function Navbar(props) {
                 </Link>
               </li>
               <li class="nav-item">
-                <a class="nav-link " href="#">
-                  Coaches
-                </a>
+             
+                <Link class="nav-link" to="/getallcoach">
+                  MentalHealth
+                </Link>
               </li>
+              <li class="nav-item">
+            
+           </li>
+             
+           
               <li>
                 {!isLoggedIn && (
                   <Link class="nav-link " to="/Signin">
@@ -120,26 +129,48 @@ function Navbar(props) {
                   </Link>
                 )}
               </li>
+              <li class="nav-item ml-auto">
+              {isLoggedIn && isCoach  && (
+                  <Link class="nav-link " to="/getrdv">
+                    appoitment
+                  </Link>
+                )}
+                 </li>
+                 <li class="nav-item ml-auto">
+                 {isLoggedIn && isUser && (
+                  <Link class="nav-link " to="/getrdvpatient">
+                    appoitment
+                  </Link>
+                )}
+                 </li>
             </ul>
           </div>
 
           {isLoggedIn && (
             <>
-              &nbsp; <img class="profile-pic" src={process.env.PUBLIC_URL + "/imagee/" + userconnecte.image} alt="profile-pic" height="70" width="50" />
+              &nbsp;  <img class="profile-pic" src={process.env.PUBLIC_URL + "/imagee/" + userconnecte.image} alt="profile-pic" height="70" width="50" />
               <h6>
                 {" "}
                 &nbsp; {userconnecte.name} &nbsp;{userconnecte.lastname}
               </h6>
-              &nbsp; &nbsp; &nbsp;
+              &nbsp; &nbsp; 
               <Link class="nav-link " onClick={logout} to="/">
                 Logout
               </Link>
-              &nbsp; &nbsp; &nbsp;
+              &nbsp; 
               <Link class="nav-link " data-toggle="modal" data-target="#exampleModal">
-                Update Profile
+              
+                 Profile
               </Link>
+             
+             <Link class="nav-link" to="/chat">
+               <FaComment size={32} /> 
+               
+             </Link>
             </>
           )}
+        
+                
         </div>
       </nav>
 
