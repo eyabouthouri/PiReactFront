@@ -4,6 +4,7 @@ import SideBar from "../../components/SideBar";
 import { useState } from "react";
 import { useNavigate, NavLink, Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import { AiFillAudio, AiFillRest, AiFillStop } from 'react-icons/ai';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
 
 
@@ -119,6 +120,8 @@ function ShowCoach(props) {
         withCredentials: true,
       })
       .catch((err) => console.log(err));
+    console.log(res.data);
+    setUser(res.data);
     return res.data;
   };
 
@@ -173,27 +176,33 @@ function ShowCoach(props) {
           </div>
           <div class="col-sm-12">
             <div class="iq-card">
-              <div class="iq-card-header d-flex justify-content-between">
-                <div class="iq-header-title">
+            
+              <div>
+                 
+                  <div class="iq-header-title d-flex align-items-center">
                   <h4 class="card-title">Editable Table</h4>
-                  &nbsp;   &nbsp;     &nbsp;
+                 
+             
+                  <button class="btn btn-primary ml-auto" onClick={SpeechRecognition.startListening}> <AiFillAudio /> </button>
                   &nbsp;
-                  
-                </div>
-                <button onClick={SpeechRecognition.startListening}>Start</button>
-               <button onClick={SpeechRecognition.stopListening}>Stop</button>
-                <button onClick={resetTranscript}>Reset</button>
-               <h6>{transcript}</h6>
-                <h6>{message}</h6>
-              </div>{" "}
+                  <button class="btn btn-primary" onClick={SpeechRecognition.stopListening}> <AiFillStop></AiFillStop></button>
+                  &nbsp;
+                  <button class="btn btn-primary" onClick={resetTranscript}> <AiFillRest/>Reset</button>
+                  <h6>{transcript}</h6>
+           </div>
+                
+                 
+           </div>
+              
+              
             </div>
             <div class="container">
               <div id="table" class="table-editable">
                 <table class="table table-bordered table-responsive-md table-striped text-center">
-                  <thead class="thead-dark">
+                  <thead class="thead-ligh" style={{ backgroundColor: "#4d8cc4", color: "white" }}>
                     <tr>
                       <th>first Name</th>
-                    
+
                       <th>email</th>
                       <th>isBlocked</th>
                       <th>username</th>
@@ -207,10 +216,10 @@ function ShowCoach(props) {
                         return (
                           <tr>
                             <td contenteditable="true">{item.name}</td>
-                          
+
                             <td contenteditable="true">{item.email}</td>
-                            <td >{item.isBlocked.blocked.toString()}</td>
-                            <td >{item.username}</td>
+                            <td>{item.isBlocked.blocked.toString()}</td>
+                            <td>{item.username}</td>
                             <td contenteditable="true">{item.role}</td>
                             <td contenteditable="true">
                               <img src={process.env.PUBLIC_URL + "/imagee/" + item.image} alt="image2" />
@@ -223,7 +232,7 @@ function ShowCoach(props) {
                               </button>
                             </td>
                             <td>
-                              <button type="button" class="btn iq-bg-danger btn-rounded btn-sm my-0" onClick={()=>blockeduser(item._id)}>
+                              <button type="button" class="btn iq-bg-danger btn-rounded btn-sm my-0" onClick={() => blockeduser(item._id)}>
                                 {" "}
                                 bloquer
                               </button>

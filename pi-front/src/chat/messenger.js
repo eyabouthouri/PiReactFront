@@ -8,6 +8,7 @@ import { io } from "socket.io-client";
 import { useSelector } from "react-redux";
 import NavbarFront from "../components/NavbarFront";
 import { json } from "react-router-dom";
+import Navbar from "../components/Navbar";
 
 export default function Messenger() {
   const [conversations, setConversations] = useState([]);
@@ -21,7 +22,8 @@ export default function Messenger() {
   const [userr,setuserr]= useState([])
   const scrollRef = useRef();
   const { isLoggedIn, isAdmin, isUser, userexisting } = useSelector((state) => state.session);
-  const [user,setuser]= useState(JSON.parse(userexisting))
+  const userconnecte = JSON.parse(userexisting)
+  const [user,setuser]= useState(userconnecte);
 
 console.log(user)
   useEffect(() => {
@@ -57,38 +59,47 @@ console.log(user)
   }, [arrivalMessage, currentChat]);
 
   useEffect(() => {
-
-    socket.current.emit("addUser", user._id);
-    console.log(user._id)
-    socket.current.on("getUsers", (users) => {
-        
-      if (onlineUsers.length === 0) {
-        console.log(onlineUsers.length)
-       
-      }
-     console.log(users) 
-      setOnlineUsers(
-         userr.filter((f) => users.map((u) => u.userId).includes(f._id))
-       
-      );
-    });
+if(user){
+  socket.current.emit("addUser", user?._id);
+  console.log(user?._id)
+  socket.current.on("getUsers", (users) => {
+      
+    if (onlineUsers.length === 0) {
+      console.log(onlineUsers.length)
+     
+    }
+   console.log(users) 
+    setOnlineUsers(
+       userr.filter((f) => users.map((u) => u.userId).includes(f._id))
+     
+    );
+  });
+}
+    
    
   }, [userr]);
  
   console.log(onlineUsers)
   useEffect(() => {
+   
+      
+    
     const getConversations = async () => {
+
       try {
-        const res = await axios.get("/conversation/" + user._id);
-        console.log(res.data)
-        return res.data
+        if(user){
+          const res = await axios.get("/conversation/" + user?._id);
+          console.log(res.data)
+          return res.data
+        }
+       
 
       } catch (err) {
         console.log(err);
       }
     };
     getConversations().then((obj,err)=>{setConversations(obj)})
-  }, [user._id]);
+  }, [user?._id]);
 
   useEffect(() => {
     const getMessages = async () => {
@@ -105,18 +116,18 @@ console.log(user)
   const handleSubmit = async (e) => {
     e.preventDefault();
     const message = {
-      sender: user._id,
+      sender: user?._id,
       text: newMessage,
       conversationId: currentChat._id,
     };
 
     const receiverId = currentChat.members.find(
-      (member) => member !== user._id
+      (member) => member !== user?._id
     );
     console.log(receiverId)
 
     socket.current.emit("sendMessage", {
-      senderId: user._id,
+      senderId: user?._id,
       receiverId,
       text: newMessage,
     });
@@ -136,12 +147,12 @@ console.log(user)
 
   return (
     <>
-     <NavbarFront></NavbarFront>
+     <Navbar></Navbar>
       <div className="messenger">
         <div className="chatMenu">
           <div className="chatMenuWrapper">
             <input placeholder="Search for friends" className="form-control form-control-lg"  />
-            {conversations.map((c) => (
+            {conversations?.map((c) => (
               <div onClick={() => setCurrentChat(c)}>
                 <Conversation conversation={c} currentUser={user} />
               </div>
@@ -179,9 +190,9 @@ console.log(user)
             {currentChat ? (
               <>
                 <div className="chatBoxTop">
-                  {messages.map((m) => (
+                  {messages?.map((m) => (
                     <div ref={scrollRef}>
-                      <Message message={m} own={m.sender === user._id} user={user} />
+                      <Message message={m} own={m.sender === user?._id} user={user} />
                     </div>
                   ))}
                 </div>
@@ -213,7 +224,7 @@ console.log(user)
           <div className="chatOnlineWrapper">
             <ChatOnline
               onlineUsers={onlineUsers}
-              currentId={user._id}
+              currentId={user?._id}
               setCurrentChat={setCurrentChat}
             />
           </div>

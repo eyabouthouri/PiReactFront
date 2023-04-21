@@ -54,7 +54,7 @@ function SignIn(props) {
       });
 
     const data = res.data;
-    dispatch(setIsLoggedin({token: data.token, isAdmin:data.userexisting?.role=="admin",isUser:data.userexisting?.role=="user",userexisting:data.userexisting}));
+    dispatch(setIsLoggedin({token: data.token, isAdmin:data.userexisting?.role=="admin",isUser:data.userexisting?.role=="user",userexisting:data.userexisting,isCoach:data.userexisting?.role=="coach"}));
     console.log(data);
     return data;
   };

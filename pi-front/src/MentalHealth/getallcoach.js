@@ -8,6 +8,9 @@ import TimePicker from 'react-time-picker';
 import "react-datepicker/dist/react-datepicker.css";
 import { Rating} from 'react-simple-star-rating';
 import ReactStars from "react-stars";
+import Navbar from "../components/Navbar";
+import { useDispatch, useSelector } from "react-redux";
+
 axios.defaults.withCredentials = true;
 
 function GetallCoach(){
@@ -23,47 +26,63 @@ function GetallCoach(){
   const [rating, setRating] = useState()
   const[coach,setcoach]=useState();
   const[userco,setUserco] = useState()
+  const { isLoggedIn, isAdmin,isUser ,isCoach} = useSelector((state) => state.session);
+  const [rdvpatient,setrdvpatient]= useState([]);
+  const [isdisabled,setisdisabled]=useState(true)
 
   
   
     const [value, setValue] = useState(new Date());
-   
     var history = useNavigate();
-    useEffect(()=>{
-
-      async function fetchData() {
-        const user = await userconnecte();
-        setUsercon(user);
-        
-      }
-  
-      fetchData();
-    
-      /*
-      userconnecte().then((u) => {
-         setUsercon(u);
-         console.log(usercon);
-       });*/
-    },[])
-   
     useEffect(() => {
-      setstartdate(new Date())
+      // 1. Appeler fetchData dans useEffect
+      async function fetchData() {
+        try {
+          // 2. Appeler userconnecte avec await pour attendre la réponse
+          const user = await userconnecte();
+          setUsercon(user);
+        } catch (error) {
+          // 3. Gérer les erreurs s'il y en a
+          console.error(error);
+        }
+      }
+    
+      fetchData();
+    }, []);
+    
+    useEffect(() => {
+      // 4. Utiliser la fonction de rappel pour mettre à jour l'état de l'utilisateur
       sednRequest().then((d) => {
         setUser(d);
       });
-
-      console.log(user)
-     
-      
-
-      
-  
-      let interval = setInterval(() => {
+    
+      // 5. Enregistrer l'ID de l'intervalle pour pouvoir l'annuler plus tard
+      const intervalId = setInterval(() => {
         refreshtoken();
       }, 1000 * 10000);
+    
+      // 6. Retourner une fonction de nettoyage pour annuler l'intervalle
+      return () => clearInterval(intervalId);
     }, []);
-
-    console.log(usercon)
+    
+    useEffect(() => {
+      // 7. Appeler getData dans useEffect
+      async function getData() {
+        try {
+          if (usercon?._id !== undefined) { // 8. Vérifier si usercon existe avant d'accéder à _id
+            const rdv = await getrendezvousbypatient(usercon._id);
+            setrdvpatient(rdv);
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    
+      getData();
+    }, [usercon]);
+    
+  
+  console.log(rdvpatient)
     const refreshtoken = async () => {
       const res = await axios
         .get("http://localhost:5000/users/refresh", {
@@ -78,6 +97,26 @@ function GetallCoach(){
         })
       return res.data;
     };
+    console.log(usercon)
+
+    const getrendezvousbypatient = async(id)=>{
+      
+        const rendezvous=await axios.get(`http://localhost:5000/coach/getrendezvousbypatient/${id}`,{
+          withCredentials: true,
+        })
+        console.log(rendezvous.data)
+        setholidays(rendezvous.data)
+        
+        console.log(holidays)
+       
+       return rendezvous.data
+
+      
+    
+
+
+    }
+    
    
     const sednRequest = async () => {
       const res = await axios
@@ -131,7 +170,7 @@ function GetallCoach(){
 
 
     }
-    console.log()
+   
   
   const  handleInputChange=(e) =>{
    console.log(e)
@@ -181,6 +220,7 @@ setinputcoach({...inputcoach,tel:e.target.value})
 
 
 };
+
 
 
  const handelsubmitt=(idcoach)=>{
@@ -248,6 +288,7 @@ const handleRatingupdate = (value) => {
 }
 console.log(userco)
 console.log(rating)
+console.log(rdvpatient.date)
 
 // Optinal callback functions
 
@@ -258,10 +299,10 @@ console.log(rating)
       <>
       
         <div>
-        <NavbarFront></NavbarFront>
+        <Navbar></Navbar>
            <div class=" d-flex justify-content-center align-items-center">
             <div class="background-header position-relative">
-               <img src="images/page-img/he.png" width="1500" height="400" alt="header-bg"/>
+               <img src="images/capture.png" width="1200" height="400" alt="header-bg"/>
              
             </div>
          </div>
@@ -277,7 +318,7 @@ console.log(rating)
                         <div class="iq-card-body profile-page p-0">
                            <div class="profile-header-image">
                               <div class="cover-container">
-                              <img src="images/page-img/profile-bg8.jpg" alt="profile-bg" class="rounded img-fluid w-100"/>
+                              <br></br>
                                  
                               </div>
                               <div class="profile-info p-4">
@@ -342,10 +383,29 @@ console.log(rating)
      
     </div>
                                        </div>
-                                       
-                                       
-                                      
-                                       <button type="button" class="btn btn-primary" data-toggle="modal"  data-target="#exampleModal2"  onClick={() =>handelsubmitt(item._id)}>rende vous </button>
+                                       {rdvpatient.length === 0 ? (
+  <button
+    type="button"
+    class="btn btn-primary"
+    data-toggle="modal"
+    data-target="#exampleModal2"
+    onClick={() => handelsubmitt(item._id)}
+  >
+    rendez-vous
+  </button>
+) : (
+  <button
+    type="button"
+    class="btn btn-primary"
+    data-toggle="modal"
+    data-target="#exampleModal2"
+    onClick={() => handelsubmitt(item._id)}
+    disabled={isdisabled}
+  > rendez-vous</button>
+)}
+
+                                  
+
                                        {(() => {
     let etatavis = true;
     let updateavis = false;
@@ -364,12 +424,12 @@ console.log(rating)
     
     return (
       <div>
-        {etatavis && (
+         {etatavis && (isUser || isAdmin) && isLoggedIn &&(
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" onClick={() => handelsubmitt(item._id)}>
             Donner une note
           </button>
         )}
-        {updateavis && (
+        {updateavis &&  (isUser || isAdmin)&& isLoggedIn &&(
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenterupdate" onClick={() => handelsubmitt(item._id)}>
            changer votre avis
           </button>
@@ -506,7 +566,7 @@ console.log(rating)
       </div>
       <div class="modal-body">
         
-     
+     {(isLoggedIn ) ? (
        <form onSubmit={Handelsubmit}>
 
        <input type="text" class="form-control" name="tel" onChange={handleInputChangetel} value={inputcoach.tel} placeholder="telephone"  />   
@@ -539,7 +599,7 @@ console.log(rating)
       
   />
  
- 
+  
   
     
   
@@ -549,6 +609,21 @@ console.log(rating)
       </div>
        
     </form>
+     ) :(
+       <div>
+         <div class="modal-body"><p>Please log in to access this feature!</p></div>
+         
+         <button type="button" class="btn btn-warning" data-dismiss="modal" aria-label="Close"   aria-hidden="true" onClick={() => {
+                  history("/SignIn");
+                }} >
+              
+                 go to sign in 
+              </button>
+        
+             
+       </div>   
+     
+     ) }
 
       </div>
     

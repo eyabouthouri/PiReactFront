@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import Navbarback from '../components/Navbarback';
 import SideBar from '../components/SideBar';
 import NavbarFront from '../components/NavbarFront';
+import Navbar from '../components/Navbar';
 axios.defaults.withCredentials = true;
 
 function GetRdv(props){
@@ -139,7 +140,7 @@ function GetRdv(props){
 
     return(
     <div>
-       <NavbarFront></NavbarFront>
+       <Navbar></Navbar>
     
         <div class="row">
         <div class="col-sm-12">

@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import NavbarFront from '../components/NavbarFront';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import Navbar from '../components/Navbar';
 axios.defaults.withCredentials = true;
 function GetrdvPatient(){
     const [rdvpatient,setrdvpatient]= useState([]);
@@ -197,7 +198,7 @@ function GetrdvPatient(){
 
 return    (
     <div>
-        <NavbarFront></NavbarFront>
+     <Navbar></Navbar>
          <FullCalendar
         plugins={[dayGridPlugin]}
         initialView='dayGridMonth'
