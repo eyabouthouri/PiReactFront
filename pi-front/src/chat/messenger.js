@@ -166,13 +166,13 @@ if(user){
           <div class="">
         
           <div class="chat-header-icons d-flex justify-content-end ">
-                                                   <a href="javascript:void();" class="chat-icon-phone">
+                                                   <a class="chat-icon-phone">
                                                    <i class="ri-phone-line"></i>
                                                    </a>
-                                                   <a href="javascript:void();" class="chat-icon-video">
+                                                   <a class="chat-icon-video">
                                                    <i class="ri-vidicon-line"></i>
                                                    </a>
-                                                   <a href="javascript:void();" class="chat-icon-delete">
+                                                   <a class="chat-icon-delete">
                                                    <i class="ri-delete-bin-line"></i>
                                                    </a>
                                                    <span class="dropdown">

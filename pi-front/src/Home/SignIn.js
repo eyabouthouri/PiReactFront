@@ -165,6 +165,7 @@ function SignIn(props) {
                       <div>
                         <label htmlFor="remember-me">
                           <input type="checkbox" id="remember-me" checked={rememberMe} onChange={handleRememberMeChange} />
+             
                           Remember me
                         </label>
                       </div>

@@ -177,7 +177,7 @@ function Details(props) {
                                 </td>
                               <td> 
                                 <div class="d-flex flex-wrap align-items-center comment-activity">
-                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  <a href="javascript:void();" onClick={() => confirmDelete(item._id)} onnClick={refreshPage}>
+                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  <a onClick={() => confirmDelete(item._id)} onnClick={refreshPage}>
                                     delete
                                   </a>
                                 </div>

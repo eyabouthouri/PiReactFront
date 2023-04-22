@@ -8,9 +8,12 @@ function SideBar(props) {
        <nav class="iq-sidebar-menu">
           <ul id="iq-sidebar-toggle" class="iq-menu">
            
-             <li>
-                <a href="profile.html" class="iq-waves-effect"><i class="las la-user"></i><span>Profile</span></a>
-             </li> 
+          <li class="">
+              <Link class="-waves-effect" to="/dashbord">
+              <i class="bi bi-bar-chart-steps"></i>
+                <span>Dashboard</span>
+              </Link>
+            </li>
            
            
             
