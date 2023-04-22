@@ -262,8 +262,9 @@ const [msg, setmsg] = useState("");
                             <Button  onClick={likeeventt}class="btn btn-info">
                               
                               <i class="bi bi-heart"></i>
-                              Like4
+                              Like
                              </Button>
+                         
                              <Button  onClick={dislikee}class="btn btn-info">
                               
                               <i class="bi bi-heart"></i>
