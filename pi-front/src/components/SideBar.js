@@ -57,6 +57,27 @@ function SideBar(props) {
                 <span>Events</span>
               </Link>
             </li>
+            <ul id="tables" class="iq-submenu collapse show" data-parent="#ui-elements">
+              <li>
+                <Link to="/addEvent">
+                  {" "}
+                  <i class="bi bi-calendar-check"></i>
+                  Add Event
+                </Link>
+              </li>
+              <li>
+                <Link to="/ShowEvent">
+                <i class="bi bi-calendar-event"></i>
+                  events
+                </Link>
+              </li>
+              <li>
+                <Link to="/showAttendees">
+                <i class="bi bi-check2-circle"></i>
+                  attendees
+                </Link>
+              </li>
+            </ul>
 
             <li>
               <Link class="-waves-effect" to="/ShowCoach">
