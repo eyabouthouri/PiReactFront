@@ -8,6 +8,7 @@ import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import Popup from "reactjs-popup";
 import "./darkMode.css";
+
 import "reactjs-popup/dist/index.css";
 
 axios.defaults.withCredentials = true;

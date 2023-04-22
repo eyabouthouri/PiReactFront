@@ -6,7 +6,7 @@ import "leaflet-control-geocoder/dist/Control.Geocoder.css"
 import "leaflet-control-geocoder/dist/Control.Geocoder.js"
 import LeafletGeocoder from './LeafletGeocoder';
 import LeafletRoutingMachine from './LeafletRoutingMachine';
-
+import "./map.css"
 function Map() {
 
   const position = [36.8065, 10.1815]
