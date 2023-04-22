@@ -61,7 +61,7 @@ function ShowEvent(props) {
       <div>
         <Navbarback />
         <div>
-          <SideBar />
+        <SideBar />
         </div>
       </div>
       <div class="row">

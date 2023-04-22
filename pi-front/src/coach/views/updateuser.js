@@ -222,6 +222,7 @@ function UpdateUser() {
                   
                                        <button type="submit" class="btn btn-primary mr-2">Submit</button>
                                        <button type="reset" class="btn iq-bg-danger">Cancle</button>
+                                      
                                     </form>
                                  </div>
                               </div>

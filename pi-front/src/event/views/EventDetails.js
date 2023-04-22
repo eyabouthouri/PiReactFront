@@ -5,11 +5,13 @@ import React, { useEffect, useState,useFetch } from 'react';
 import { Store } from "react-notifications-component";
 import { useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
-
+import Navbar from '../../components/Navbar';
 import { useSpeechSynthesis } from "react-speech-kit"
 import {
  Button,} from "reactstrap";
 import Map from './Map';
+import { useForm } from 'react-hook-form';
+
 axios.defaults.withCredentials = true;
 
 function EventDetails(props) {
@@ -50,7 +52,10 @@ const [msg, setmsg] = useState("");
    } ,[]
    )
    console.log(data)
-   
+   const {
+      formState: { errors, isValid }
+    } = useForm({ mode: 'onBlur' });
+  
   
    
   // console.log(data);
@@ -178,7 +183,7 @@ const [msg, setmsg] = useState("");
 
         <div id="root">
           
-          <Topnav/>
+          <Navbar></Navbar>
         <div class="header-for-bg">
          <div id="content-page" class="content-page">
 
@@ -200,27 +205,37 @@ const [msg, setmsg] = useState("");
                               <div class="form-group">
                                  <label for="exampleInputText1">FullName</label>
                                  <input type="text" class="form-control mb-0" name="fullName" onChange={handleInputChange} value={input.fullName} placeholder=" fullName" />
+                                 {!validd && msg.fullName && <span style={{ color: "red" }}>{msg.fullName}!! </span>}
+
                               </div>
                               <div class="form-group">
                                  <label for="exampleInputText1">userEmail</label>
                                  <input type="text" class="form-control mb-0" name="userEmail" onChange={handleInputChange} value={input.userEmail} placeholder=" userEmail" />
+                                 {!validd && msg.userEmail && <span style={{ color: "red" }}>{msg.userEmail}!! </span>}
+
                               </div>
 
                               <div class="form-group">
                                  <label for="exampleInputphone">Phone</label>
                                  <input type="text" class="form-control mb-0" name="phone" onChange={handleInputChange} value={input.phone} placeholder=" phone" />
+                                 {!validd && msg.phone && <span style={{ color: "red" }}>{msg.phone}!! </span>}
+
                               </div>
                               <div class="form-group">
                                  <label for="exampleInputNumber1">guestSize</label>
                                  <input type="number" class="form-control mb-0" name="guestSize" onChange={handleInputChange} value={input.guestSize} placeholder=" guestSize" />
+                                 {!validd && msg.guestSize && <span style={{ color: "red" }}>{msg.guestSize}!! </span>}
+
                               </div>
 
                               <div class="form-group">
                                  <label for="exampleInputdate">participateAt</label>
                                  <input type="date" class="form-control mb-0" name="participateAt" onChange={handleInputChange} value={input.participateAt} placeholder=" participateAt" />
+                                 {!validd && msg.participateAt && <span style={{ color: "red" }}>{msg.participateAt}!! </span>}
+
                               </div>
 
-                              <button type="submit" class="btn btn-primary">Submit</button>
+                              <button type="submit"disabled={!isValid} class="btn btn-primary">Submit</button>
                               <button type="submit" class="btn iq-bg-danger">cancle</button>
                               
                            </form>

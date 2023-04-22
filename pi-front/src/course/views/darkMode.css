@@ -1,0 +1,26 @@
+.dark {
+  background-color: #333;
+  color: #fff;
+  }
+.light {
+  background-color: #fff;
+  color: #333;
+}
+.iq-card-body{
+  background-color: #fff;
+  color: #333;
+
+}
+.dark .iq-card , .dark .iq-footer, .dark .nav-link , .dark .navbar, .dark .modal-body , .dark .iq-card-body, .dark h5, .dark p{
+  background-color: #333 !important;
+  color: white !important;
+
+}
+.buttonLink{
+  color: black;
+  background-color:#ffd8a6;
+  border-color: orange;
+  border-radius: 10px;
+}
+
+body { padding-right: 0 !important }

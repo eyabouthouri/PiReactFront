@@ -1,7 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import Topnav from '../../components/Topnav';
-
+import Navbar from '../../components/Navbar';
 
 
 
@@ -25,9 +24,19 @@ function Takss(props) {
       };
     
  return (
-    <div className="App">
-                        <Topnav/>
-
+     <div>
+        <Navbar className="navbar" />
+        <div class="header-for-bg" style={{ marginTop: 0 }}>
+          <div class="background-header position-relative">
+            <div class="title-on-header">
+              {/* <div class="data-block">
+                {/* <h2>Learn and Enjoy!</h2> 
+              </div> */}
+            </div>
+          </div>
+        </div>
+        <br></br>
+        <br></br>
          <div class="header-for-bg">
             <div class="background-header position-relative">
                <img src="images/page-img/profile-bg1.jpg" class="img-fluid w-100 rounded rounded" alt="header-bg"/>
@@ -66,29 +75,29 @@ function Takss(props) {
             <div class="d-flex align-items-center justify-content-center">
               <i class="ri-cloud-line font-size-32"></i>
               <div class="text-left pl-3">
-                <h6 class="text-white">{weather.name}</h6>
+                <h6 class="text-black">{weather.name}</h6>
                 <p class="text-black">{weather.weather[0].main}</p>
                 <p class="mb-0">({weather.weather[0].description})</p>
               </div>
             </div>
             <div class="main-temp">
-              <p class="text-white">{weather.main.temp}°C</p>
+              <p class="text-black">{weather.main.temp}°C</p>
             </div>
             <ul class="d-flex align-items-center justify-content-between list-inline m-0 p-0">
               <li>
-                <p class="text-white mb-0">Wind Speed</p>
+                <p class="text-black mb-0">Wind Speed</p>
                 <i class="ri-cloud-windy-line font-size-18"></i>
-                <h6 class="text-white">{weather.wind.speed.toFixed()} MPH </h6>
+                <h6 class="text-black">{weather.wind.speed.toFixed()} MPH </h6>
               </li>
               <li>
-                <p class="text-white mb-0">Feels Like</p>
+                <p class="text-black mb-0">Feels Like</p>
                 <i class="ri-showers-line font-size-18"></i>
-                <h6 class="text-white">{weather.main.feels_like.toFixed()}°F</h6>
+                <h6 class="text-black">{weather.main.feels_like.toFixed()}°F</h6>
               </li>
               <li>
-                <p class="text-white mb-0">Humidity</p>
+                <p class="text-black mb-0">Humidity</p>
                 <i class="ri-sun-cloudy-line font-size-18"></i>
-                <h6 class="text-white">{weather.main.humidity}%</h6>
+                <h6 class="text-black">{weather.main.humidity}%</h6>
               </li>
             </ul>
           </div>

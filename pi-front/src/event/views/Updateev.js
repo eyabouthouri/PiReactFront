@@ -41,11 +41,26 @@ function Updateev(props) {
     return one.data;
   };
   useEffect(() => {
+    async function geteve(){
+      const events=await listoneev()
+      console.log(events.title)
+     setState(
+      {
+        title:events.title,
+        description:events.description,
+        location:events.location,
+        organizer:events.organizer
+      }
+     )
+    }
+    console.log(state.title)
     if (id) {
-      listoneev();
+      geteve()
+       
     }
   }, [id]);
   
+
 
   const {
     formState: { errors, isValid }

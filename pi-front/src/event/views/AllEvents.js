@@ -6,6 +6,7 @@ import { Routes, Route ,useParams} from 'react-router-dom';
 import axios from 'axios';
 import alanBtn from '@alan-ai/alan-sdk-web';
 import React, { useEffect, useRef, useState } from 'react';
+import Navbar from "../../components/Navbar";
 const alanKey='d13ff5f9f607b814c3e0b740da4299d42e956eca572e1d8b807a3e2338fdd0dc/stage';
 
 function AllEvents(props) {
@@ -55,7 +56,8 @@ const listev = async()=>{
     return (
 
         <div id="root">
-            <Topnav/>
+
+     <Navbar></Navbar>
 
         <div class="header-for-bg">
         <div class="background-header position-relative">

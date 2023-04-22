@@ -54,7 +54,7 @@ function SignIn(props) {
       });
 
     const data = res.data;
-    dispatch(setIsLoggedin({token: data.token, isAdmin:data.userexisting?.role=="admin"}));
+    dispatch(setIsLoggedin({token: data.token, isAdmin:data.userexisting?.role=="admin",isUser:data.userexisting?.role=="user",userexisting:data.userexisting,isCoach:data.userexisting?.role=="coach"}));
     console.log(data);
     return data;
   };
@@ -73,6 +73,9 @@ function SignIn(props) {
         history("/home");
       } else if (ress.userexisting.role == "admin") {
         history("/ShowCoach");
+      }
+      else if(ress.userexisting.role == "coach"){
+        history("/getrdv")
       }
     });
   };
