@@ -12,6 +12,8 @@ import {
 import Map from './Map';
 import { useForm } from 'react-hook-form';
 import { FaThumbsUp, FaThumbsDown } from 'react-icons/fa';
+import { FaCloudSun, FaCloudSunRain } from 'react-icons/fa';
+
 axios.defaults.withCredentials = true;
 
 function EventDetails(props) {
@@ -321,22 +323,25 @@ const [msg, setmsg] = useState("");
                            <div>
                             
                             <p class="card-text"><i class="bi bi-pass-fill"></i>description :{data.description} <br></br><i class="bi bi-pin-map-fill"></i>location : {data.location}  <br></br><i class="bi bi-person-fill"></i>organizer : {data.organizer} <br></br><i class="bi bi-balloon-heart-fill"></i>likes : {data.nbLikes}  </p></div>
-                            <br>
-                            </br>
-                         {likeee.length == 0 ?(
+                            {likeee.length == 0 ?(
 
-<Button  onClick={likeeventt}class="btn btn-primary">
+<Button  onClick={likeeventt}color="primary"
+  className="float-left">
                               
     <FaThumbsUp />
 Like
 </Button>
 
-                         ):( <Button  onClick={dislikee}class="btn btn-primary">
+                         ):( <Button  onClick={dislikee}color="primary"
+                         className="float-left">
                               
                               <FaThumbsDown /> 
                          dislikee
                          </Button>) }
                            
+                            <br>
+                            </br>
+                         
                          
                             
                              
@@ -370,9 +375,10 @@ Like
        onClick={() => synth.cancel()}>
 <i class="bi bi-power"></i>           
              </Button>
-             <p> <i class="bi bi-cloud-sun-fill"></i>check weather</p>
-             <button type="submit" class="btn btn-dark"><i class="bi bi-cloud-sun"></i><Link to={`/takss`}>chek weather</Link></button>
-          
+             <p><FaCloudSunRain /> Check Weather</p>
+      <Button color="dark">
+        <FaCloudSun /> <NavLink to={`/tasks`}>Check Weather</NavLink>
+      </Button>
         
              </div>
                      </div>
