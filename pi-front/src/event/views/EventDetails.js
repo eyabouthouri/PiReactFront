@@ -375,11 +375,8 @@ Like
        onClick={() => synth.cancel()}>
 <i class="bi bi-power"></i>           
              </Button>
-             <p><FaCloudSunRain /> Check Weather</p>
-      <Button color="dark">
-        <FaCloudSun /> <NavLink to={`/tasks`}>Check Weather</NavLink>
-      </Button>
-        
+             <p> <i class="bi bi-cloud-sun-fill"></i>check weather</p>
+             <button type="submit" class="btn btn-dark"><i class="bi bi-cloud-sun"></i><NavLink to={`/takss`}>chek weather</NavLink></button>
              </div>
                      </div>
              
