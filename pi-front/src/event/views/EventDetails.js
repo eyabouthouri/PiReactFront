@@ -4,14 +4,14 @@ import axios from 'axios';
 import React, { useEffect, useState,useFetch } from 'react';
 import { Store } from "react-notifications-component";
 import { useNavigate } from "react-router-dom";
-import { NavLink } from "react-router-dom";
+import { NavLink,Link } from "react-router-dom";
 import Navbar from '../../components/Navbar';
 import { useSpeechSynthesis } from "react-speech-kit"
 import {
  Button,} from "reactstrap";
 import Map from './Map';
 import { useForm } from 'react-hook-form';
-
+import { FaThumbsUp, FaThumbsDown } from 'react-icons/fa';
 axios.defaults.withCredentials = true;
 
 function EventDetails(props) {
@@ -23,6 +23,8 @@ function EventDetails(props) {
    //const [event, setEvent] = useState([]);
    const [Like, setLike] = useState()
   const[nbLikes,setNblikes] =useState()
+  const[usercon,setUsercon] = useState()
+  const[likeee,setlikeee] = useState([])
    const { idevent } = useParams();
    const { iduser } = useParams();
 
@@ -51,7 +53,57 @@ const [msg, setmsg] = useState("");
      
    } ,[]
    )
+   useEffect(() => {
+      // 1. Appeler fetchData dans useEffect
+      async function fetchData() {
+        try {
+          // 2. Appeler userconnecte avec await pour attendre la réponse
+          const user = await userconnecte();
+          setUsercon(user);
+        } catch (error) {
+          // 3. Gérer les erreurs s'il y en a
+          console.error(error);
+        }
+      }
+    
+      fetchData();
+    }, []);
+    const userconnecte = async () => {
+      const res = await axios
+        .get("http://localhost:5000/users/userconnecte", {
+          withCredentials: true,
+        })
+      return res.data;
+    };
+    console.log(usercon)
+    useEffect(() => {
+      // 1. Appeler fetchData dans useEffect
+      
+      async function fetch(id) {
+        try {
+          // 2. Appeler userconnecte avec await pour attendre la réponse
+           
+          const likee = await getlikeeventuser(id);
+          setlikeee(likee);
+        } catch (error) {
+          // 3. Gérer les erreurs s'il y en a
+          console.error(error);
+        }
+      }
+      if (usercon) {
+      fetch(usercon._id);}
+    }, [usercon]);
+    console.log(likeee)
+
+    const getlikeeventuser = async (id) => {
+      const res = await axios
+        .get(`http://localhost:5000/likeEvent/getlikeeventuser/${idevent}/${id}`, {
+          withCredentials: true,
+        })
+      return res.data;
+    };
    console.log(data)
+
    const {
       formState: { errors, isValid }
     } = useForm({ mode: 'onBlur' });
@@ -62,13 +114,20 @@ const [msg, setmsg] = useState("");
        
   const likeevent = async () => {
    try {
-        await axios.post(
-       `http://localhost:5000/events/likeeventt/${idevent}/6413121e2bfed9ea1358cedd`,
-       {
+      if(usercon){
+         await axios.post(
+            `http://localhost:5000/events/likeeventt/${idevent}/${usercon._id}`,
+            {
+              
+            },
+            { withCredentials: true }
+          );
          
-       },
-       { withCredentials: true }
-     );
+          const likee = await getlikeeventuser(usercon._id);
+          setlikeee(likee);
+      }
+ 
+      
     
    } catch (err) {
      //setValid(false);
@@ -79,13 +138,19 @@ const [msg, setmsg] = useState("");
  };
  const dislike = async () => {
    try {
-        await axios.get(
-       `http://localhost:5000/events/dislikeev/${idevent}/6413121e2bfed9ea1358cedd`,
-       {
-         
-       },
-       { withCredentials: true }
-     );
+      if(usercon){
+         await axios.get(
+            `http://localhost:5000/events/dislikeev/${idevent}/${usercon._id}`,
+            {
+              
+            },
+            { withCredentials: true }
+          );
+          const likee = await getlikeeventuser(usercon._id);
+          setlikeee(likee);  
+      }
+    
+      
     
    } catch (err) {
      //setValid(false);
@@ -258,18 +323,22 @@ const [msg, setmsg] = useState("");
                             <p class="card-text"><i class="bi bi-pass-fill"></i>description :{data.description} <br></br><i class="bi bi-pin-map-fill"></i>location : {data.location}  <br></br><i class="bi bi-person-fill"></i>organizer : {data.organizer} <br></br><i class="bi bi-balloon-heart-fill"></i>likes : {data.nbLikes}  </p></div>
                             <br>
                             </br>
-                         
-                            <Button  onClick={likeeventt}class="btn btn-info">
+                         {likeee.length == 0 ?(
+
+<Button  onClick={likeeventt}class="btn btn-primary">
                               
-                              <i class="bi bi-heart"></i>
-                              Like
-                             </Button>
-                         
-                             <Button  onClick={dislikee}class="btn btn-info">
+    <FaThumbsUp />
+Like
+</Button>
+
+                         ):( <Button  onClick={dislikee}class="btn btn-primary">
                               
-                              <i class="bi bi-heart"></i>
-                              dislikee
-                             </Button>
+                              <FaThumbsDown /> 
+                         dislikee
+                         </Button>) }
+                           
+                         
+                            
                              
                           
              
@@ -302,7 +371,7 @@ const [msg, setmsg] = useState("");
 <i class="bi bi-power"></i>           
              </Button>
              <p> <i class="bi bi-cloud-sun-fill"></i>check weather</p>
-             <button type="submit" class="btn btn-dark"><i class="bi bi-cloud-sun"></i><NavLink to={`/takss`}>chek weather</NavLink></button>
+             <button type="submit" class="btn btn-dark"><i class="bi bi-cloud-sun"></i><Link to={`/takss`}>chek weather</Link></button>
           
         
              </div>

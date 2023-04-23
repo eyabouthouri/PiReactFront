@@ -5,6 +5,7 @@ import { setIsLoggedin } from "../redux/session";
 import { useDispatch } from "react-redux";
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
 import ShowCoach from "../coach/views/ShowCoach";
+import { FaFacebookMessenger } from 'react-icons/fa';
 function Navbarback(props) {
   const dispatch = useDispatch();
 
@@ -64,20 +65,7 @@ function Navbarback(props) {
               </div>
             </div>
           </div>
-          <div class="iq-search-bar">
-     
-            <form action="#" class="searchbox">
-              <div>
-              <input type="text" class="text search-input" placeholder="Type here to search..." />
-              
-             
-              </div>
-              
-              <a class="search-link" href="#">
-              
-              </a>
-            </form>
-          </div>
+         
 
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-label="Toggle navigation">
             <i class="ri-menu-3-line"></i>
@@ -104,155 +92,18 @@ function Navbarback(props) {
                       {userconnecte.name} {userconnecte.lastname}
                     </h6>
                   </div>
-                </a>
-              </li>
-              <li>
-                <a href="#" class="iq-waves-effect d-flex align-items-center">
-                  <i class="ri-home-line"></i>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="search-toggle iq-waves-effect" href="#">
-                  <i class="ri-group-line"></i>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="search-toggle iq-waves-effect">
-                  <div id="lottie-beil"></div>
-                  <span class="bg-danger dots"></span>
-                </a>
-                <div class="iq-sub-dropdown">
-                  <div class="iq-card shadow-none m-0">
-                    <div class="iq-card-body p-0 ">
-                      <div class="bg-primary p-3">
-                        <h5 class="mb-0 text-white">
-                          All Notifications<small class="badge  badge-light float-right pt-1">4</small>
-                        </h5>
-                      </div>
-                      <a href="#" class="iq-sub-card">
-                        <div class="media align-items-center">
-                          <div class="">
-                            <img class="avatar-40 rounded" src="images/user/01.jpg" alt="" />
-                          </div>
-                          <div class="media-body ml-3">
-                            <h6 class="mb-0 ">Emma Watson Bni</h6>
-                            <small class="float-right font-size-12">Just Now</small>
-                            <p class="mb-0">95 MB</p>
-                          </div>
-                        </div>
-                      </a>
-                      <a href="#" class="iq-sub-card">
-                        <div class="media align-items-center">
-                          <div class="">
-                            <img class="avatar-40 rounded" src="images/user/02.jpg" alt="" />
-                          </div>
-                          <div class="media-body ml-3">
-                            <h6 class="mb-0 ">New customer is join</h6>
-                            <small class="float-right font-size-12">5 days ago</small>
-                            <p class="mb-0">Cyst Bni</p>
-                          </div>
-                        </div>
-                      </a>
-                      <a href="#" class="iq-sub-card">
-                        <div class="media align-items-center">
-                          <div class="">
-                            <img class="avatar-40 rounded" src="images/user/03.jpg" alt="" />
-                          </div>
-                          <div class="media-body ml-3">
-                            <h6 class="mb-0 ">Two customer is left</h6>
-                            <small class="float-right font-size-12">2 days ago</small>
-                            <p class="mb-0">Cyst Bni</p>
-                          </div>
-                        </div>
-                      </a>
-                      <a href="#" class="iq-sub-card">
-                        <div class="media align-items-center">
-                          <div class="">
-                            <img class="avatar-40 rounded" src="images/user/04.jpg" alt="" />
-                          </div>
-                          <div class="media-body ml-3">
-                            <h6 class="mb-0 ">New Mail from Fenny</h6>
-                            <small class="float-right font-size-12">3 days ago</small>
-                            <p class="mb-0">Cyst Bni</p>
-                          </div>
-                        </div>
-                      </a>
-                    </div>
+                  <div>
+                  <a class="nav-link" href="/chat">
+             
+             <FaFacebookMessenger style={{ color: '#00BFFF' }} size={32} />
+               
+             </a>
                   </div>
-                </div>
-              </li>
-              <li class="nav-item dropdown">
-                <a href="#" class="search-toggle iq-waves-effect">
-                  <div id="lottie-mail"></div>
-                  <span class="bg-primary count-mail"></span>
                 </a>
-                <div class="iq-sub-dropdown">
-                  <div class="iq-card shadow-none m-0">
-                    <div class="iq-card-body p-0 ">
-                      <div class="bg-primary p-3">
-                        <h5 class="mb-0 text-white">
-                          All Messages<small class="badge  badge-light float-right pt-1">5</small>
-                        </h5>
-                      </div>
-                      <a href="#" class="iq-sub-card">
-                        <div class="media align-items-center">
-                          <div class="">
-                            <img class="avatar-40 rounded" src="images/user/01.jpg" alt="" />
-                          </div>
-                          <div class="media-body ml-3">
-                            <h6 class="mb-0 ">Bni Emma Watson</h6>
-                            <small class="float-left font-size-12">13 Jun</small>
-                          </div>
-                        </div>
-                      </a>
-                      <a href="#" class="iq-sub-card">
-                        <div class="media align-items-center">
-                          <div class="">
-                            <img class="avatar-40 rounded" src="images/user/02.jpg" alt="" />
-                          </div>
-                          <div class="media-body ml-3">
-                            <h6 class="mb-0 ">Lorem Ipsum Watson</h6>
-                            <small class="float-left font-size-12">20 Apr</small>
-                          </div>
-                        </div>
-                      </a>
-                      <a href="#" class="iq-sub-card">
-                        <div class="media align-items-center">
-                          <div class="">
-                            <img class="avatar-40 rounded" src="images/user/03.jpg" alt="" />
-                          </div>
-                          <div class="media-body ml-3">
-                            <h6 class="mb-0 ">Why do we use it?</h6>
-                            <small class="float-left font-size-12">30 Jun</small>
-                          </div>
-                        </div>
-                      </a>
-                      <a href="#" class="iq-sub-card">
-                        <div class="media align-items-center">
-                          <div class="">
-                            <img class="avatar-40 rounded" src="images/user/04.jpg" alt="" />
-                          </div>
-                          <div class="media-body ml-3">
-                            <h6 class="mb-0 ">Variations Passages</h6>
-                            <small class="float-left font-size-12">12 Sep</small>
-                          </div>
-                        </div>
-                      </a>
-                      <a href="#" class="iq-sub-card">
-                        <div class="media align-items-center">
-                          <div class="">
-                            <img class="avatar-40 rounded" src="images/user/05.jpg" alt="" />
-                          </div>
-                          <div class="media-body ml-3">
-                            <h6 class="mb-0 ">Lorem Ipsum generators</h6>
-                            <small class="float-left font-size-12">5 Dec</small>
-                          </div>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                </div>
+           
               </li>
+             
+          
             </ul>
             <ul class="navbar-list">
               <li>

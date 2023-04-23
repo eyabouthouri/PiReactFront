@@ -52,7 +52,7 @@ function SideBar(props) {
               </Link>{" "}
             </li>
             <li>
-              <Link class="-waves-effect" to="">
+              <Link class="-waves-effect" to="/ShowEvent">
                 <i class="bi bi-calendar-event"></i>
                 <span>Events</span>
               </Link>
@@ -65,12 +65,7 @@ function SideBar(props) {
                   Add Event
                 </Link>
               </li>
-              <li>
-                <Link to="/ShowEvent">
-                <i class="bi bi-calendar-event"></i>
-                  events
-                </Link>
-              </li>
+           
               <li>
                 <Link to="/showAttendees">
                 <i class="bi bi-check2-circle"></i>
@@ -81,23 +76,19 @@ function SideBar(props) {
 
             <li>
               <Link class="-waves-effect" to="/ShowCoach">
-                <i class="las la-user"></i>
+              <i class="bi bi-people"></i>
+              <span> users</span>
               
-                <span>  users</span>
               </Link>
             </li>
-            <li > <Link  class="ri-clockwise-line" to="/AddCoach"> <i class="las la-user"></i>
+            <li > <Link   to="/AddCoach"><i class="bi bi-person"></i>
               
-              <span>  add admin</span></Link> </li>
-                          <li > <Link  class="ri-clockwise-line" to="/ajoutercoach"><i class="las la-user"></i>
+              add admin </Link> </li>
+          <li > <Link   to="/ajoutercoach"><i class="bi bi-person"></i>
               
-              <span>  add coach</span> </Link> </li>
+               add coach </Link> </li>
                           <li>
-              <Link class="-waves-effect" to="/chat">
               
-              
-                <span>     <FaComment /> chat</span>
-              </Link>
             </li>
                       
           </ul>

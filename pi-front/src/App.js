@@ -57,6 +57,9 @@ import Pdf from "./Library/views/Pdf";
 import Library from "./Library/views/Library";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Navbar } from "reactstrap";
+import NavbarFront from "./components/NavbarFront";
+import Navbarback from "./components/Navbarback";
 
 
 function App() {
@@ -217,7 +220,10 @@ function App() {
         <Route path="/ajoutercoach" element={<AjouterCoach></AjouterCoach>}></Route>
         <Route path="/getrdv" element={<GetRdv></GetRdv>}></Route>
         <Route  path="/getrdvpatient" element={<GetrdvPatient></GetrdvPatient>}></Route>
+        
         <Route  path="/chat" element={<Messenger></Messenger>}></Route>
+     
+     
     
 
         <Route

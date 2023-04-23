@@ -177,11 +177,13 @@ function GetrdvPatient(){
              
                 
           <div>
+        
           <button type="button" class="btn btn-danger" onClick={()=>{refresh(event.event.extendedProps._id)}} >
+          <i class="fa fa-times-circle"></i>
             annuler 
       </button>
       <button type="button" class="btn btn-warning" data-toggle="modal"  data-target="#exampleModal2" onClick={()=>{updaterdv(event.event.extendedProps._id,event.event.extendedProps.userid)}}>
-            changer la date 
+      <i class="fa fa-refresh"></i>    changer la date 
       </button>
       
       
@@ -205,7 +207,10 @@ return    (
         weekends={false}
         eventContent={RenderEventContent}
         events={rdvpatient}
-      
+        height='700px' // définir la hauteur à 500 pixels
+        aspectRatio={2} // définir un rapport de 2:1 entre la largeur et la hauteur
+        style={{ border: '2px solid #ccc !important', borderRadius: '10px' }}
+     // ajouter une bordure décorative
         
       />
        <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">

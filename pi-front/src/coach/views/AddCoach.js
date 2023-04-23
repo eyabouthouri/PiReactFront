@@ -75,32 +75,7 @@ function AddCoach(props) {
             </div>
             <div class="iq-card-body">
               <form onSubmit={Handelsubmit} id="form-wizard1" class="text-center mt-4">
-                <ul id="top-tab-list" class="p-0">
-                  <li class="active" id="account">
-                    <a href="javascript:void();">
-                      <i class="ri-lock-unlock-line"></i>
-                      <span>Account</span>
-                    </a>
-                  </li>
-                  <li id="personal">
-                    <a href="javascript:void();">
-                      <i class="ri-user-fill"></i>
-                      <span>Personal</span>
-                    </a>
-                  </li>
-                  <li id="payment">
-                    <a href="javascript:void();">
-                      <i class="ri-camera-fill"></i>
-                      <span>Image</span>
-                    </a>
-                  </li>
-                  <li id="confirm">
-                    <a href="javascript:void();">
-                      <i class="ri-check-fill"></i>
-                      <span>Finish</span>
-                    </a>
-                  </li>
-                </ul>
+            
                 <fieldset>
                   <div class="form-card text-left">
                     <div class="row">

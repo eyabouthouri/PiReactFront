@@ -122,9 +122,11 @@ const listev = async()=>{
                                        <a href="#" class="iq-media">
                                        <img class="img-fluid avatar-40 rounded-circle" src="images/user/09.jpg" alt=""/>
                                        </a>
-                                     
+                                      
                                     </div>
-                                    <button type="submit" class="btn btn-primary d-block w-100"><NavLink to={`/eventdetails/${item._id}`}>Register now</NavLink></button>
+                                    <button type="submit" class="buttonLink w-100"><NavLink to={`/eventdetails/${item._id}`}>
+                                    <i class="fa fa-users"></i>
+                                       Register now</NavLink></button>
                                  </div>
                                  <h5 class="card-title">{item.name}</h5>
                        

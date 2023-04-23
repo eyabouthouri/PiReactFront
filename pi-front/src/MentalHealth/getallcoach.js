@@ -10,6 +10,7 @@ import { Rating} from 'react-simple-star-rating';
 import ReactStars from "react-stars";
 import Navbar from "../components/Navbar";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from 'react-toastify';
 
 axios.defaults.withCredentials = true;
 
@@ -29,6 +30,9 @@ function GetallCoach(){
   const { isLoggedIn, isAdmin,isUser ,isCoach} = useSelector((state) => state.session);
   const [rdvpatient,setrdvpatient]= useState([]);
   const [isdisabled,setisdisabled]=useState(true)
+  const [validd, setValid] = useState(true);
+
+  const [msg, setmsg] = useState("");
 
   
   
@@ -130,20 +134,33 @@ function GetallCoach(){
     };
    
     
-    const addresndezvous = async(id)=>{
-      console.log(usercon._id)
-      const ress = await axios.post(`http://localhost:5000/coach/addrendezvous/${id}`,{
-   
-     date:inputcoach.datee,
-     userid:id,
-     tel:inputcoach.tel,
-     patientid:usercon._id
-     
-  },{withCredentials: true}).catch(
-   (err)=>{
-      console.error(err)}
-  )
-    }
+    const addresndezvous = async (id) => {
+      try {
+        const ress = await axios.post(
+          `http://localhost:5000/coach/addrendezvous/${id}`,
+          {
+            date: inputcoach.datee,
+            userid: id,
+            tel: inputcoach.tel,
+            patientid: usercon._id,
+          },
+          { withCredentials: true }
+        );
+       
+        console.log(ress.data);
+        toast.success("appointment added Successfully");
+        
+      
+      } catch (err) {
+       
+        setValid(false);
+        console.error(err.response.data);
+        setmsg([...msg, err.response.data]);
+        console.error(err);
+        toast.error("error !!!");
+      }
+    };
+    
     const getrendezvous = async(id)=>{
       const rendezvous=await axios.get(`http://localhost:5000/coach/getrdvbycoach/${id}`,{
         withCredentials: true,
@@ -385,23 +402,28 @@ console.log(rdvpatient.date)
                                        </div>
                                        {rdvpatient.length === 0 ? (
   <button
+  
     type="button"
-    class="btn btn-primary"
+    class="buttonLink"
     data-toggle="modal"
     data-target="#exampleModal2"
-    onClick={() => handelsubmitt(item._id)}
+    onClick={() =>{ handelsubmitt(item._id) ; history("/getallcoach")}}
   >
+    <i class="bi bi-calendar3"></i>
     rendez-vous
   </button>
 ) : (
   <button
     type="button"
-    class="btn btn-primary"
+    class="buttonLink"
     data-toggle="modal"
     data-target="#exampleModal2"
     onClick={() => handelsubmitt(item._id)}
     disabled={isdisabled}
-  > rendez-vous</button>
+
+  >
+     <i class="bi bi-calendar3"></i> 
+  rendez-vous</button>
 )}
 
                                   
@@ -425,13 +447,16 @@ console.log(rdvpatient.date)
     return (
       <div>
          {etatavis && (isUser || isAdmin) && isLoggedIn &&(
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" onClick={() => handelsubmitt(item._id)}>
+          <button type="button" class="buttonLink" data-toggle="modal" data-target="#exampleModalCenter" onClick={() => handelsubmitt(item._id)}>
+           <i class="fa fa-star"></i>
             Donner une note
           </button>
         )}
         {updateavis &&  (isUser || isAdmin)&& isLoggedIn &&(
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenterupdate" onClick={() => handelsubmitt(item._id)}>
+          <button type="button" class="buttonLink" data-toggle="modal" data-target="#exampleModalCenterupdate" onClick={() => handelsubmitt(item._id)}>
+           <i class="fa fa-star"></i>
            changer votre avis
+
           </button>
         )
 
@@ -569,7 +594,8 @@ console.log(rdvpatient.date)
      {(isLoggedIn ) ? (
        <form onSubmit={Handelsubmit}>
 
-       <input type="text" class="form-control" name="tel" onChange={handleInputChangetel} value={inputcoach.tel} placeholder="telephone"  />   
+       <input type="text" class="form-control" name="tel" onChange={handleInputChangetel} value={inputcoach.tel} placeholder="telephone"  />  
+       {!validd && <span style={{ color: "red" }}>numero invalide !! </span>} 
        <br></br>
        <DatePicker
        className="form-control"
@@ -604,8 +630,8 @@ console.log(rdvpatient.date)
     
   
          <div class="modal-footer">
-        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" className="btn btn-primary">Save changes</button>
+        <button type="button" className="buttonLink w-20" data-bs-dismiss="modal"><i class="bi bi-x-circle-fill text-black"></i>Close</button>
+        <button type="submit" className="buttonLink w-30"> <i class="bi bi-check-circle-fill text-black"></i> Save changes</button>
       </div>
        
     </form>

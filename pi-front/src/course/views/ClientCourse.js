@@ -86,6 +86,7 @@ function ClientCourse(props) {
                               <div className={"btn buttonLink " + (item.lessons.length === 0 ? "disabled" : "")} data-toggle={isLoggedIn ? "" : "modal"} data-target="#CourseSignIn">
                                 {isLoggedIn ? (
                                   <Link to={`/clientLesson/${item._id}`} className="buttonLink">
+                                    <i class="fa fa-graduation-cap"></i>
                                     Start the lessons
                                   </Link>
                                 ) : (

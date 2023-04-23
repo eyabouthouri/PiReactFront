@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Navbarback from '../components/Navbarback';
 import SideBar from '../components/SideBar';
+import { Store } from "react-notifications-component";
 axios.defaults.withCredentials = true;
 function AjouterCoach(props) {
    
@@ -14,33 +15,46 @@ function AjouterCoach(props) {
   
    const history = useNavigate();
    const [msg, setmsg] = useState("");
-   const addclient=async() =>{
-       const res= await axios.post("http://localhost:5000/coach/addCoach/coach",{
-   
-           name:input.name,
-           lastname:input.lastname,
-           email:input.email,
-           username:input.username,
-           pwd: input.pwd,
-           image:input.image,
-           specialite: input.specialite,
-           biographie:input.biographie,
-           telephone:input.telephone,
-           adresseCabinet:input.adresseCabinet
-
-       },{withCredentials: true}).catch((err)=>{
-           console.error(err)
-            setValid(false)
-            console.error(err.response.data);
-            setmsg(...msg, err.response.data);
-           
-         }
-
-           
-        
-
-       )
-}  
+   const addclient = async () => {
+      try {
+        const res = await axios.post(
+          "http://localhost:5000/coach/addCoach/coach",
+          {
+            name: input.name,
+            lastname: input.lastname,
+            email: input.email,
+            username: input.username,
+            pwd: input.pwd,
+            image: input.image,
+            specialite: input.specialite,
+            biographie: input.biographie,
+            telephone: input.telephone,
+            adresseCabinet: input.adresseCabinet,
+          },
+          { withCredentials: true }
+        );
+        Store.addNotification({
+         title: "Add User Admin",
+         message: "Coach added successfully",
+         type: "success",
+         insert: "bottom",
+         container: "bottom-right",
+         animationIn: ["animate__animated", "animate__fadeIn"],
+         animationOut: ["animate__animated", "animate__fadeOut"],
+         dismiss: {
+           duration: 3000,
+         },
+       });
+       history("/ShowCoach");
+        console.log(res.data);
+      } catch (err) {
+        console.error(err);
+        setValid(false);
+        console.error(err.response.data);
+        setmsg([...msg, err.response.data]);
+      }
+    };
+    
       const Handelsubmit=(e)=>{
           
       e.preventDefault();
@@ -72,38 +86,17 @@ function AjouterCoach(props) {
           <div class="iq-card">
              <div class="iq-card-header d-flex justify-content-between">
                 <div class="iq-header-title">
-                   <h4 class="card-title">Add Admin</h4>
+                   <h4 class="card-title">Add Coach</h4>
                 </div>
              </div>
              <div class="iq-card-body">
                 <form  onSubmit={Handelsubmit} id="form-wizard1" class="text-center mt-4">
-                   <ul id="top-tab-list" class="p-0">
-                      <li class="active" id="account">
-                         <a href="javascript:void();">
-                         <i class="ri-lock-unlock-line"></i><span>Account</span>
-                         </a>
-                      </li>
-                      <li id="personal">
-                         <a href="javascript:void();">
-                         <i class="ri-user-fill"></i><span>Personal</span>
-                         </a>
-                      </li>
-                      <li id="payment">
-                         <a href="javascript:void();">
-                         <i class="ri-camera-fill"></i><span>Image</span>
-                         </a>
-                      </li>
-                      <li id="confirm">
-                         <a href="javascript:void();">
-                         <i class="ri-check-fill"></i><span>Finish</span>
-                         </a>
-                      </li>
-                   </ul>
+                  
                    <fieldset>
  <div class="form-card text-left">
     <div class="row">
        <div class="col-7">
-          <h3 class="mb-4">ADMIN :</h3>
+          <h3 class="mb-4">COACH :</h3>
        </div>
      
     </div>
@@ -187,7 +180,7 @@ function AjouterCoach(props) {
        <input type="file" class="form-control mb-0" name="image" onChange={handleInputChange} value={input.image} placeholder="Your Full Name"/>
     </div>
     
- <button type="submit" name="next" class="btn btn-primary next action-button float-right"  >Ajouter</button>
+ <button type="submit" name="next" class="btn btn-primary next action-button float-right"  >Add</button>
 </fieldset>
 
 

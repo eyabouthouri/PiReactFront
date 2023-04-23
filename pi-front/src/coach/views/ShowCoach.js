@@ -208,6 +208,8 @@ function ShowCoach(props) {
                       <th>username</th>
                       <th>role</th>
                       <th>image</th>
+                      <th>remove</th>
+                      <th>block</th>
                     </tr>
                   </thead>
                   <tbody>

@@ -1,16 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect,lazy, useState } from "react";
 import axios from "axios";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsLoggedin } from "../redux/session";
 import { FaComment } from "react-icons/fa";
 import { BiRefresh } from 'react-icons/bi';
+import { FaFacebookMessenger } from 'react-icons/fa';
 function Navbar(props) {
   const dispatch = useDispatch();
+  
   const { isLoggedIn, isAdmin,isUser ,isCoach} = useSelector((state) => state.session);
   const [userconnecte, setUserconnecte] = useState([]);
 
   const [input, setinput] = useState([]);
+  
   var history = useNavigate();
   useEffect(() => {
     userconnectee().then((d) => {
@@ -95,9 +98,9 @@ function Navbar(props) {
                 </Link>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/allevent">
+                <Link class="nav-link" to="/allevent">
                   Events
-                </a>
+                </Link>
               </li>
               <li class="nav-item">
                 <Link class="nav-link" to="/Course">
@@ -154,19 +157,20 @@ function Navbar(props) {
                 &nbsp; {userconnecte.name} &nbsp;{userconnecte.lastname}
               </h6>
               &nbsp; &nbsp; 
-              <Link class="nav-link " onClick={logout} to="/">
+              <Link class="nav-link " style={{ color: '#00BFFF' }} onClick={logout} to="/">
                 Logout
               </Link>
               &nbsp; 
-              <Link class="nav-link " data-toggle="modal" data-target="#exampleModal">
+              <Link class="nav-link " data-toggle="modal" data-target="#exampleModal" style={{ color: '#00BFFF' }}>
               
                  Profile
               </Link>
              
-             <Link class="nav-link" to="/chat">
-               <FaComment size={32} /> 
+             <a class="nav-link" href="/chat">
+             
+             <FaFacebookMessenger style={{ color: '#00BFFF' }} size={32} />
                
-             </Link>
+             </a>
             </>
           )}
         
