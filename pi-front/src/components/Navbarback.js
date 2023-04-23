@@ -3,15 +3,14 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { setIsLoggedin } from "../redux/session";
 import { useDispatch } from "react-redux";
-import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
+import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 import ShowCoach from "../coach/views/ShowCoach";
-import { FaFacebookMessenger } from 'react-icons/fa';
+import { FaFacebookMessenger } from "react-icons/fa";
 function Navbarback(props) {
   const dispatch = useDispatch();
 
   const [userconnecte, setUserconnecte] = useState([]);
-   
-  
+
   var history = useNavigate;
   useEffect(() => {
     userconnectee().then((d) => {
@@ -19,8 +18,6 @@ function Navbarback(props) {
       console.log(userconnecte);
     });
   }, []);
-  
- 
 
   const userconnectee = async () => {
     const res = await axios
@@ -34,7 +31,7 @@ function Navbarback(props) {
     }
     return res.data;
   };
- 
+
   const navigate = useNavigate();
   const logout = async () => {
     const res = await axios
@@ -46,7 +43,6 @@ function Navbarback(props) {
     setUserconnecte(false);
     navigate("/");
   };
-
 
   return (
     <div class="iq-top-navbar">
@@ -65,23 +61,20 @@ function Navbarback(props) {
               </div>
             </div>
           </div>
-         
 
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-label="Toggle navigation">
             <i class="ri-menu-3-line"></i>
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          
             <ul class="navbar-nav ml-auto navbar-list">
-            <li>
-            <a  class="iq-waves-effect d-flex align-items-center">
+              <li>
+                <a class="iq-waves-effect d-flex align-items-center">
                   <div class="caption">
-
-             
-          
-             
+                    <a class="nav-link" href="/chat">
+                      <FaFacebookMessenger style={{ color: "#00BFFF" }} size={35} />
+                    </a>
                   </div>
-              </a>
+                </a>
               </li>
               <li>
                 <a href="#" class="iq-waves-effect d-flex align-items-center">
@@ -92,18 +85,8 @@ function Navbarback(props) {
                       {userconnecte.name} {userconnecte.lastname}
                     </h6>
                   </div>
-                  <div>
-                  <a class="nav-link" href="/chat">
-             
-             <FaFacebookMessenger style={{ color: '#00BFFF' }} size={32} />
-               
-             </a>
-                  </div>
                 </a>
-           
               </li>
-             
-          
             </ul>
             <ul class="navbar-list">
               <li>
@@ -117,7 +100,7 @@ function Navbarback(props) {
                         <h5 class="mb-0 text-white line-height">Hello Bni Cyst</h5>
                         <span class="text-white font-size-12">Available</span>
                       </div>
-                    
+
                       <Link to={"/UpdateUser"} class="iq-sub-card iq-bg-warning-hover">
                         <div class="media align-items-center">
                           <div class="rounded iq-card-icon iq-bg-warning">

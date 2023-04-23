@@ -58,9 +58,9 @@ function AddCoach(props) {
 
   return (
     <div id="content-page" class="content-page">
-      <div id="root">
+      <div>
         <Navbarback />
-        <div id="root">
+        <div>
           <SideBar />
         </div>
       </div>
@@ -75,7 +75,6 @@ function AddCoach(props) {
             </div>
             <div class="iq-card-body">
               <form onSubmit={Handelsubmit} id="form-wizard1" class="text-center mt-4">
-            
                 <fieldset>
                   <div class="form-card text-left">
                     <div class="row">

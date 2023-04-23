@@ -28,6 +28,15 @@ function ClientCourse(props) {
       toast.error("error");
     }
   };
+  const filterCourse = async (cat) => {
+    try {
+      const response = await axios.get(`/course/filter?category=${cat}`);
+      setData(response.data);
+      console.log("aaaaaaaa", response.data);
+    } catch (e) {
+      toast.error("error");
+    }
+  };
 
   return (
     <>
@@ -35,7 +44,7 @@ function ClientCourse(props) {
         <Navbar className="navbar" />
         <div class="header-for-bg" style={{ marginTop: 0 }}>
           <div class="background-header position-relative">
-            <img src="/images/je.png" class="img-fluid w-100 rounded rounded" style={{ height: 420 }} alt="profile-bg" />
+            <img src="/images/hhhh.png" class="img-fluid w-100 rounded rounded" style={{ height: 440 }} alt="profile-bg" />
             <div class="title-on-header">
               {/* <div class="data-block">
                 {/* <h2>Learn and Enjoy!</h2> 
@@ -49,6 +58,39 @@ function ClientCourse(props) {
         <div className="content-page">
           <ThemeButton />
           <div className="container">
+            <div class=" d-flex row justify-content-center">
+              <div className="container" style={{ textAlign: "center" }}>
+                <button style={{ backgroundColor: "#f7be74" }} className="btn " onClick={() => listL()}>
+                  ALL
+                </button>
+                &nbsp; &nbsp;
+                <button className="btn " style={{ backgroundColor: "#f7be74" }} onClick={() => filterCourse("music")}>
+                  Music
+                </button>{" "}
+                &nbsp; &nbsp;
+                <button className="btn " style={{ backgroundColor: "#f7be74" }} onClick={() => filterCourse("painting")}>
+                  Painting
+                </button>{" "}
+                &nbsp; &nbsp;
+                <button className="btn " style={{ backgroundColor: "#f7be74" }} onClick={() => filterCourse("fitness")}>
+                  Fitness
+                </button>{" "}
+                &nbsp; &nbsp;
+                <button className="btn " style={{ backgroundColor: "#f7be74" }} onClick={() => filterCourse("yoga")}>
+                  Yoga
+                </button>{" "}
+                &nbsp; &nbsp;
+                <button className="btn " style={{ backgroundColor: "#f7be74" }} onClick={() => filterCourse("dance")}>
+                  Dance
+                </button>{" "}
+                &nbsp; &nbsp;
+                <button className="btn " style={{ backgroundColor: "#f7be74" }} onClick={() => filterCourse("cooking")}>
+                  Cooking
+                </button>
+              </div>
+            </div>
+            <br></br>
+            <br></br>
             <div className="row">
               {data &&
                 data.map((item, index) => {
@@ -86,7 +128,6 @@ function ClientCourse(props) {
                               <div className={"btn buttonLink " + (item.lessons.length === 0 ? "disabled" : "")} data-toggle={isLoggedIn ? "" : "modal"} data-target="#CourseSignIn">
                                 {isLoggedIn ? (
                                   <Link to={`/clientLesson/${item._id}`} className="buttonLink">
-                                    <i class="fa fa-graduation-cap"></i>
                                     Start the lessons
                                   </Link>
                                 ) : (

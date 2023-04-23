@@ -6,7 +6,7 @@ import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import Library from "./Library";
 import Pagination from "./Pagination";
-import { confirmAlert } from "react-confirm-alert"; 
+import { confirmAlert } from "react-confirm-alert";
 
 function ShowLiabrary(props) {
   const [data, setData] = useState([]);
@@ -49,14 +49,12 @@ function ShowLiabrary(props) {
   };
 
   const deleteL = async (id) => {
-      const response = await axios.delete(`http://localhost:5000/library/deleteL/${id}`);
-      if (response.status == 200) {
-        toast.success("library deleteed");
+    const response = await axios.delete(`http://localhost:5000/library/deleteL/${id}`);
+    if (response.status == 200) {
+      toast.success("library deleteed");
 
-        listL();
-
-      }
-    
+      listL();
+    }
   };
   const confirmDelete = (id) => {
     confirmAlert({
@@ -76,9 +74,9 @@ function ShowLiabrary(props) {
   };
   return (
     <div id="content-page" class="content-page">
-      <div id="root">
+      <div>
         <Navbarback />
-        <div id="root">
+        <div>
           <SideBar />
         </div>
       </div>
@@ -142,20 +140,19 @@ function ShowLiabrary(props) {
                                 update
                               </button>
                             </Link>
-                            </td>
-                            <td>
+                          </td>
+                          <td>
                             <button type="button" className="btn btn-danger " onClick={() => confirmDelete(item._id)}>
-                                  Delete
-                                </button>
-                                </td>
-                                <td>
+                              Delete
+                            </button>
+                          </td>
+                          <td>
                             <Link to={`/stat/${item._id}`}>
                               <button type="button" class="btn iq-bg-danger btn-rounded btn-sm my-0">
                                 statistique
                               </button>
                             </Link>
                           </td>
-                          
                         </tr>
                       );
                     })}

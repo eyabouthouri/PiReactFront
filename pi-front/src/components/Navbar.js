@@ -1,19 +1,19 @@
-import React, { useEffect,lazy, useState } from "react";
+import React, { useEffect, lazy, useState } from "react";
 import axios from "axios";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsLoggedin } from "../redux/session";
 import { FaComment } from "react-icons/fa";
-import { BiRefresh } from 'react-icons/bi';
-import { FaFacebookMessenger } from 'react-icons/fa';
+import { BiRefresh } from "react-icons/bi";
+import { FaFacebookMessenger } from "react-icons/fa";
 function Navbar(props) {
   const dispatch = useDispatch();
-  
-  const { isLoggedIn, isAdmin,isUser ,isCoach} = useSelector((state) => state.session);
+
+  const { isLoggedIn, isAdmin, isUser, isCoach } = useSelector((state) => state.session);
   const [userconnecte, setUserconnecte] = useState([]);
 
   const [input, setinput] = useState([]);
-  
+
   var history = useNavigate();
   useEffect(() => {
     userconnectee().then((d) => {
@@ -51,7 +51,7 @@ function Navbar(props) {
     setUserconnecte(false);
     history("/Signin");
   };
-  
+
   const updateadmin = async () => {
     try {
       const resupdate = await axios.post(
@@ -108,16 +108,12 @@ function Navbar(props) {
                 </Link>
               </li>
               <li class="nav-item">
-             
                 <Link class="nav-link" to="/getallcoach">
                   MentalHealth
                 </Link>
               </li>
-              <li class="nav-item">
-            
-           </li>
-             
-           
+              <li class="nav-item"></li>
+
               <li>
                 {!isLoggedIn && (
                   <Link class="nav-link " to="/Signin">
@@ -133,48 +129,42 @@ function Navbar(props) {
                 )}
               </li>
               <li class="nav-item ml-auto">
-              {isLoggedIn && isCoach  && (
+                {isLoggedIn && isCoach && (
                   <Link class="nav-link " to="/getrdv">
                     appoitment
                   </Link>
                 )}
-                 </li>
-                 <li class="nav-item ml-auto">
-                 {isLoggedIn && isUser && (
+              </li>
+              <li class="nav-item ml-auto">
+                {isLoggedIn && isUser && (
                   <Link class="nav-link " to="/getrdvpatient">
                     appoitment
                   </Link>
                 )}
-                 </li>
+              </li>
             </ul>
           </div>
 
           {isLoggedIn && (
             <>
-              &nbsp;  <img class="profile-pic" src={process.env.PUBLIC_URL + "/imagee/" + userconnecte.image} alt="profile-pic" height="70" width="50" />
+              &nbsp; <img class="profile-pic" src={process.env.PUBLIC_URL + "/imagee/" + userconnecte.image} alt="profile-pic" height="70" width="50" />
               <h6>
                 {" "}
                 &nbsp; {userconnecte.name} &nbsp;{userconnecte.lastname}
               </h6>
-              &nbsp; &nbsp; 
-              <Link class="nav-link " style={{ color: '#00BFFF' }} onClick={logout} to="/">
+              &nbsp; &nbsp;
+              <Link class="nav-link " style={{ color: "#00BFFF" }} onClick={logout} to="/">
                 Logout
               </Link>
-              &nbsp; 
-              <Link class="nav-link " data-toggle="modal" data-target="#exampleModal" style={{ color: '#00BFFF' }}>
-              
-                 Profile
+              &nbsp;
+              <Link class="nav-link " data-toggle="modal" data-target="#exampleModal" style={{ color: "#00BFFF" }}>
+                Profile
               </Link>
-             
-             <a class="nav-link" href="/chat">
-             
-             <FaFacebookMessenger style={{ color: '#00BFFF' }} size={32} />
-               
-             </a>
+              <a class="nav-link" href="/chat">
+                <FaFacebookMessenger style={{ color: "#00BFFF" }} size={32} />
+              </a>
             </>
           )}
-        
-                
         </div>
       </nav>
 

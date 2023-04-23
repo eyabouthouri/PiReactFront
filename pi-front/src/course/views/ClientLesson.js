@@ -62,7 +62,7 @@ function ClientLesson(props) {
 
         <div class="header-for-bg" style={{ marginTop: 0 }}>
           <div class="background-header position-relative">
-            <img src="/images/hobbyy.png" class="img-fluid w-100 rounded rounded" style={{ height: 340 }} alt="profile-bg" />
+            <img src="/images/hhhh.png" class="img-fluid w-100 rounded rounded" style={{ height: 450 }} alt="profile-bg" />
           </div>
         </div>
 

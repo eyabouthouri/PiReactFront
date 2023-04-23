@@ -1,23 +1,19 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { FaComment } from 'react-icons/fa';
+import { FaComment } from "react-icons/fa";
 function SideBar(props) {
   return (
     <div class="iq-sidebar">
-    <div id="sidebar-scrollbar">
-       <nav class="iq-sidebar-menu">
+      <div id="sidebar-scrollbar">
+        <nav class="iq-sidebar-menu">
           <ul id="iq-sidebar-toggle" class="iq-menu">
-           
-          <li class="">
+            <li class="">
               <Link class="-waves-effect" to="/dashbord">
-              <i class="bi bi-bar-chart-steps"></i>
+                <i class="bi bi-bar-chart-steps"></i>
                 <span>Dashboard</span>
               </Link>
             </li>
-           
-           
-            
-           
+
             <li class="">
               <Link class="-waves-effect" to="/ShowLiabrary">
                 <i class="bi bi-journal-richtext"></i>
@@ -65,10 +61,10 @@ function SideBar(props) {
                   Add Event
                 </Link>
               </li>
-           
+
               <li>
                 <Link to="/showAttendees">
-                <i class="bi bi-check2-circle"></i>
+                  <i class="bi bi-check2-circle"></i>
                   attendees
                 </Link>
               </li>
@@ -76,23 +72,26 @@ function SideBar(props) {
 
             <li>
               <Link class="-waves-effect" to="/ShowCoach">
-              <i class="bi bi-people"></i>
-              <span> users</span>
-              
+                <i class="bi bi-people"></i>
+                <span> users</span>
               </Link>
             </li>
-            <li > <Link   to="/AddCoach"><i class="bi bi-person"></i>
-              
-              add admin </Link> </li>
-          <li > <Link   to="/ajoutercoach"><i class="bi bi-person"></i>
-              
-               add coach </Link> </li>
-                          <li>
-              
+            <li>
+              {" "}
+              <Link to="/AddCoach">
+                <i class="bi bi-person"></i>
+                add admin{" "}
+              </Link>{" "}
             </li>
-                      
+            <li>
+              {" "}
+              <Link to="/ajoutercoach">
+                <i class="bi bi-person"></i>
+                add coach{" "}
+              </Link>{" "}
+            </li>
+            <li></li>
           </ul>
-
         </nav>
       </div>
     </div>

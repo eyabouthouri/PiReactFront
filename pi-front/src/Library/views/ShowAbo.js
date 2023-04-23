@@ -5,7 +5,7 @@ import SideBar from "../../components/SideBar";
 import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import Pagination from "./Pagination";
-import { confirmAlert } from "react-confirm-alert"; 
+import { confirmAlert } from "react-confirm-alert";
 
 function ShowLiabrary(props) {
   const [data, setData] = useState([]);
@@ -46,11 +46,10 @@ function ShowLiabrary(props) {
   };
 
   const deleteA = async (id) => {
-      const response = await axios.delete(`http://localhost:5000/abonnement/deletea/${id}`);
-      toast.success("items deleteed");
+    const response = await axios.delete(`http://localhost:5000/abonnement/deletea/${id}`);
+    toast.success("items deleteed");
 
-      listA();
-    
+    listA();
   };
   const confirmDelete = (id) => {
     confirmAlert({
@@ -70,9 +69,9 @@ function ShowLiabrary(props) {
   };
   return (
     <div id="content-page" class="content-page">
-      <div id="root">
+      <div>
         <Navbarback />
-        <div id="root">
+        <div>
           <SideBar />
         </div>
       </div>
@@ -106,7 +105,7 @@ function ShowLiabrary(props) {
                       <th>city</th>
                       <th>Age</th>
                       <th>Id Library</th>
-                      <th >Action</th>
+                      <th>Action</th>
                     </tr>
                   </thead>
 
@@ -136,8 +135,8 @@ function ShowLiabrary(props) {
                             <br></br>
                             <br></br>
                             <button type="button" className="btn btn-danger " onClick={() => confirmDelete(item._id)}>
-                                  Delete
-                                </button>
+                              Delete
+                            </button>
                           </td>
                         </tr>
                       );
