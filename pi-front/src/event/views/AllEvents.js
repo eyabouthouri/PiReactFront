@@ -52,7 +52,7 @@ function AllEvents(props) {
     <div>
       <Navbar></Navbar>
 
-      <div class="header-for-bg">
+      <div class="header-for-bg" style={{ marginTop: 0 }}>
         <div class="background-header position-relative">
           <img src="images/hi.jpg" class="img-fluid rounded w-100 rounded rounded" alt="profile-bg" />
           <div class="title-on-header">

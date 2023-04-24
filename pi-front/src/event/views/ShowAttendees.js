@@ -83,7 +83,7 @@ function ShowAttendees(props) {
             <div class="container">
               <div id="table" class="table-editable">
                 <table class="table table-bordered table-responsive-md table-striped text-center">
-                  <thead class="thead-dark">
+                  <thead class="thead-ligh" style={{ backgroundColor: "#4d8cc4", color: "white" }}>
                     <tr>
                     
                                     <th>fullName</th>

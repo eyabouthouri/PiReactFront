@@ -7,6 +7,8 @@ import NavbarFront from '../components/NavbarFront';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Navbar from '../components/Navbar';
+import { confirmAlert } from "react-confirm-alert"; 
+import "react-confirm-alert/src/react-confirm-alert.css"; 
 axios.defaults.withCredentials = true;
 function GetrdvPatient(){
     const [rdvpatient,setrdvpatient]= useState([]);
@@ -67,12 +69,29 @@ function GetrdvPatient(){
             console.log(err);
           }
       }
+      
       const refresh = async(id)=>{
          annulerrdv(id);
         const rdvData = await getrdv(patientco._id);
         console.log(rdvData)
         setrdvpatient(rdvData);
       }
+      const confirmannuler = (id) => {
+        confirmAlert({
+         
+          message: "Are you sure you want to cancel this appointment ?",
+          buttons: [
+            {
+              label: "Yes",
+              onClick: () => refresh(id),
+            },
+            {
+              label: "No",
+              onClick: () => {},
+            },
+          ],
+        });
+      };
       const addresndezvous = async()=>{
         
         await axios.put(`http://localhost:5000/coach/updaterdv/${idavis}`,{
@@ -178,7 +197,7 @@ function GetrdvPatient(){
                 
           <div>
         
-          <button type="button" class="btn btn-danger" onClick={()=>{refresh(event.event.extendedProps._id)}} >
+          <button type="button" class="btn btn-danger" onClick={()=>{confirmannuler(event.event.extendedProps._id)}} >
           <i class="fa fa-times-circle"></i>
             annuler 
       </button>

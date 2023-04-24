@@ -120,6 +120,28 @@ function GetallCoach(){
 
 
     }
+   
+    const filtre = async(name)=>{
+      if(!name){
+
+        sednRequest().then((d) => {
+        setUser(d);
+      });
+      }
+      else{
+        let filteredUsers = user;
+
+
+  
+    
+        filteredUsers = filteredUsers.filter((f)=>f.name.indexOf(name)>-1 || f.specialite.indexOf(name)>-1 || f.adresseCabinet.indexOf(name)>-1);
+      
+      setUser(filteredUsers);
+      }
+   
+  }
+    
+    console.log(user)
     
    
     const sednRequest = async () => {
@@ -317,12 +339,25 @@ console.log(rdvpatient.date)
       
         <div>
         <Navbar></Navbar>
-           <div class=" d-flex justify-content-center align-items-center">
-            <div class="background-header position-relative">
-               <img src="images/capture.png" width="1200" height="400" alt="header-bg"/>
-             
+        <div class="header-for-bg" style={{ marginTop: 0 }}>
+        <div class="background-header position-relative">
+          <img src="images/capture5.png" width="1600" height="500"/>
+          <div class="title-on-header">
+            <div class="data-block">
+              <h2></h2>
+              <div class="iq-search-bar">
+                <form action="#" class="searchbox">
+                  <input type="text" class="text search-input" placeholder="Type here to search..." onChange={(e) => filtre(e.target.value)} />
+                  <a class="search-link" href="#">
+                    <i class="ri-search-line" />
+                    <i />
+                  </a>
+                </form>
+              </div>
             </div>
-         </div>
+          </div>
+        </div>
+        </div>
 
            <div id="content-page" class="content-page">
             <div class="container">
@@ -336,7 +371,7 @@ console.log(rdvpatient.date)
                            <div class="profile-header-image">
                               <div class="cover-container">
                               <br></br>
-                                 
+                              <br></br> 
                               </div>
                               <div class="profile-info p-4">
                                  <div class="user-detail">

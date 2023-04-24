@@ -29,7 +29,7 @@ export default function Conversation({ conversation, currentUser }) {
           src={process.env.PUBLIC_URL + "/imagee/"+user?.image }
         alt=""
       />
-      <span className="conversationName">{user?.username}</span>
+      <span className="conversationName">{user?.name}{user?.lastname}</span>
     </div>
     
   );

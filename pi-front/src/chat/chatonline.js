@@ -74,7 +74,7 @@ console.log(friends)
           <div className="chatOnlineBadge"></div>
         </div>
         {/* use optional chaining to prevent errors if 'o' is undefined */}
-        <span className="chatOnlineName">{o?.username}</span>
+        <span className="chatOnlineName">{o?.name} {o?.lastname}</span>
       </div>
     ))}
     {friends.filter((f)=>f.id != currentId).map((f) => (
@@ -91,7 +91,7 @@ console.log(friends)
           <div className=""></div>
         </div>
         {/* use optional chaining to prevent errors if 'f' is undefined */}
-        <span className="chatOnlineName">{f?.username}</span>
+        <span className="chatOnlineName">{f?.name} {f?.lastname}</span>
       </div>
     ))}
   </div>

@@ -8,6 +8,8 @@ import Navbarback from '../components/Navbarback';
 import SideBar from '../components/SideBar';
 import NavbarFront from '../components/NavbarFront';
 import Navbar from '../components/Navbar';
+import { confirmAlert } from "react-confirm-alert"; 
+import "react-confirm-alert/src/react-confirm-alert.css"; 
 axios.defaults.withCredentials = true;
 
 function GetRdv(props){
@@ -67,11 +69,28 @@ function GetRdv(props){
         withCredentials: true,
       }).catch((err) => console.log(err));
     }
+
     const refresh = async(id)=>{
       deleterdv(id);
       const rdvData = await getrdv(userco._id);
       setrdv(rdvData);
     }
+    const confirmDelete = (id) => {
+      confirmAlert({
+       
+        message: "Are you sure you want to delete this appointment ?",
+        buttons: [
+          {
+            label: "Yes",
+            onClick: () => refresh(id),
+          },
+          {
+            label: "No",
+            onClick: () => {},
+          },
+        ],
+      });
+    };
   
     function HandleEventClick(event){
        
@@ -102,7 +121,7 @@ function GetRdv(props){
     
      const afficherBouton = (
       etaat && (
-        <button type="button" className="btn btn-danger" onClick={() => refresh(event.event.extendedProps._id)}>
+        <button type="button" className="btn btn-danger" onClick={() => confirmDelete(event.event.extendedProps._id)}>
           Remove
         </button>
       )
