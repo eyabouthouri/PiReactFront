@@ -97,7 +97,7 @@ function Home(props) {
   <body id="page-top">
                <Navbar/>
        
-  <img src="images/ab.jpg"  height="600px"  width="1550px" alt="image description" />
+  <img src="images/ab.jpg"  height="750px"  width="1550px" alt="image description" />
 
 
         <section class="page-section bg-light" id="portfolio">
