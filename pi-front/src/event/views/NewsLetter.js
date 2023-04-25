@@ -1,4 +1,3 @@
-
 import React, { useEffect } from "react";
 import Navbarback from "../../components/Navbarback";
 import { useState } from "react";
@@ -67,23 +66,7 @@ const [msg, setmsg] = useState("");
 
   return (
 <div>
-<Navbar></Navbar>
 
-<div class="header-for-bg">
-
-<div class="background-header position-relative">
-   <img src="images/page-img/profile-bg3.jpg" class="img-fluid rounded w-100 rounded rounded" alt="profile-bg"/>
-   <div class="title-on-header">
-      <div class="data-block">
-         <h3> Thank you for attending and we hope you'll  enjoy the experience !</h3>          
-      </div>        
-   </div>
-
-</div>
-<div>
-<div>
-</div>
-</div>
 <div class="row"/>
 <div class="col-sm-12">
     
@@ -124,25 +107,10 @@ const [msg, setmsg] = useState("");
 </div>
 </div>
 <br></br>  <br></br>   <br></br>         <br></br><br></br>
-<footer class="bg-white iq-footer">
-    <div class="container-fluid">
-       <div class="row">
-          <div class="col-lg-6">
-             <ul class="list-inline mb-0">
-                <li class="list-inline-item"><a href="privacy-policy.html">Privacy Policy</a></li>
-                <li class="list-inline-item"><a href="terms-of-service.html">Terms of Use</a></li>
-             </ul>
-          </div>
-          <div class="col-lg-6 text-right">
-             Copyright 2020 <a href="#">
-                Web Spirits</a> All Rights Reserved.
-          </div>
-       </div>
-    </div>
- </footer>
+
 
 </div>
-</div>
+
 
 
 

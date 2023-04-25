@@ -180,25 +180,22 @@ function Library(props) {
       </div>
       <br></br> <br></br> <br></br> <br></br>
       <br></br>
-      <footer class="bg-white iq-footer">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-lg-6">
-              <ul class="list-inline mb-0">
-                <li class="list-inline-item">
-                  <a href="privacy-policy.html">Privacy Policy</a>
-                </li>
-                <li class="list-inline-item">
-                  <a href="terms-of-service.html">Terms of Use</a>
-                </li>
-              </ul>
+      <footer class="footer py-4">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-4 text-lg-start">Copyright &copy; web Sprint 2023</div>
+                    <div class="col-lg-4 my-3 my-lg-0">
+                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                    <div class="col-lg-4 text-lg-end">
+                        <a class="link-dark text-decoration-none me-3" href="#!">Privacy Policy</a>
+                        <a class="link-dark text-decoration-none" href="#!">Terms of Use</a>
+                    </div>
+                </div>
             </div>
-            <div class="col-lg-6 text-right">
-              Copyright 2020 <a href="#">Web Spirits</a> All Rights Reserved.
-            </div>
-          </div>
-        </div>
-      </footer>
+        </footer>
     </div>
   );
 }

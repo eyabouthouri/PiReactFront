@@ -80,7 +80,8 @@ function Navbar(props) {
 
   return (
     <div>
-      <nav class="navbar navbar-expand-md navbar-light bg-light border-bottom shadow-sm">
+
+      <nav class="navbar navbar-expand-lg  navbar-light  fixed-top" id="mainNav">
         <div class="container">
           <a class="navbar-brand d-flex align-items-center">
             <img src="/images/yc.png" style={{ height: 70 }} class=" navbar-light " alt="Tiya Golf Club" />

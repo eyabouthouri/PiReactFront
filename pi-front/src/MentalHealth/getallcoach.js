@@ -689,7 +689,9 @@ console.log(rdvpatient.date)
       </div>
     
     </div>
+    
   </div>
+  
 </div>
 
         </>
