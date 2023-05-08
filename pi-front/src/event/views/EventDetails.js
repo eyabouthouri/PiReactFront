@@ -167,7 +167,7 @@ function EventDetails(props) {
           duration: 3000,
         },
       });
-      history("/NewsLetter");
+      history("/allevent");
     } catch (err) {
       setValid(false);
       console.error(err.response.data);
@@ -262,7 +262,7 @@ function EventDetails(props) {
                 <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
                   <div class="iq-card-body p-0  ">
                     <a href="#">
-                      <img src={process.env.PUBLIC_URL + "/imagee/" + data.img} class="img-fluid rounded" />
+                      <img src={data.img} class="img-fluid rounded" />
                     </a>
                     <br></br>
 

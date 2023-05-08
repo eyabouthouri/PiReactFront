@@ -6,6 +6,7 @@ import { setIsLoggedin } from "../redux/session";
 import { FaComment } from "react-icons/fa";
 import { BiRefresh } from "react-icons/bi";
 import { FaFacebookMessenger } from "react-icons/fa";
+import "./navbarr.css"
 function Navbar(props) {
   const dispatch = useDispatch();
 
@@ -36,9 +37,6 @@ function Navbar(props) {
       })
       .catch((err) => console.log(err));
     setUserconnecte(res.data);
-    if (res.data == []) {
-      history("/Signin");
-    }
     return res.data;
   };
   const logout = async () => {
@@ -49,7 +47,7 @@ function Navbar(props) {
       .catch((err) => console.log(err));
     dispatch(setIsLoggedin());
     setUserconnecte(false);
-    history("/Signin");
+    //history("/Signin");
   };
 
   const updateadmin = async () => {
@@ -71,7 +69,8 @@ function Navbar(props) {
   };
   const Handelsubmit = (ee) => {
     ee.preventDefault();
-    updateadmin();
+    updateadmin().then(()=>{history("/home")})
+   
   };
   const handleInputChange = (e) => {
     let { name, value } = e.target;
@@ -80,94 +79,118 @@ function Navbar(props) {
 
   return (
     <div>
+ <header id="header" class="fixed-top header-inner-pages">
+    <div class="container d-flex align-items-center justify-content-between">
 
-      <nav class="navbar navbar-expand-lg  navbar-light  fixed-top" id="mainNav">
-        <div class="container">
-          <a class="navbar-brand d-flex align-items-center">
-            <img src="/images/yc.png" style={{ height: 70 }} class=" navbar-light " alt="Tiya Golf Club" />
-          </a>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ">
-              <li class="nav-item">
-                <Link class="nav-link" to="/home">
-                  Home
-                </Link>
-              </li>
-              <li class="nav-item">
-                <Link class="nav-link" to="/Library">
+    <nav id="navbar" class="navbar">
+    <Link to="/home">
+    <img src="/images/yc.png"  height="70" width="70" class="navbar-light" alt="Tiya Golf Club" />
+    </Link>   
+    
+        
+          <ul >
+              <li class="nav-item scrollto active">
+                <Link class="" to="/Library">
                   Libraries
                 </Link>
               </li>
-              <li class="nav-item">
-                <Link class="nav-link" to="/allevent">
+              <li class="nav-item scrollto active">
+                <Link class="" to="/allevent">
                   Events
                 </Link>
               </li>
-              <li class="nav-item">
+              <li class="nav-item scrollto active">
                 <Link class="nav-link" to="/Course">
                   Courses
                 </Link>
               </li>
-              <li class="nav-item">
+              <li class="nav-item scrollto active">
                 <Link class="nav-link" to="/getallcoach">
                   MentalHealth
                 </Link>
               </li>
-              <li class="nav-item"></li>
+              <li class="nav-item scrollto active"></li>
 
-              <li>
+              <li class="nav-item scrollto active">
                 {!isLoggedIn && (
-                  <Link class="nav-link " to="/Signin">
+                  <Link class="nav-link scrollto active " to="/Signin">
                     Sign in
                   </Link>
                 )}
               </li>
-              <li class="nav-item ml-auto">
+              <li class="nav-item scrollto active">
                 {isLoggedIn && isAdmin && (
-                  <Link class="nav-link " to="/ShowCoach">
+                  <Link class="nav-link scrollto active " to="/ShowCoach">
                     Dashboard
                   </Link>
                 )}
               </li>
-              <li class="nav-item ml-auto">
+              <li class="nav-item scrollto active">
                 {isLoggedIn && isCoach && (
-                  <Link class="nav-link " to="/getrdv">
+                  <Link class="nav-link  " to="/getrdv">
                     appoitment
                   </Link>
                 )}
               </li>
-              <li class="nav-item ml-auto">
+              <li class="scrollto active">
                 {isLoggedIn && isUser && (
-                  <Link class="nav-link " to="/getrdvpatient">
+                  <Link class="nav-link  " to="/getrdvpatient">
                     appoitment
                   </Link>
+                )}
+              </li>
+              <li class="scrollto active">
+                {isLoggedIn&& (
+                    <Link class="nav-link  " data-toggle="modal" data-target="#exampleModal" style={{ color: "#00BFFF" }}>
+                    Profile
+                  </Link>
+                )}
+              </li>
+              
+              &nbsp;
+              <li class="scrollto active">
+                {isLoggedIn&& (
+                  
+                   <img class="profile-pic" src={userconnecte.image} alt="profile-pic" height="40" width="40" />
+                  
+                )}
+              </li>
+              &nbsp;
+              <li class="scrollto active">
+                {isLoggedIn&& (
+                  <h6 class="text-white">
+                  {" "}
+                  &nbsp; {userconnecte.name} {userconnecte.lastname} 
+                </h6>
+                  
+                )}
+              </li>
+              <li class="scrollto active">
+                {isLoggedIn&& (
+                  <a href="/chat"><FaFacebookMessenger style={{ color: "#00BFFF" }} size={30} /></a>
+                  
+                )}
+              </li>
+              <li class="scrollto active">
+                {isLoggedIn&& (
+                  <Link class="nav-link  " style={{ color: "#00BFFF" }} onClick={logout} to="/">
+                  Logout
+                </Link>
                 )}
               </li>
             </ul>
-          </div>
-
-          {isLoggedIn && (
-            <>
-              &nbsp; <img class="profile-pic" src={process.env.PUBLIC_URL + "/imagee/" + userconnecte.image} alt="profile-pic" height="70" width="50" />
-              <h6>
-                {" "}
-                &nbsp; {userconnecte.name} &nbsp;{userconnecte.lastname}
-              </h6>
-              &nbsp; &nbsp;
-              <Link class="nav-link " style={{ color: "#00BFFF" }} onClick={logout} to="/">
-                Logout
-              </Link>
-              &nbsp;
-              <Link class="nav-link " data-toggle="modal" data-target="#exampleModal" style={{ color: "#00BFFF" }}>
-                Profile
-              </Link>
-              <a class="nav-link" href="/chat">
-                <FaFacebookMessenger style={{ color: "#00BFFF" }} size={32} />
-              </a>
-            </>
-          )}
-        </div>
+         
+           
+            
+           
+       
+          
       </nav>
+    
+
+</div>
+</header>
+
     
       <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -186,7 +209,7 @@ function Navbar(props) {
                 <div class="form-group row align-items-center">
                   <div class="col-md-12">
                     <div class="profile-img-edit">
-                      <img class="profile-pic" src={process.env.PUBLIC_URL + "/imagee/" + userconnecte.image} alt="profile-pic" style={{ width: 150, height: 150 }} />
+                      <img class="profile-pic" src={userconnecte.image} alt="profile-pic" style={{ width: 150, height: 150 }} />
                       <div class="p-image">
                         <i></i>
                       </div>

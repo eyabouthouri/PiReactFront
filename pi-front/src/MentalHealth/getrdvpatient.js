@@ -220,6 +220,10 @@ function GetrdvPatient(){
 return    (
     <div>
      <Navbar></Navbar>
+     <br></br>
+     <br></br>
+     <br></br>
+     <br></br>
          <FullCalendar
         plugins={[dayGridPlugin]}
         initialView='dayGridMonth'

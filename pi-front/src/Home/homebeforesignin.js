@@ -2,198 +2,267 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
+import AllEvents from "../event/views/AllEvents";
+import ClientCourse from "../course/views/ClientCourse";
+import Library from "../Library/views/Library";
+import NewsLetter from "../event/views/NewsLetter";
+import Footer from "../components/Footer";
+import Lib from "../Library/lib";
 function Homebeforsignin(props) {
+  const [user, setUser] = useState([]);
+  useEffect(()=>{
+    getcoachs().then((d)=>{
+    setUser(d);
+    })
+  },[])
+  console.log(user)
+  const getcoachs = async(id)=>{
+      
+    const coach=await axios.get(`http://localhost:5000/coach/topcoach`,{
+      withCredentials: true,
+    })
+   
+   
+   return coach.data
+
+  
+
+
+
+}
+
+  
   return (
     <div>
-      <Navbar className="navbar" />
+    <Navbar></Navbar>
 
-      <section class="hero-section d-flex justify-content-center align-items-center" id="section_1">
-        <div class="section-overlay"></div>
+  
+    <section id="hero">
+  <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
+    <ol class="carousel-indicators" id="hero-carousel-indicators">
+      <li data-bs-target="#heroCarousel" class="active"></li>
+      <li data-bs-target="#heroCarousel"></li>
+      <li data-bs-target="#heroCarousel"></li>
+    </ol>
 
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-6 col-12 mb-5 mb-lg-0">
-              <h1 class="cd-headline rotate-1 text-white mb-4 pb-2">
-                <span class="cd-words-wrapper">
-                  <b class="is-visible">YouthConnect</b>
-                  Connect with the world - Events - Learning <b>Creative</b>
-                  <b>Lifestyle</b>
-                </span>
-              </h1>
-
-              <div class="custom-btn-group">
-                <a href="#section_2" class="btn custom-btn smoothscroll me-3">
-                  Our Story
-                </a>
-
-                <a href="#section_3" class="link smoothscroll">
-                  Become a member
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-          <path
-            fill="#ffffff"
-            fill-opacity="1"
-            d="M0,224L34.3,192C68.6,160,137,96,206,90.7C274.3,85,343,139,411,144C480,149,549,107,617,122.7C685.7,139,754,213,823,240C891.4,267,960,245,1029,224C1097.1,203,1166,181,1234,160C1302.9,139,1371,117,1406,106.7L1440,96L1440,320L1405.7,320C1371.4,320,1303,320,1234,320C1165.7,320,1097,320,1029,320C960,320,891,320,823,320C754.3,320,686,320,617,320C548.6,320,480,320,411,320C342.9,320,274,320,206,320C137.1,320,69,320,34,320L0,320Z"
-          ></path>
-        </svg>
-      </section>
-
-      <section class="about-section section-padding" id="section_2">
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-12 col-12 text-center">
-              <h2 class="mb-lg-5 mb-4">About Tiya</h2>
-            </div>
-
-            <div class="col-lg-5 col-12 me-auto mb-4 mb-lg-0">
-              <h3 class="mb-3">Tiya Club History</h3>
-
-              <p>
-                <strong>Since 1984</strong>, Tiya is ranked #8 in the top 10 golf courses in the world. Tiya is Bootstrap 5 HTML CSS template for golf clubs. Anyone can modify and use this layout for commercial purposes.
-              </p>
-
-              <p>Tiya Golf Club is 100% free CSS template provided by TemplateMo website. Please tell your friends about our website. Thank you for visiting.</p>
-            </div>
-
-            <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0 mb-md-0">
-              <div class="member-block">
-                <div class="member-block-image-wrap">
-                  <img src="images/members/portrait-young-handsome-businessman-wearing-suit-standing-with-crossed-arms-with-isolated-studio-white-background.jpg" class="member-block-image img-fluid" alt="" />
-
-                  <ul class="social-icon">
-                    <li class="social-icon-item">
-                      <a href="#" class="social-icon-link bi-twitter"></a>
-                    </li>
-
-                    <li class="social-icon-item">
-                      <a href="#" class="social-icon-link bi-whatsapp"></a>
-                    </li>
-                  </ul>
-                </div>
-
-                <div class="member-block-info d-flex align-items-center">
-                  <h4>Michael</h4>
-
-                  <p class="ms-auto">Founder</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6 col-12">
-              <div class="member-block">
-                <div class="member-block-image-wrap">
-                  <img src="images/members/successful-asian-lady-boss-red-blazer-holding-clipboard-with-documens-pen-working-looking-happy-white-background.jpg" class="member-block-image img-fluid" alt="" />
-
-                  <ul class="social-icon">
-                    <li class="social-icon-item">
-                      <a href="#" class="social-icon-link bi-linkedin"></a>
-                    </li>
-                    <li class="social-icon-item">
-                      <a href="#" class="social-icon-link bi-twitter"></a>
-                    </li>
-                  </ul>
-                </div>
-
-                <div class="member-block-info d-flex align-items-center">
-                  <h4>Sandy</h4>
-
-                  <p class="ms-auto">Co-Founder</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-6 col-12">
-            <div class="section-bg-image-block">
-              <h2 class="mb-lg-3">Get our newsletter</h2>
-
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor ut labore et dolore.</p>
-
-              <form action="#" method="get" class="custom-form mt-lg-4 mt-2" role="form">
-                <div class="input-group input-group-lg">
-                  <span class="input-group-text bi-envelope" id="basic-addon1"></span>
-
-                  <input type="email" name="email" id="email" pattern="[^ @]*@[^ @]*" class="form-control" placeholder="Email address" required="" />
-
-                  <button type="submit" class="form-control">
-                    Subscribe
-                  </button>
-                </div>
-              </form>
-            </div>
+    <div class="carousel-inner" role="listbox">
+      <div class="carousel-item active" style={{backgroundImage: "url(home/assets/img/slide/R.jpg)"}}>
+        <div class="carousel-container">
+          <div class="container">
+            <h2 class="animated fadeInDown">Welcome to <span>Youth Connect </span></h2>
+            <p class="animated fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
+            <a href="#about" class="btn-get-started animated fadeInUp scrollto">Read More</a>
           </div>
         </div>
       </div>
-      <footer class="site-footer">
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-6 col-12 me-auto mb-5 mb-lg-0">
-              <a class="navbar-brand d-flex align-items-center" href="index.html">
-                <img src="images/yc.png" class="navbar-brand-image img-fluid" alt="" />
-                <span class="navbar-brand-text">
-                  Tiya
-                  <small>Golf Club</small>
-                </span>
-              </a>
-            </div>
 
-            <div class="col-lg-3 col-12">
-              <h5 class="site-footer-title mb-4">Join Us</h5>
+ 
 
-              <p class="d-flex border-bottom pb-3 mb-3 me-lg-3">
-                <span>Mon-Fri</span>
-                6:00 AM - 6:00 PM
-              </p>
+   
+    </div>
 
-              <p class="d-flex me-lg-3">
-                <span>Sat-Sun</span>
-                6:30 AM - 8:30 PM
-              </p>
+    <a class="carousel-control-prev" href="#heroCarousel" role="button" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon bi bi-chevron-left" aria-hidden="true"></span>
+    </a>
+    <a class="carousel-control-next" href="#heroCarousel" role="button" data-bs-slide="next">
+      <span class="carousel-control-next-icon bi bi-chevron-right" aria-hidden="true"></span>
 
-              <p class="copyright-text">Copyright © 2048 Tiya Golf Club</p>
-            </div>
+    </a>
+  
+   
 
-            <div class="col-lg-2 col-12 ms-auto">
-              <ul class="social-icon mt-lg-5 mt-3 mb-4">
-                <li class="social-icon-item">
-                  <a href="#" class="social-icon-link bi-instagram"></a>
-                </li>
 
-                <li class="social-icon-item">
-                  <a href="#" class="social-icon-link bi-twitter"></a>
-                </li>
+    </div>
+  </section>
+  <main id="main">
 
-                <li class="social-icon-item">
-                  <a href="#" class="social-icon-link bi-whatsapp"></a>
-                </li>
-              </ul>
-              <p class="copyright-text">
-                Design:{" "}
-                <a rel="nofollow" href="https://templatemo.com" target="_blank">
-                  TemplateMo
-                </a>
-              </p>
+   
+ 
+  
+    <section id="services" class="services">
+      <div class="container-fluid">
+
+        <div class="section-title">
+          <h2>Events</h2>
+          <h3>Check our <span>Events</span></h3>
+          <p>Ut possimus qui ut temporibus culpa velit eveniet modi omnis est adipisci expedita at voluptas atque vitae autem.</p>
+        </div>
+       <AllEvents></AllEvents>
+       <br></br>
+       <br></br>
+
+      </div>
+    </section>
+    <section id="cta" class="cta">
+      <div class="container">
+
+        <div class="text-center">
+<NewsLetter></NewsLetter>
+        </div>
+
+      </div>
+    </section>
+    <section id="portfolio" class="portfolio">
+      <div class="container-fluid">
+
+        <div class="section-title">
+    
+          <h3>Check our <span>Courses</span></h3>
+          <p>Ut possimus qui ut temporibus culpa velit eveniet modi omnis est adipisci expedita at voluptas atque vitae autem.</p>
+        </div>
+
+        
+       
+          <ClientCourse></ClientCourse>
+     
+      </div>
+    </section>
+
+
+    <section id="testimonials" class="testimonials section-bg">
+      <div class="container-fluid">
+
+        <div class="section-title">
+        <h2>Library</h2>
+          <h3>Check our <span>Library</span></h3>
+          <p>Ut possimus qui ut temporibus culpa velit eveniet modi omnis est adipisci expedita at voluptas atque vitae autem.</p>
+        </div>
+
+       <Lib></Lib>
+
+       <br></br>
+
+      </div>
+    </section>
+    <section id="team" class="team">
+      <div class="container-fluid">
+
+        <div class="section-title">
+          <h2>Mental health </h2>
+          <h3>top 4 <span>coach</span></h3>
+          <p>Ut possimus qui ut temporibus culpa velit eveniet modi omnis est adipisci expedita at voluptas atque vitae autem.</p>
+        </div>
+
+        <div class="row justify-content-center">
+          <div class="col-xl-10">
+            <div class="row">
+            {user &&
+                      user.map((item, index) => {
+                        return (
+                          
+              <div class="col-xl-3 col-lg-4 col-md-6">
+                <div class="member">
+                <img src={item.image} width={300} class="img-fluid"alt="image2" />
+
+                  <div class="member-info">
+                    <div class="member-info-content">
+                      <h4>{item.name}</h4>
+                      <span>{item.specialite}</span>
+                    </div>
+                    <div class="social">
+                      <a href=""><i class="bi bi-twitter"></i></a>
+                      <a href=""><i class="bi bi-facebook"></i></a>
+                      <a href=""><i class="bi bi-instagram"></i></a>
+                      <a href=""><i class="bi bi-linkedin"></i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+                        )})}
+       
+
+           
+
             </div>
           </div>
         </div>
 
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-          <path
-            fill="#81B29A"
-            fill-opacity="1"
-            d="M0,224L34.3,192C68.6,160,137,96,206,90.7C274.3,85,343,139,411,144C480,149,549,107,617,122.7C685.7,139,754,213,823,240C891.4,267,960,245,1029,224C1097.1,203,1166,181,1234,160C1302.9,139,1371,117,1406,106.7L1440,96L1440,320L1405.7,320C1371.4,320,1303,320,1234,320C1165.7,320,1097,320,1029,320C960,320,891,320,823,320C754.3,320,686,320,617,320C548.6,320,480,320,411,320C342.9,320,274,320,206,320C137.1,320,69,320,34,320L0,320Z"
-          ></path>
-        </svg>
-      </footer>
+      </div>
+    </section>
+
+    <section id="contact" class="contact section-bg">
+      <div class="container-fluid">
+
+        <div class="section-title">
+          <h2>Contact</h2>
+          <h3>Get In Touch With <span>Us</span></h3>
+          <p>Ut possimus qui ut temporibus culpa velit eveniet modi omnis est adipisci expedita at voluptas atque vitae autem.</p>
+        </div>
+
+        <div class="row justify-content-center">
+          <div class="col-xl-10">
+            <div class="row">
+
+              <div class="col-lg-6">
+
+                <div class="row justify-content-center">
+
+                  <div class="col-md-6 info d-flex flex-column align-items-stretch">
+                    <i class="bx bx-map"></i>
+                    <h4>Address</h4>
+                    <p>A108 Adam Street,<br/>New York, NY 535022</p>
+                  </div>
+                  <div class="col-md-6 info d-flex flex-column align-items-stretch">
+                    <i class="bx bx-phone"></i>
+                    <h4>Call Us</h4>
+                    <p>+1 5589 55488 55<br/>+1 5589 22548 64</p>
+                  </div>
+                  <div class="col-md-6 info d-flex flex-column align-items-stretch">
+                    <i class="bx bx-envelope"></i>
+                    <h4>Email Us</h4>
+                    <p>contact@example.com<br/>info@example.com</p>
+                  </div>
+                  <div class="col-md-6 info d-flex flex-column align-items-stretch">
+                    <i class="bx bx-time-five"></i>
+                    <h4>Working Hours</h4>
+                    <p>Mon - Fri: 9AM to 5PM<br/>Sunday: 9AM to 1PM</p>
+                  </div>
+
+                </div>
+
+              </div>
+
+              <div class="col-lg-6">
+                <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+                  <div class="row">
+                    <div class="col-md-6 form-group">
+                      <label for="name">Your Name</label>
+                      <input type="text" name="name" class="form-control" id="name" required/>
+                    </div>
+                    <div class="col-md-6 form-group mt-3 mt-md-0">
+                      <label for="email">Your Email</label>
+                      <input type="email" class="form-control" name="email" id="email" required/>
+                    </div>
+                  </div>
+                  <div class="form-group mt-3">
+                    <label for="subject">Subject</label>
+                    <input type="text" class="form-control" name="subject" id="subject" required/>
+                  </div>
+                  <div class="form-group mt-3">
+                    <label for="message">Message</label>
+                    <textarea class="form-control" name="message" rows="8" required></textarea>
+                  </div>
+                  <div class="my-3">
+                    <div class="loading">Loading</div>
+                    <div class="error-message"></div>
+                    <div class="sent-message">Your message has been sent. Thank you!</div>
+                  </div>
+                  <div class="text-center"><button type="submit">Send Message</button></div>
+                </form>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+
+<Footer></Footer>
+
     </div>
   );
 }

@@ -5,35 +5,37 @@ import axios from "axios";
 import Navbarback from "../components/Navbarback";
 import SideBar from "../components/SideBar";
 import { Store } from "react-notifications-component";
+import Progress from "../components/Progress";
 axios.defaults.withCredentials = true;
 function AjouterCoach(props) {
-  const initialState = { name: "", lastname: "", email: "", username: "", pwd: "", specialite: "", biographie: "", telephone: "", adresseCabinet: "" };
+  const initialState = { name: "", lastname: "", email: "", username: "", pwd: "", specialite: "", biographie: "", telephone: "", adresseCabinet: "" ,image:""};
 
   const [input, setinput] = useState(initialState);
   const [validd, setValid] = useState(true);
-
+  const [uploadPercentage, setUploadPercentage] = useState(0);
   const history = useNavigate();
   const [msg, setmsg] = useState("");
-  const addclient = async () => {
+  const addclient = async (filePath) => {
     try {
-      const res = await axios.post(
-        "http://localhost:5000/coach/addCoach/coach",
+      await axios.post(
+        "/coach/addCoach/coach",
         {
           name: input.name,
           lastname: input.lastname,
           email: input.email,
           username: input.username,
           pwd: input.pwd,
-          image: input.image,
           specialite: input.specialite,
           biographie: input.biographie,
           telephone: input.telephone,
           adresseCabinet: input.adresseCabinet,
+          image: filePath,
         },
         { withCredentials: true }
       );
+
       Store.addNotification({
-        title: "Add User Admin",
+        title: "Add User coach",
         message: "Coach added successfully",
         type: "success",
         insert: "bottom",
@@ -45,7 +47,6 @@ function AjouterCoach(props) {
         },
       });
       history("/ShowCoach");
-      console.log(res.data);
     } catch (err) {
       console.error(err);
       setValid(false);
@@ -53,15 +54,46 @@ function AjouterCoach(props) {
       setmsg([...msg, err.response.data]);
     }
   };
+  const filepath = async ()=>{
+    const formData = new FormData();
+      formData.append("file", input.file);
+      const res = await axios.post("/upload", formData, {
+        onUploadProgress: (progressEvent) => {
+          setUploadPercentage(
+            parseInt(Math.round((progressEvent.loaded * 100) / progressEvent.total))
+          );
+        },
+      });
+     return res.data.filePath;
 
-  const Handelsubmit = (e) => {
+  }
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    addclient();
+
+    try {
+      const filePath = await filepath();
+      await addclient(filePath);
+    } catch (err) {
+      console.error(err);
+      setValid(false);
+      console.error(err.response.data);
+      setmsg([...msg, err.response.data]);
+    }
+    
   };
+
   const handleInputChange = (e) => {
     let { name, value } = e.target;
-    setinput({ ...input, [name]: value });
+    console.log(e.target.type);
+    if (e.target.type === "file") {
+      setinput({ ...input, file: e.target.files[0], fileName: e.target.files[0].name });
+      console.log(input.file);
+    } else {
+      setinput({ ...input, [name]: value });
+    }
   };
+  console.log(input)
 
   return (
     <div id="content-page" class="content-page">
@@ -81,8 +113,8 @@ function AjouterCoach(props) {
               </div>
             </div>
             <div class="iq-card-body">
-              <form onSubmit={Handelsubmit} id="form-wizard1" class="text-center mt-4">
-                <fieldset>
+              <form id="form-wizard1" class="text-center mt-4" onSubmit={handleSubmit} method="POST" >
+               
                   <div class="form-card text-left">
                     <div class="row">
                       <div class="col-7">
@@ -156,13 +188,12 @@ function AjouterCoach(props) {
                   </div>
                   <div class="form-group">
                     <label>Upload Library Photo:</label>
-                    <input type="file" class="form-control mb-0" name="image" onChange={handleInputChange} value={input.image} placeholder="Your Full Name" />
+                    <input id="file-upload" type="file" class="form-control mb-0" name="image" onChange={handleInputChange} placeholder="Your Full Name" />
+                    <Progress percentage={uploadPercentage} />
                   </div>
-
-                  <button type="submit" name="next" class="btn btn-primary next action-button float-right">
-                    Add
-                  </button>
-                </fieldset>
+                 
+                  <input className="btn btn-primary " type="submit"/>
+              
               </form>
               <div />
             </div>

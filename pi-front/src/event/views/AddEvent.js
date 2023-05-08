@@ -6,7 +6,7 @@ import Navbarback from "../../components/Navbarback";
 import SideBar from "../../components/SideBar";
 import { Store } from "react-notifications-component";
 import { useForm } from "react-hook-form";
-
+import Progress from "../../components/Progress"
 import { useParams } from "react-router-dom";
 
 axios.defaults.withCredentials = true;
@@ -15,11 +15,12 @@ function AddEvent(props) {
 
   const [input, setinput] = useState(initialState);
   const [validd, setValid] = useState(true);
+  const [uploadPercentage, setUploadPercentage] = useState(0);
 
   const history = useNavigate();
   const [msg, setmsg] = useState("");
   const [state, setState] = useState(initialState);
-  const addev = async () => {
+  const addev = async (filePath) => {
     try {
       const res = await axios.post(
         "/events/addev",
@@ -29,7 +30,7 @@ function AddEvent(props) {
           location: input.location,
           organizer: input.organizer,
           date: input.date,
-          img: input.img,
+          img: filePath,
         },
         { withCredentials: true }
       );
@@ -56,14 +57,44 @@ function AddEvent(props) {
   const {
     formState: { errors, isValid },
   } = useForm({ mode: "onBlur" });
+  const filepath = async ()=>{
+    const formData = new FormData();
+      formData.append("file", input.file);
+      const res = await axios.post("/upload", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        onUploadProgress: (progressEvent) => {
+          setUploadPercentage(
+            parseInt(Math.round((progressEvent.loaded * 100) / progressEvent.total))
+          );
+        },
+      });
+      console.log(res)
+     return res.data.filePath;
 
-  const Handelsubmit = (e) => {
+  }
+  const Handelsubmit = async(e) => {
     e.preventDefault();
-    addev();
+    try {
+      const filePath = await filepath();
+      await addev(filePath);
+    } catch (err) {
+      console.error(err);
+      setValid(false);
+      console.error(err.response.data);
+      setmsg([...msg, err.response.data]);
+    }
   };
   const handleInputChange = (e) => {
     let { name, value } = e.target;
-    setinput({ ...input, [name]: value });
+    console.log(e.target.type)
+    if (e.target.type === "file") {
+      setinput({ ...input, file: e.target.files[0], fileName: e.target.files[0].name });
+      console.log(input.file);
+    } else {
+      setinput({ ...input, [name]: value });
+    }
   };
 
   return (
@@ -84,7 +115,7 @@ function AddEvent(props) {
               </div>
             </div>
             <div class="iq-card-body">
-              <form onSubmit={Handelsubmit} id="form-wizard1" class="text-center mt-4">
+              <form onSubmit={Handelsubmit} method="POST" id="form-wizard1" class="text-center mt-4">
                 <ul id="top-tab-list" class="p-0">
                   <li class="active" id="account">
                     <a href="javascript:void();">
@@ -150,7 +181,8 @@ function AddEvent(props) {
                   </div>
                   <div class="form-group">
                     <label for="file-upload">Photo</label>
-                    <input type="file" name="img" onChange={handleInputChange} value={input.img}></input>
+                    <input type="file" name="img" onChange={handleInputChange}></input>
+                    <Progress percentage={uploadPercentage} />
                   </div>
                   <button type="submit" name="next" class="btn btn-primary next action-button float-right" disabled={!isValid}>
                     Add

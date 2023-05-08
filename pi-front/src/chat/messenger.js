@@ -122,9 +122,9 @@ if(user){
       conversationId: currentChat._id,
     };
 
-    const receiverId = currentChat.members.find(
-      (member) => member !== user?._id
-    );
+    const receiverId = currentChat.members.find(member => {
+      return member !== null && member !== undefined && member !== user?._id;
+    });
     console.log(receiverId)
 
     socket.current.emit("sendMessage", {
@@ -149,6 +149,9 @@ if(user){
   return (
     <>
      <Navbar></Navbar>
+     <br></br>
+     <br></br>
+     <br></br>
       <div className="messenger">
         <div className="chatMenu">
           <div className="chatMenuWrapper">

@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import Progress from "../../components/Progress";
 
 axios.defaults.withCredentials = true;
 const initialState = {
@@ -20,8 +21,10 @@ function AddLibrary(props) {
   const [state, setState] = useState(initialState);
   const [msg, setmsg] = useState({});
   const [valid, setValid] = useState(true);
+  const [uploadPercentage, setUploadPercentage] = useState(0);
   const history = useNavigate();
   const { id } = useParams();
+
 
   const updateL = async (data, id) => {
     try {
@@ -48,15 +51,44 @@ function AddLibrary(props) {
   const {
     formState: { errors, isValid },
   } = useForm({ mode: "onBlur" });
+  const filepath = async ()=>{
+    const formData = new FormData();
+      formData.append("file", state.file);
+      const res = await axios.post("/upload", formData, {
+        onUploadProgress: (progressEvent) => {
+          setUploadPercentage(
+            parseInt(Math.round((progressEvent.loaded * 100) / progressEvent.total))
+          );
+        },
+      });
+     return res.data.filePath;
 
-  const Handelsubmit = (e) => {
+  }
+  const Handelsubmit = async(e) => {
     e.preventDefault();
-    addL(state);
+    
+    try {
+      const filePath = await filepath();
+      state.img=filePath;
+      await addL(state);
+    } catch (err) {
+      console.error(err);
+      setValid(false);
+      console.error(err.response.data);
+      setmsg([...msg, err.response.data]);
+    }
+   
   };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setState({ ...state, [name]: value });
+    console.log(e.target.type);
+    if (e.target.type === "file") {
+      setState({ ...state, file: e.target.files[0], fileName: e.target.files[0].name });
+      console.log(state.file);
+    } else {
+      setState({ ...state, [name]: value });
+    }
   };
 
   const countrySelect = document.querySelector("#country-select");
@@ -151,7 +183,8 @@ function AddLibrary(props) {
 
                             <div classNameName="form-group">
                               <label for="file-upload">Photo</label>
-                              <input id="file-upload" type="file" name="img" onChange={handleInputChange} value={state.img}></input>
+                              <input id="file-upload" type="file" name="img" onChange={handleInputChange} ></input>
+                              <Progress percentage={uploadPercentage} />
                               {!valid && msg.img && <span style={{ color: "red" }}>{msg.img}!! </span>}
                             </div>
                           </div>

@@ -34,3 +34,6 @@
       display: none;
     }
   }
+  .right-sidebar-mini {
+    width: 400px; /* change this value to adjust the width */
+  }

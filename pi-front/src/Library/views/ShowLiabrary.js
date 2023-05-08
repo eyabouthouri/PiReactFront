@@ -125,7 +125,7 @@ function ShowLiabrary(props) {
                         <tr key={index}>
                           <td>
                             {" "}
-                            <img class="img-fluid img-thumbnail" src={process.env.PUBLIC_URL + "/images/" + item.img}></img>{" "}
+                            <img class="img-fluid img-thumbnail"src={item.img}></img>{" "}
                           </td>
                           <td class="contenteditable">{item.name}</td>
                           <td class="contenteditable">{item.pays}</td>

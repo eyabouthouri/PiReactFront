@@ -7,6 +7,7 @@ import axios from "axios";
 import { useFormik } from "formik";
 import { BasicSchema } from "../shemas/controle";
 import { Store } from "react-notifications-component";
+import Progress from "../components/Progress";
 
 axios.defaults.withCredentials = true;
 function SignUp() {
@@ -17,9 +18,9 @@ function SignUp() {
   const [valid, setValid] = useState(true);
   const [isChecked, setIsChecked] = useState(false);
   const [showButton, setShowButton] = useState(false);
-
+  const [uploadPercentage, setUploadPercentage] = useState(0);
   const history = useNavigate();
-  const addclient = async () => {
+  const addclient = async (filePath) => {
     try {
       const res = await axios.post(
         "/users/add/user",
@@ -29,7 +30,7 @@ function SignUp() {
           email: input.email,
           username: input.username,
           pwd: input.pwd,
-          image: input.image,
+          image:filePath,
         },
         { withCredentials: true }
       );
@@ -55,31 +56,62 @@ function SignUp() {
     to: { opacity: showButton ? 1 : 0 },
   });
 
-
-  const handelsubmit = (e) => {
-    e.preventDefault();
-    if (isChecked) {
-      console.log("Form data submitted successfully!");
-      addclient();
-    } else {
-      Store.addNotification({
-        title: "Terms And Conditions",
-        message: "Please read and accept our terms and conditions to sign up",
-        type: "danger",
-        insert: "center",
-        container: "top-center",
-        animationIn: ["animate__animated", "animate__fadeIn"],
-        animationOut: ["animate__animated", "animate__fadeOut"],
-        dismiss: {
-          duration: 3000,
+  const filepath = async ()=>{
+    const formData = new FormData();
+      formData.append("file", input.file);
+      const res = await axios.post("/upload", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        onUploadProgress: (progressEvent) => {
+          setUploadPercentage(
+            parseInt(Math.round((progressEvent.loaded * 100) / progressEvent.total))
+          );
         },
       });
+      console.log(res)
+     return res.data.filePath;
+
+  }
+  const handelsubmit = async(e) => {
+    e.preventDefault();
+    try{
+      const filePath = await filepath();
+      console.log(filePath);
+      if (isChecked) { 
+        await addclient(filePath);
+        console.log("Form data submitted successfully!");
+      //  addclient();
+      } else {
+        Store.addNotification({
+          title: "Terms And Conditions",
+          message: "Please read and accept our terms and conditions to sign up",
+          type: "danger",
+          insert: "center",
+          container: "top-center",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 3000,
+          },
+        });
+      }
     }
+    catch(err){
+    
+    }
+ 
   };
 
   const handleChange = (e) => {
     let { name, value } = e.target;
-    setinput({ ...input, [name]: value });
+    console.log(e.target.type)
+    if (e.target.type === "file") {
+      setinput({ ...input, file: e.target.files[0], fileName: e.target.files[0].name });
+      console.log(input.file);
+    } else {
+      setinput({ ...input, [name]: value });
+    }
   };
 
   return (
@@ -122,7 +154,7 @@ function SignUp() {
               <div class="sign-in-from">
                 <h1 class="mb-0">Sign Up</h1>
 
-                <form onSubmit={handelsubmit}>
+                <form id="form-wizard1" onSubmit={handelsubmit} method="POST">
                   <div class="form-group">
                     <label htmlFor="name" for="exampleInputEmail1">
                       First Name
@@ -156,7 +188,8 @@ function SignUp() {
                   </div>
                   <div class="form-group">
                     <label for="exampleInputPassword1">Image </label>
-                    <input type="file" class="form-control mb-0" name="image" onChange={handleChange} value={input.image} />
+                    <input id="file-upload" type="file" class="form-control mb-0" name="image" onChange={handleChange}  />
+                    <Progress percentage={uploadPercentage} />
                   </div>
                   <div class="d-inline-block w-100">
                     <div class="custom-control custom-checkbox d-inline-block mt-2 pt-1">

@@ -13,11 +13,14 @@ const mapStyles = {
 
 axios.defaults.withCredentials = true;
 
+
 function Library(props) {
   const [accepted, setAccepted] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [showButton, setShowButton] = useState(false);
   const [data, setData, userconnecte, setUserconnecte] = useState([]);
+  let currentUrl = window.location.href;
+  
   var history = useNavigate();
 
   const userconnectee = async () => {
@@ -72,27 +75,53 @@ function Library(props) {
   };
 
   return (
+
     <div>
-      <Navbar className="navbar" />
-      <div class="header-for-bg" style={{ marginTop: 0 }}>
-        <div class="background-header position-relative">
-          <img src="images/okok.jpg" width="20px" height="20px" class="img-fluid rounded w-100 rounded rounded" alt="profile-bg" />
-          <div class="title-on-header">
-            <div class="data-block">
-              <h2>Library</h2>
-              <div class="iq-search-bar">
-                <form action="#" class="searchbox">
-                  <input type="text" class="text search-input" placeholder="Type here to search..." onChange={(e) => search(e.target.value)} />
-                  <a class="search-link" href="#">
-                    <i class="ri-search-line" />
-                    <i />
-                  </a>
+    
+        <Navbar></Navbar>
+
+
+<section id="hero">
+<div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
+  
+
+  <div class="carousel-inner" role="listbox">
+    <div class="carousel-item active" style={{backgroundImage: "url(home/assets/img/slide/R.jpg)"}}>
+      <div class="carousel-container">
+        <div class="container">
+          <h2 class="animated fadeInDown"> <span>Libraries </span></h2>
+          <p class="animated fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
+          <div class="iq-search-bar">
+                <form action="#" class="">
+                  <input type="text" class =" text search-input" placeholder="Type here to search..." onChange={(e) => search(e.target.value)} />
+                 
                 </form>
               </div>
-            </div>
-          </div>
         </div>
+      </div>
+    </div>
 
+
+
+ 
+  </div>
+
+  <a class="carousel-control-prev" href="#heroCarousel" role="button" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon bi bi-chevron-left" aria-hidden="true"></span>
+  </a>
+  <a class="carousel-control-next" href="#heroCarousel" role="button" data-bs-slide="next">
+    <span class="carousel-control-next-icon bi bi-chevron-right" aria-hidden="true"></span>
+
+  </a>
+
+ 
+
+  </div>
+ 
+</section>
+
+
+     
         <div class="container">
           <div class="row">
             {data &&
@@ -101,7 +130,7 @@ function Library(props) {
                   <div class="col-sm-6">
                     <div class="card">
                       <div class="card-body">
-                        <img class="card-img-top" src={process.env.PUBLIC_URL + "/images/" + item.img}></img>
+                        <img class="card-img-top" src={item.img}></img>
                         <div class="card-body">
                           <h2 className=" text-center" style={{ marginTop: 20, color: "#fca638" }}>{item.name}</h2>
                           <p class="l1">
@@ -177,7 +206,9 @@ function Library(props) {
               })}
           </div>
         </div>
-      </div>
+     
+     
+         <div>
       <br></br> <br></br> <br></br> <br></br>
       <br></br>
       <footer class="footer py-4">
@@ -196,7 +227,10 @@ function Library(props) {
                 </div>
             </div>
         </footer>
+        </div>  
+      
     </div>
+   
   );
 }
 

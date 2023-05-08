@@ -4,17 +4,17 @@ import Navbarback from "../../components/Navbarback";
 import SideBar from "../../components/SideBar";
 import axios from "axios";
 import { Store } from "react-notifications-component";
-
+import Progress from "../../components/Progress"
 axios.defaults.withCredentials = true;
 function AddCoach(props) {
-  const initialState = { name: "", lastname: "", email: "", username: "", pwd: "" };
+  const initialState = { name: "", lastname: "", email: "", username: "", pwd: "",image:"" };
 
   const [input, setinput] = useState(initialState);
   const [validd, setValid] = useState(true);
-
+  const [uploadPercentage, setUploadPercentage] = useState(0);
   const history = useNavigate();
   const [msg, setmsg] = useState("");
-  const addclient = async () => {
+  const addclient = async (filePath) => {
     try {
       const res = await axios.post(
         "/users/add/admin",
@@ -24,7 +24,7 @@ function AddCoach(props) {
           email: input.email,
           username: input.username,
           pwd: input.pwd,
-          image: input.image,
+          image: filePath,
         },
         { withCredentials: true }
       );
@@ -47,13 +47,44 @@ function AddCoach(props) {
       setmsg(err.response.data);
     }
   };
-  const Handelsubmit = (e) => {
+  const filepath = async ()=>{
+    const formData = new FormData();
+      formData.append("file", input.file);
+      const res = await axios.post("/upload", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        onUploadProgress: (progressEvent) => {
+          setUploadPercentage(
+            parseInt(Math.round((progressEvent.loaded * 100) / progressEvent.total))
+          );
+        },
+      });
+      console.log(res)
+     return res.data.filePath;
+
+  }
+  const Handelsubmit = async(e) => {
     e.preventDefault();
-    addclient();
+    try {
+      const filePath = await filepath();
+      await addclient(filePath);
+    } catch (err) {
+      console.error(err);
+      setValid(false);
+      console.error(err.response.data);
+      setmsg([...msg, err.response.data]);
+    }
   };
   const handleInputChange = (e) => {
     let { name, value } = e.target;
-    setinput({ ...input, [name]: value });
+    console.log(e.target.type)
+    if (e.target.type === "file") {
+      setinput({ ...input, file: e.target.files[0], fileName: e.target.files[0].name });
+      console.log(input.file);
+    } else {
+      setinput({ ...input, [name]: value });
+    }
   };
 
   return (
@@ -74,7 +105,7 @@ function AddCoach(props) {
               </div>
             </div>
             <div class="iq-card-body">
-              <form onSubmit={Handelsubmit} id="form-wizard1" class="text-center mt-4">
+              <form onSubmit={Handelsubmit} method="POST" id="form-wizard1" class="text-center mt-4">
                 <fieldset>
                   <div class="form-card text-left">
                     <div class="row">
@@ -125,7 +156,8 @@ function AddCoach(props) {
                   </div>
                   <div class="form-group">
                     <label>Upload Library Photo:</label>
-                    <input type="file" class="form-control mb-0" name="image" onChange={handleInputChange} value={input.image} placeholder="Your Full Name" />
+                    <input type="file" class="form-control mb-0" name="image" onChange={handleInputChange} />
+                    <Progress percentage={uploadPercentage} />
                   </div>
 
                   <button type="submit" name="next" class="btn btn-primary next action-button float-right">

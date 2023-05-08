@@ -100,7 +100,7 @@ function App() {
           path="/home"
           element={
             <PrivateRoute>
-              <Home></Home>
+           <Homebeforsignin></Homebeforsignin>
             </PrivateRoute>
           }
         ></Route>
@@ -217,7 +217,7 @@ function App() {
 
         <Route path="/" element={<NotLoggedRoute><Homebeforsignin></Homebeforsignin></NotLoggedRoute>}></Route>
         <Route path="/getallcoach" element={<GetallCoach></GetallCoach>}></Route>
-        <Route path="/ajoutercoach" element={<AjouterCoach></AjouterCoach>}></Route>
+        <Route path="/ajoutercoach"  element={ <PrivateRoute><AjouterCoach></AjouterCoach></PrivateRoute>}></Route>
         <Route path="/getrdv" element={<GetRdv></GetRdv>}></Route>
         <Route  path="/getrdvpatient" element={<GetrdvPatient></GetrdvPatient>}></Route>
         

@@ -104,7 +104,7 @@ function ShowEvent(props) {
                             <td contenteditable="true">{item.date}</td>                     
                              
                             <td contentEditable={true}>
-  <img id="my-image" src={process.env.PUBLIC_URL + "/imagee/" + item.img} alt="" style={{ maxWidth: '100px', maxHeight: '100px' }} />
+  <img id="my-image" src={item.img} alt="" style={{ maxWidth: '100px', maxHeight: '100px' }} />
 </td>
 
 

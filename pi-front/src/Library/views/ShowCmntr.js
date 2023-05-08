@@ -162,7 +162,7 @@ function ShowCmntr(props) {
                         <tr key={index}>
                           <td>{item.description}</td>
                           <td>{item.dateEnvoi}</td>
-                          <td>{item.user.username}</td>
+                          <td>{item.user?.username}</td>
                           <td> {item.Libraryid}</td>
 
                           <td>

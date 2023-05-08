@@ -61,42 +61,60 @@ console.log(friends)
   
    
   <div>
-  <div className="chatOnline">
-    {onlineFriends.map((o) => (
-      <div className="chatOnlineFriend" onClick={() => handleClick(o)}>
-        <div className="chatOnlineImgContainer">
-          {/* use the correct property name: 'src', not 'source' */}
-          <img
-            className="chatOnlineImg"
-            src={process.env.PUBLIC_URL + "/imagee/" +o.image}
-            alt=""
-          />
-          <div className="chatOnlineBadge"></div>
-        </div>
-        {/* use optional chaining to prevent errors if 'o' is undefined */}
-        <span className="chatOnlineName">{o?.name} {o?.lastname}</span>
-      </div>
-    ))}
-    {friends.filter((f)=>f.id != currentId).map((f) => (
-     
-      // add a 'key' prop to avoid a warning about missing keys
-      <div key={f.id} className="chatOnlineFriend" onClick={() => handleClick(f)}>
-        <div className="chatOnlineImgContainer">
-          {/* use the correct property name: 'src', not 'source' */}
-          <img
-            className="chatOnlineImg"
-            src={process.env.PUBLIC_URL + "/imagee/" + f.image}
-            alt=""
-          />
-          <div className=""></div>
-        </div>
-        {/* use optional chaining to prevent errors if 'f' is undefined */}
-        <span className="chatOnlineName">{f?.name} {f?.lastname}</span>
-      </div>
-    ))}
+
+  <div class="right-sidebar-mini right-sidebar">
+            <div class="right-sidebar-panel p-0  ">
+               <div class="iq-card shadow-none">
+                  <div class="iq-card-body p-0">
+                     <div class="media-height p-3">
+                       
+                        {onlineFriends.map((o) => (
+                         <div class="media align-items-center mb-4">
+                           <div class="iq-profile-avatar status-online">
+          
+                              <img class="rounded-circle avatar-50" src={o.image} alt=""/>
+                           </div>
+                           <div class="media-body ml-3">
+                              <h6 class="mb-0"><a href="#">{o?.name} {o?.lastname}</a></h6>
+                              <p class="mb-0">{o.role}</p>
+                           </div>
+                          
+                        </div>
+                       
+                        ))}
+                          {friends.filter((f)=>f.id != currentId).map((f) =>(
+                         <div class="media align-items-center mb-4">
+                           <div class="">
+          
+                              <img class="rounded-circle avatar-50" src={f.image} alt=""/>
+                           </div>
+                           <div class="media-body ml-3">
+                              <h6 class="mb-0"><a href="#">{f?.name} {f?.lastname}</a></h6>
+                              <p class="mb-0">{f.role}</p>
+                           </div>
+                          
+                        </div>
+                       
+                        ))}
+                       
+                    
+                       
+                       
+                    
+                        
+                     </div>
+                     <div class="right-sidebar-toggle bg-primary mt-3">
+                        <i class="ri-arrow-left-line side-left-icon"></i>
+                        <i class="ri-arrow-right-line side-right-icon"><span class="ml-3 d-inline-block">Close Menu</span></i> 
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+  
   </div>
 </div>
 
-</div>
+
   );
 }

@@ -41,7 +41,9 @@ function Dashboard(props) {
           <h1>age</h1>
           <DashboardAge />
         </div>
-        <div>
+       
+        <div  class="d-flex justify-content-center align-items-center">
+        
           <button type="button" className="btn btn-danger "  onClick={exportPDF}>
             Export The statistics PDF{" "}
           </button>

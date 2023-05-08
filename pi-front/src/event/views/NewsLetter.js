@@ -15,6 +15,7 @@ function NewsLetter(props) {
      
 const [input, setinput] = useState(initialState);
 const [validd, setValid] = useState(true);
+const currentUrl = window.location.href;
 
 const history = useNavigate();
 const [msg, setmsg] = useState("");
@@ -67,20 +68,27 @@ const [msg, setmsg] = useState("");
   return (
 <div>
 
+       
+  
+    
 <div class="row"/>
+
+
 <div class="col-sm-12">
     
 <div class="col-sm-12">
 <form onSubmit={Handelsubmit} id="form-wizard1" class="text-center mt-4"> 
-<div class="iq-card iq-card-block iq-card-stretch iq-card-height">
-<h1 class="mt-4 mb-1">Get our newsletter</h1>
-<h4 class="mt-4 mb-1">Subscribe for our weekly update and be the first to know about our special events </h4>
+<div class="iq-card iq-card-block iq-card-stretch iq-card-height bg-transparent" style={{ opacity: 0.8 }}>
+<h1 class="mt-4 mb-1 text-white">Get our newsletter</h1>
+<h4 class="mt-4 mb-1 text-white">Subscribe for our weekly update and be the first to know about our special events </h4>
 
 
                 <div class="iq-card-header d-flex justify-content-between">
                    <div class="iq-header-title">
                  
-</div>                      <div class="row">
+</div>  
+
+                  <div class="row">
 <div class="col-md-8">
 <input type="email" class="form-control mb-0" name="email" onChange={handleInputChange} value={input.email} placeholder=" Enter email address" />
 
@@ -106,7 +114,7 @@ const [msg, setmsg] = useState("");
             
 </div>
 </div>
-<br></br>  <br></br>   <br></br>         <br></br><br></br>
+
 
 
 </div>

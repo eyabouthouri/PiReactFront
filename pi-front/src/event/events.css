@@ -1,0 +1,12 @@
+.my-custom-class {
+    max-width: 400px; /* ajuste la largeur maximale de la carte */
+  }
+  
+  .my-custom-class .event-images img {
+    max-width: 100%; /* ajuste la largeur maximale de l'image */
+    height: auto; /* ajuste la hauteur en conséquence pour conserver les proportions */
+  }
+  
+  .my-custom-class .events-detail {
+    font-size: 14px; /* ajuste la taille de police pour le contenu */
+  }

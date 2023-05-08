@@ -54,7 +54,7 @@ function AddCourse(props) {
   };
   const updateCourse = async (data, id, filePath) => {
     try {
-      const response = await axios.put(/course/updateCourse/${id}, {
+      const response = await axios.put(`/course/updateCourse/${id}`, {
         ...data,
         img: filePath ?? data.img,
       });
@@ -132,7 +132,7 @@ function AddCourse(props) {
                 </li>
               </ul>
               {(!id || state._id) && (
-                <form id="form-wizard1" class="text-center mt-4" methode="POST" onSubmit={handleSubmit(Handelsubmit)}>
+                <form id="form-wizard1" class="text-center mt-4" method="POST" onSubmit={handleSubmit(Handelsubmit)}>
                   <div class="form-card text-left">
                     <div class="row">
                       <div class="col-7">
@@ -143,41 +143,62 @@ function AddCourse(props) {
                       <div class="col-md-6">
                         <div class="form-group">
                           <label htmlFor="title">Title </label>
-                          <input type="text" className={"form-control " + (errors.title ? "is-invalid" : "")} name="title" placeholder="title" {...register("title", { required: true, maxLength: 5 })} onChange={handleInputChange} value={state.title} />
+                          <input type="text" className={"form-control " + (errors.title ? "is-invalid" : "")} name="title" placeholder="title" {...register("title", { required: true, minLength: 5 })} onChange={handleInputChange} value={state.title} />
                           {errors.title && <span style={{ color: "red" }}> Title is required and must be more than 5 caracteres</span>}
                         </div>
                         <div class="col-md-6">
                           <div class="form-group">
                             <label htmlFor="description">Description</label>
-                            <textarea type="text" className={"form-control " + (errors.description ? "is-invalid" : "")} name="description" {...register("description", { required: true, maxLength: 2 })} placeholder="description" onChange={handleInputChange} value={state.description} />
+                            <textarea type="text" className={"form-control " + (errors.description ? "is-invalid" : "")} name="description" {...register("description", { required: true, minLength: 2 })} placeholder="description" onChange={handleInputChange} value={state.description} />
                             {errors.description && <span style={{ color: "red" }}> Description is required and must be more than 5 caracteres</span>}
                           </div>
                         </div>
                         <div class="col-md-6">
                           <div class="form-group">
                             <label htmlFor="level">Level</label>
-                            <input type="text" className={"form-control " + (errors.level ? "is-invalid" : "")} name="level" placeholder="level" {...register("level", { required: true, maxLength: 2 })} onChange={handleInputChange} value={state.level} />
-                            {errors.level && <span style={{ color: "red" }}> Level is required and must be more than 5 caracteres</span>}
+                            <select value={state.level} name="level" className={"form-control " + (errors.level ? "is-invalid" : "")} {...register("level", { required: true })} onChange={handleInputChange}>
+                              <option selected value="" disabled hidden>
+                                -- select an option --
+                              </option>
+                              <option value="beginner">Beginner</option>
+                              <option selected value="competent">
+                                Competent
+                              </option>
+                              <option value="proficient">Proficient</option>
+                              <option value="expert">Expert</option>
+                            </select>
+                            {errors.level && <span style={{ color: "red" }}> Select a level</span>}
                           </div>
                         </div>
                         <div class="col-md-6">
                           <div class="form-group">
-                            <label htmlFor="category">category</label>
-                            <input type="text" className={"form-control " + (errors.category ? "is-invalid" : "")} name="category" placeholder="category" {...register("category", { required: true, maxLength: 2 })} onChange={handleInputChange} value={state.category} />
+                            <label htmlFor="category">Category</label>
+                            <select value={state.category} name="category" className={"form-control " + (errors.category ? "is-invalid" : "")} {...register("category", { required: true })} onChange={handleInputChange}>
+                              <option selected value="" disabled hidden>
+                                -- select an option --
+                              </option>
+                              <option value="music">Music</option>
+                              <option value="painting">Painting</option>
+                              <option value="fitness">Fitness</option>
+                              <option value="yoga">Yoga</option>
+                              <option value="dance">Dance</option>
+                              <option value="cooking">Cooking</option>
+                              <option value="langues">Langage</option>
+                            </select>
                             {errors.category && <span style={{ color: "red" }}> Category is required and must be more than 5 caracteres</span>}
                           </div>
                         </div>
                         <div class="col-md-6">
                           <div class="form-group">
                             <label htmlFor="Duration">duration</label>
-                            <input type="number" className={"form-control " + (errors.duration ? "is-invalid" : "")}  name="duration" {...register("duration", { required: true, maxLength: 2 })} placeholder="duration" onChange={handleInputChange} value={state.duration} />
+                            <input type="number" className={"form-control " + (errors.duration ? "is-invalid" : "")} name="duration" {...register("duration", { required: true })} placeholder="duration" onChange={handleInputChange} value={state.duration} />
                             {errors.duration && <span style={{ color: "red" }}> Duration is required and must be more than 5 caracteres</span>}
                           </div>
                         </div>
                         <div className="form-group">
                           <label for="file-upload">Photo</label>
                           <br></br>
-                          <input id="file-upload" type="file" name="img" {...register("img" , {required: !id})} onChange={handleInputChange}></input>
+                          <input id="file-upload" type="file" name="img" {...register("img", { required: !id })} onChange={handleInputChange}></input>
                           {errors.img && <span style={{ color: "red" }}> Select a picture</span>}
                           {id && state._id && <img width={200} height={200} src={state.img}></img>}
                         </div>

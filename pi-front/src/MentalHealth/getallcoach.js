@@ -11,6 +11,7 @@ import ReactStars from "react-stars";
 import Navbar from "../components/Navbar";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from 'react-toastify';
+import "./search.css"
 
 axios.defaults.withCredentials = true;
 
@@ -146,7 +147,7 @@ function GetallCoach(){
    
     const sednRequest = async () => {
       const res = await axios
-        .get("http://localhost:5000/coach/getallcoach", {
+        .get("/coach/getallcoach", {
           withCredentials: true,
         })
         .catch((err) => console.log(err));
@@ -170,6 +171,9 @@ function GetallCoach(){
         );
        
         console.log(ress.data);
+        sednRequest().then((d) => {
+          setUser(d);
+        });
         toast.success("appointment added Successfully");
         
       
@@ -255,6 +259,9 @@ setinputcoach({...inputcoach,tel:e.target.value})
    e.preventDefault();
  
    addresndezvous(idd);
+ 
+
+
    
 
 
@@ -339,25 +346,47 @@ console.log(rdvpatient.date)
       
         <div>
         <Navbar></Navbar>
-        <div class="header-for-bg" style={{ marginTop: 0 }}>
-        <div class="background-header position-relative">
-          <img src="images/capture5.png" width="1600" height="500"/>
-          <div class="title-on-header">
+        <section id="hero">
+  <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
+    <ol class="carousel-indicators" id="hero-carousel-indicators">
+      <li data-bs-target="#heroCarousel" class="active"></li>
+      <li data-bs-target="#heroCarousel"></li>
+      <li data-bs-target="#heroCarousel"></li>
+    </ol>
+
+    <div class="carousel-inner" role="listbox">
+      <div class="carousel-item active" style={{backgroundImage: "url(home/assets/img/slide/R.jpg)"}}>
+        <div class="carousel-container">
+          <div class="container">
+            <h2 class="animated fadeInDown">Mental Health  <span></span></h2>
+            <p class="animated fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem.</p>
+            <div class="title-on-header">
             <div class="data-block">
               <h2></h2>
               <div class="iq-search-bar">
-                <form action="#" class="searchbox">
-                  <input type="text" class="text search-input" placeholder="Type here to search..." onChange={(e) => filtre(e.target.value)} />
-                  <a class="search-link" href="#">
-                    <i class="ri-search-line" />
-                    <i />
-                  </a>
+                <form action="#" class="">
+                  <input type="text" class =" text search-input" placeholder="Type here to search..." onChange={(e) => filtre(e.target.value)} />
+                 
                 </form>
               </div>
             </div>
           </div>
+          </div>
         </div>
-        </div>
+      </div>
+
+ 
+
+   
+    </div>
+
+  
+   
+
+
+    </div>
+  </section>
+       
 
            <div id="content-page" class="content-page">
             <div class="container">
@@ -378,7 +407,7 @@ console.log(rdvpatient.date)
                                     <div class="d-flex flex-wrap justify-content-between align-items-start">
                                        <div class="profile-detail d-flex">
                                           <div class="profile-img pr-4">
-                                          <img src={process.env.PUBLIC_URL + "/imagee/" + item.image} alt="image2" />
+                                          <img src={item.image} alt="image2" width={150} height={300}/>
 
                                           </div>
                                           <div class="user-data-block">
@@ -445,7 +474,7 @@ console.log(rdvpatient.date)
     onClick={() =>{ handelsubmitt(item._id) ; history("/getallcoach")}}
   >
     <i class="bi bi-calendar3"></i>
-    rendez-vous
+    rendez-vouss
   </button>
 ) : (
   <button
@@ -461,7 +490,7 @@ console.log(rdvpatient.date)
   rendez-vous</button>
 )}
 
-                                  
+                               
 
                                        {(() => {
     let etatavis = true;
@@ -499,6 +528,7 @@ console.log(rdvpatient.date)
       </div>
     );
   })()}
+  
          
                                     </div>
                                             

@@ -7,7 +7,7 @@ import Topnav from "../../components/Topnav";
 import Aff from "./Aff";
 import { Store } from "react-notifications-component";
 import Navbar from "../../components/Navbar";
-
+import Progress from "../../components/Progress";
 import { useNavigate, Link, NavLink } from "react-router-dom";
 
 import axios from "axios";
@@ -24,6 +24,7 @@ function Addabonnement() {
   const [user, setUser] = useState([]);
   const [userconnecte, setUserconnecte] = useState([]);
   const [state, setState] = useState({ nom: "", prenom: "", age: "", tel: "", city: "", email: "", image: "", Duration: "", Libraryid, userid: userconnecte._id });
+  const [uploadPercentage, setUploadPercentage] = useState(0);
   useEffect(() => {
     userconnectee().then((d) => {
       setUserconnecte(d);
@@ -71,14 +72,44 @@ function Addabonnement() {
     setShowPage(true);
   }
   var history = useNavigate();
+  const filepath = async ()=>{
+    const formData = new FormData();
+      formData.append("file", state.file);
+      const res = await axios.post("/upload", formData, {
+        onUploadProgress: (progressEvent) => {
+          setUploadPercentage(
+            parseInt(Math.round((progressEvent.loaded * 100) / progressEvent.total))
+          );
+        },
+      });
+     return res.data.filePath;
 
-  const Handelsubmit = (e) => {
+  }
+  const Handelsubmit = async(e) => {
+ 
     e.preventDefault();
-    addA(state);
+    
+    try {
+      const filePath = await filepath();
+      state.image=filePath;
+      await addA(state);
+    } catch (err) {
+      console.error(err);
+      setValid(false);
+      console.error(err.response.data);
+      setmsg([...msg, err.response.data]);
+    }
+   
+  
   };
   const handleInputChange = (e) => {
     let { name, value } = e.target;
-    setState({ ...state, [name]: value });
+    if (e.target.type === "file") {
+      setState({ ...state, file: e.target.files[0], fileName: e.target.files[0].name });
+      console.log(state.file);
+    } else {
+      setState({ ...state, [name]: value });
+    }
   };
   const getuserbyid = async (id) => {
     const pa = await axios
@@ -152,7 +183,7 @@ function Addabonnement() {
                           <div class="col-md-12">
                             <div className="form-group">
                               <i class="bi bi-filetype-jpg"></i>
-                              <input id="file-upload" type="file" name="image" onChange={handleInputChange} value={state.image} />
+                              <input id="file-upload" type="file" name="image" onChange={handleInputChange} />
                               {!valid && msg.image && <span style={{ color: "red" }}>{msg.image}!! </span>}
                             </div>
                           </div>
@@ -218,6 +249,7 @@ function Addabonnement() {
                               <i class="bi bi-telephone-inbound-fill"></i>Tel:
                             </label>
                             <input class="form-control" id="tel" name="tel" placeholder="Tel" onChange={handleInputChange} value={state.tel} />
+                            <Progress percentage={uploadPercentage} />
                             {!valid && msg.tel && <span style={{ color: "red" }}>{msg.tel}!! </span>}
                           </div>
                         </div>

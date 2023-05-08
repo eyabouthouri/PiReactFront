@@ -26,7 +26,7 @@ export default function Conversation({ conversation, currentUser }) {
     <div className="conversation">
       <img
         className="conversationImg"
-          src={process.env.PUBLIC_URL + "/imagee/"+user?.image }
+          src={user?.image }
         alt=""
       />
       <span className="conversationName">{user?.name}{user?.lastname}</span>
