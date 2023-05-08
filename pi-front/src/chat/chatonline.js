@@ -75,7 +75,7 @@ console.log(friends)
                               <img class="rounded-circle avatar-50" src={o.image} alt=""/>
                            </div>
                            <div class="media-body ml-3">
-                              <h6 class="mb-0"><a href="#">{o?.name} {o?.lastname}</a></h6>
+                              <h6 class="mb-0"><a href="#" onClick={() => handleClick(o)}>{o?.name} {o?.lastname}</a></h6>
                               <p class="mb-0">{o.role}</p>
                            </div>
                           
@@ -89,7 +89,7 @@ console.log(friends)
                               <img class="rounded-circle avatar-50" src={f.image} alt=""/>
                            </div>
                            <div class="media-body ml-3">
-                              <h6 class="mb-0"><a href="#">{f?.name} {f?.lastname}</a></h6>
+                              <h6 class="mb-0"><a href="#" onClick={() => handleClick(f)}>{f?.name} {f?.lastname}</a></h6>
                               <p class="mb-0">{f.role}</p>
                            </div>
                           
