@@ -159,8 +159,7 @@ function Navbar(props) {
               <li class="scrollto active">
                 {isLoggedIn&& (
                   <h6 class="text-white">
-                  {" "}
-                  &nbsp; {userconnecte.name} {userconnecte.lastname} 
+                 {userconnecte.name} 
                 </h6>
                   
                 )}

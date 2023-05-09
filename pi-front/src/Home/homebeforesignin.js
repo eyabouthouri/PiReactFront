@@ -8,6 +8,7 @@ import Library from "../Library/views/Library";
 import NewsLetter from "../event/views/NewsLetter";
 import Footer from "../components/Footer";
 import Lib from "../Library/lib";
+import NewEv from "../event/views/newevents";
 function Homebeforsignin(props) {
   const [user, setUser] = useState([]);
   useEffect(()=>{
@@ -79,20 +80,11 @@ function Homebeforsignin(props) {
    
  
   
-    <section id="services" class="services">
-      <div class="container-fluid">
+   
+     <NewEv></NewEv>
+      
 
-        <div class="section-title">
-          <h2>Events</h2>
-          <h3>Check our <span>Events</span></h3>
-          <p>Ut possimus qui ut temporibus culpa velit eveniet modi omnis est adipisci expedita at voluptas atque vitae autem.</p>
-        </div>
-       <AllEvents></AllEvents>
-       <br></br>
-       <br></br>
-
-      </div>
-    </section>
+    
     <section id="cta" class="cta">
       <div class="container">
 
@@ -102,38 +94,10 @@ function Homebeforsignin(props) {
 
       </div>
     </section>
-    <section id="portfolio" class="portfolio">
-      <div class="container-fluid">
-
-        <div class="section-title">
-    
-          <h3>Check our <span>Courses</span></h3>
-          <p>Ut possimus qui ut temporibus culpa velit eveniet modi omnis est adipisci expedita at voluptas atque vitae autem.</p>
-        </div>
-
-        
-       
-          <ClientCourse></ClientCourse>
-     
-      </div>
-    </section>
+   
 
 
-    <section id="testimonials" class="testimonials section-bg">
-      <div class="container-fluid">
-
-        <div class="section-title">
-        <h2>Library</h2>
-          <h3>Check our <span>Library</span></h3>
-          <p>Ut possimus qui ut temporibus culpa velit eveniet modi omnis est adipisci expedita at voluptas atque vitae autem.</p>
-        </div>
-
-       <Lib></Lib>
-
-       <br></br>
-
-      </div>
-    </section>
+   
     <section id="team" class="team">
       <div class="container-fluid">
 

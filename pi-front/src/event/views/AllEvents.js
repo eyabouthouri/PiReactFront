@@ -137,12 +137,31 @@ function AllEvents(props) {
                                   </a>
                                  
                                 </div>
+                                { new Date(item.date) > new Date() ?(
+                             
                                 <button type="submit" class="buttonLink w-100">
                                   <NavLink to={`/eventdetails/${item._id}`}>
                                     <i class="fa fa-users"></i>
                                     Register now
                                   </NavLink>
                                 </button>
+                                ):(
+                                  <div>
+                                     <button type="submit" className={"btn buttonLink " + (new Date(item.date) <= new Date()  ? "disabled" : "")} >
+                                  <NavLink to={`/eventdetails/${item._id}`}>
+                                    <i class="fa fa-users"></i>
+                                    Register now
+                                  </NavLink>
+                                  
+                                </button>
+                                <br></br>
+                                  <i className="bi bi-info-circle" style={{ color: "orange" }}>
+                                  {" "}
+                                  This event is no more available{" "}
+                                </i>
+                                </div>
+                                )}
+                                
                               </div>
                               <h5 class="card-title">{item.name}</h5>
                             </div>
@@ -158,8 +177,9 @@ function AllEvents(props) {
       </div>
 
       <div>
-        { currentUrl === "http://localhost:3001/allevent" && (
-          
+     
+         <br></br>
+         <br></br> 
         <footer class="footer py-4">
             <div class="container">
                 <div class="row align-items-center">
@@ -177,7 +197,7 @@ function AllEvents(props) {
             </div>
         </footer>
         
-        )}
+    
       </div>
     </div>
   );
