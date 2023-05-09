@@ -6,7 +6,7 @@ import { setIsLoggedin } from "../redux/session";
 import { FaComment } from "react-icons/fa";
 import { BiRefresh } from "react-icons/bi";
 import { FaFacebookMessenger } from "react-icons/fa";
-import "./navbarr.css"
+import "./navbarr.css";
 function Navbar(props) {
   const dispatch = useDispatch();
 
@@ -69,8 +69,9 @@ function Navbar(props) {
   };
   const Handelsubmit = (ee) => {
     ee.preventDefault();
-    updateadmin().then(()=>{history("/home")})
-   
+    updateadmin().then(() => {
+      history("/home");
+    });
   };
   const handleInputChange = (e) => {
     let { name, value } = e.target;
@@ -79,16 +80,13 @@ function Navbar(props) {
 
   return (
     <div>
- <header id="header" class="fixed-top header-inner-pages">
-    <div class="container d-flex align-items-center justify-content-between">
-
-    <nav id="navbar" class="navbar">
-    <Link to="/home">
-    <img src="/images/yc.png"  height="70" width="70" class="navbar-light" alt="Tiya Golf Club" />
-    </Link>   
-    
-        
-          <ul >
+      <header id="header" class="fixed-top header-inner-pages">
+        <div class="container d-flex align-items-center">
+          <nav id="navbar" class="navbar">
+            <ul>
+              <Link to="/home">
+                <img src="/images/yc.png" height="70" width="70" class="navbar-light" alt="Tiya Golf Club" />
+              </Link>
               <li class="nav-item scrollto active">
                 <Link class="" to="/Library">
                   Libraries
@@ -110,7 +108,6 @@ function Navbar(props) {
                 </Link>
               </li>
               <li class="nav-item scrollto active"></li>
-
               <li class="nav-item scrollto active">
                 {!isLoggedIn && (
                   <Link class="nav-link scrollto active " to="/Signin">
@@ -140,24 +137,17 @@ function Navbar(props) {
                 )}
               </li>
               <li class="scrollto active">
-                {isLoggedIn&& (
-                    <Link class="nav-link  " data-toggle="modal" data-target="#exampleModal" style={{ color: "#00BFFF" }}>
+                {isLoggedIn && (
+                  <Link class="nav-link  " data-toggle="modal" data-target="#exampleModal" style={{ color: "#00BFFF" }}>
                     Profile
                   </Link>
                 )}
               </li>
-              
+              &nbsp;
+              <li class="scrollto active">{isLoggedIn && <img class="profile-pic" src={userconnecte.image} alt="profile-pic" height="40" width="40" />}</li>
               &nbsp;
               <li class="scrollto active">
-                {isLoggedIn&& (
-                  
-                   <img class="profile-pic" src={userconnecte.image} alt="profile-pic" height="40" width="40" />
-                  
-                )}
-              </li>
-              &nbsp;
-              <li class="scrollto active">
-                {isLoggedIn&& (
+                {isLoggedIn && (
                   <h6 class="text-white">
                  {userconnecte.name} 
                 </h6>
@@ -165,32 +155,24 @@ function Navbar(props) {
                 )}
               </li>
               <li class="scrollto active">
-                {isLoggedIn&& (
-                  <a href="/chat"><FaFacebookMessenger style={{ color: "#00BFFF" }} size={30} /></a>
-                  
+                {isLoggedIn && (
+                  <a href="/chat">
+                    <FaFacebookMessenger style={{ color: "#00BFFF" }} size={30} />
+                  </a>
                 )}
               </li>
               <li class="scrollto active">
-                {isLoggedIn&& (
+                {isLoggedIn && (
                   <Link class="nav-link  " style={{ color: "#00BFFF" }} onClick={logout} to="/">
-                  Logout
-                </Link>
+                    Logout
+                  </Link>
                 )}
               </li>
             </ul>
-         
-           
-            
-           
-       
-          
-      </nav>
-    
+          </nav>
+        </div>
+      </header>
 
-</div>
-</header>
-
-    
       <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">

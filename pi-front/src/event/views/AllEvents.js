@@ -13,7 +13,6 @@ const alanKey = "d13ff5f9f607b814c3e0b740da4299d42e956eca572e1d8b807a3e2338fdd0d
 function AllEvents(props) {
   const currentUrl = window.location.href;
   useEffect(() => {
-   
     alanBtn({
       key: alanKey,
       onCommand: (commandData) => {
@@ -23,7 +22,6 @@ function AllEvents(props) {
         }
       },
     });
-   
   }, []);
 
   const [data, setData] = useState([]);
@@ -55,52 +53,30 @@ function AllEvents(props) {
 
   return (
     <div>
- { currentUrl === "http://localhost:3001/allevent" && (
-   <Navbar></Navbar>)
-}
-      
-<div class="header-for-bg" style={{ marginTop: 0 }}>
- {
-    currentUrl === "http://localhost:3001/allevent" && (
-<section id="hero">
-<div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
-  
+      {currentUrl === "http://localhost:3001/allevent" && <Navbar></Navbar>}
 
-  <div class="carousel-inner" role="listbox">
-    <div class="carousel-item active" style={{backgroundImage: "url(home/assets/img/slide/R.jpg)"}}>
-      <div class="carousel-container">
-        <div class="container">
-          <h2 class="animated fadeInDown"><span>Events </span></h2>
-          <p class="animated fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
-          <div class="iq-search-bar">
-                <form action="#" class="">
-                  <input type="text" class =" text search-input" placeholder="Type here to search..." onChange={(e) => search(e.target.value)} />
-                 
-                </form>
+      <div class="header-for-bg" style={{ marginTop: 0 }}>
+        {currentUrl === "http://localhost:3001/allevent" && (
+          <section id="hero">
+            <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
+              <div class="carousel-inner" role="listbox">
+                <div class="carousel-item active" style={{ backgroundImage: "url(home/assets/img/slide/R.jpg)" }}>
+                  <div class="carousel-container">
+                    <div class="container">
+                      <h2 class="animated fadeInDown">
+                        <span>Events </span>
+                      </h2>
+                      <div class="iq-search-bar">
+                        <input type="text" class=" text search-input" placeholder="Type here to search..." onChange={(e) => search(e.target.value)} />
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-        </div>
-      </div>
-    </div>
-
-
-
- 
-  </div>
-
-  <a class="carousel-control-prev" href="#heroCarousel" role="button" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon bi bi-chevron-left" aria-hidden="true"></span>
-  </a>
-  <a class="carousel-control-next" href="#heroCarousel" role="button" data-bs-slide="next">
-    <span class="carousel-control-next-icon bi bi-chevron-right" aria-hidden="true"></span>
-
-  </a>
-
- 
-
-
-  </div>
-</section>
-     )  }      <div id="content-page" className="content-page">
+            </div>
+          </section>
+        )}{" "}
+        <div id="content-page" className="content-page">
           <div className="container">
             <div className="row">
               {data &&
@@ -135,7 +111,6 @@ function AllEvents(props) {
                                   <a href="#" class="iq-media">
                                     <img class="img-fluid avatar-40 rounded-circle" src="images/user/05.jpg" alt="" />
                                   </a>
-                                 
                                 </div>
                                 { new Date(item.date) > new Date() ?(
                              
@@ -175,29 +150,39 @@ function AllEvents(props) {
           </div>
         </div>
       </div>
+      <br></br>
+      <br></br>
+      <br></br>
 
       <div>
-     
-         <br></br>
-         <br></br> 
-        <footer class="footer py-4">
+        {currentUrl === "http://localhost:3001/allevent" && (
+          <footer class="footer py-4">
             <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-4 text-lg-start">Copyright &copy; web Sprint 2023</div>
-                    <div class="col-lg-4 my-3 my-lg-0">
-                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                    <div class="col-lg-4 text-lg-end">
-                        <a class="link-dark text-decoration-none me-3" href="#!">Privacy Policy</a>
-                        <a class="link-dark text-decoration-none" href="#!">Terms of Use</a>
-                    </div>
+              <div class="row align-items-center">
+                <div class="col-lg-4 text-lg-start">Copyright &copy; web Sprint 2023</div>
+                <div class="col-lg-4 my-3 my-lg-0">
+                  <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Twitter">
+                    <i class="fab fa-twitter"></i>
+                  </a>
+                  <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Facebook">
+                    <i class="fab fa-facebook-f"></i>
+                  </a>
+                  <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                  </a>
                 </div>
+                <div class="col-lg-4 text-lg-end">
+                  <a class="link-dark text-decoration-none me-3" href="#!">
+                    Privacy Policy
+                  </a>
+                  <a class="link-dark text-decoration-none" href="#!">
+                    Terms of Use
+                  </a>
+                </div>
+              </div>
             </div>
-        </footer>
-        
-    
+          </footer>
+        )}
       </div>
     </div>
   );

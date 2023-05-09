@@ -97,7 +97,7 @@ function Addabonnement() {
       console.error(err);
       setValid(false);
       console.error(err.response.data);
-      setmsg([...msg, err.response.data]);
+      setmsg(e.response.data);
     }
    
   

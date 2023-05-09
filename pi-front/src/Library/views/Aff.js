@@ -28,7 +28,7 @@ function Aff(props) {
     <div>
       <div>
         <div class="card-body">
-          <img class="card-img-top" src={process.env.PUBLIC_URL + "/images/" + entity.img}></img>
+          <img class="card-img-top" src={entity.img}></img>
           <div class="card-body">
             <h2 class="p1">{entity.name}</h2>
             <p class="l1">

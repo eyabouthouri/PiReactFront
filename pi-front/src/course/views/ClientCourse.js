@@ -42,57 +42,29 @@ function ClientCourse(props) {
   return (
     <>
       <div>
-        {
-          currentUrl === "http://localhost:3001/Course" && (
-        <Navbar className="navbar" />  ) }
-         {
-          currentUrl === "http://localhost:3001/Course" && (
-            <div>
-
-<section id="hero">
-<div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
-  
-
-  <div class="carousel-inner" role="listbox">
-    <div class="carousel-item active" style={{backgroundImage: "url(home/assets/img/slide/R.jpg)"}}>
-      <div class="carousel-container">
-        <div class="container">
-          <h2 class="animated fadeInDown"><span>Courses </span></h2>
-          <p class="animated fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
-          <div class="iq-search-bar">
-          <form action="#" class="">
-                  <input type="text" class =" text search-input" placeholder="Type here to search..."  />
-                 
-                </form>
+        {currentUrl === "http://localhost:3001/Course" && <Navbar className="navbar" />}
+        {currentUrl === "http://localhost:3001/Course" && (
+          <div>
+            <section id="hero">
+              <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
+                <div class="carousel-inner" role="listbox">
+                  <div class="carousel-item active" style={{ backgroundImage: "url(home/assets/img/slide/R.jpg)" }}>
+                    <div class="carousel-container">
+                      <div class="container">
+                        <h2 class="animated fadeInDown">
+                          <span>Hobby Classes </span>
+                        </h2>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-        </div>
-      </div>
-    </div>
-
-
-
- 
-  </div>
-
-  <a class="carousel-control-prev" href="#heroCarousel" role="button" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon bi bi-chevron-left" aria-hidden="true"></span>
-  </a>
-  <a class="carousel-control-next" href="#heroCarousel" role="button" data-bs-slide="next">
-    <span class="carousel-control-next-icon bi bi-chevron-right" aria-hidden="true"></span>
-
-  </a>
-
- 
-
-
-  </div>
-</section>
+            </section>
             <br></br>
             <br></br>
           </div>
-          )}
-    
-         
+        )}
+
         <div className="content-page">
           <ThemeButton />
           <div className="container">
@@ -214,9 +186,7 @@ function ClientCourse(props) {
           </div>
         </div>
       </div>
-      {
-          currentUrl === "http://localhost:3001/Course" && (
-      <Footer />)}
+      {currentUrl === "http://localhost:3001/Course" && <Footer />}
     </>
   );
 }

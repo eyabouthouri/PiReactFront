@@ -59,85 +59,73 @@ function NewEv(props) {
 
   return (
     <div>
-<section id="services" class="services">
-      <div class="container-fluid">
 
-        <div class="section-title">
-          <h2>Events</h2>
-          <h3>Check our <span>Events</span></h3>
-          <p>Ut possimus qui ut temporibus culpa velit eveniet modi omnis est adipisci expedita at voluptas atque vitae autem.</p>
-        </div>
       
-        <div id="content-page" className="content-page">
-        <div className="container">
-      <div className="row">
-              {data &&
-                data.map((item, index) => {
-                  return (
-                    
     
-   
-                    <div class="col-sm-6 my-custom-class">
-                      <div class="iq-card rounded iq-card-block iq-card-stretch iq-card-height">
-                        <div class="title-on-header"></div>
-                        <div class="event-images">
-                          <a href="#">
-                            <img class="" src={item.img} width={470} height={250}></img>
-                          </a>
-                        </div>
-                        <div class="iq-card-body">
-                          <div class="d-flex">
-                            <div class="date-of-event">
-                              <span>Jan</span>
-                              <h5> {item.date}</h5>
-                            </div>
-                            <div class="events-detail ml-3">
-                              <h5>title : {item.title} </h5>
+      <section id="team" class="">
+          <div className="team">
+            <div class="container-fluid">
+              <div class="section-title">
+              <h2>Events</h2>
+          <h3>Check our <span>Events</span></h3>
+                <Link class="btn btn-info " style={{ backgroundColor: "#427dcf" }} to="/allevent">
+                  Check all events
+                </Link>
+              </div>
 
-                              <p class="card-text">
-                                description : {item.description}
-                                <br></br>location : {item.location} <br></br>organizer : {item.organizer}{" "}
-                              </p>
-                              <div class="event-member">
-                                <div class="iq-media-group">
-                                  <a href="#" class="iq-media">
-                                    <img class="img-fluid avatar-40 rounded-circle" src="images/user/06.jpg" alt="" />
-                                  </a>
-                                  <a href="#" class="iq-media">
-                                    <img class="img-fluid avatar-40 rounded-circle" src="images/user/05.jpg" alt="" />
-                                  </a>
-                                 
+              <div class="row justify-content-center">
+                <div class="container">
+                  <div class="row">
+                    {data &&
+                data.map((item, index)=> {
+                        return (
+                          <div class="col-md-6">
+                            <div class="member animated fadeInDown">
+                            
+            <Link to={`/eventdetails/${item._id}`}>
+            <img  src={item.img} width={600} height={150} class="img-fluid" alt="image2"
+                              
+                              />
+                                <div class="member-info">
+                                <div class="member-info-content">
+                                  <h4>{item.title}</h4>
+                                  <span>click to participate</span>
                                 </div>
-                                <button type="submit" class="buttonLink w-100">
-                                  <NavLink to={`/eventdetails/${item._id}`}>
-                                    <i class="fa fa-users"></i>
-                                    Register now
-                                  </NavLink>
-                                </button>
+                                <div class="social">
+                                  <a href="">
+                                    <i class="bi bi-twitter"></i>
+                                  </a>
+                                  <a href="">
+                                    <i class="bi bi-facebook"></i>
+                                  </a>
+                                  <a href="">
+                                    <i class="bi bi-instagram"></i>
+                                  </a>
+                                  <a href="">
+                                    <i class="bi bi-linkedin"></i>
+                                  </a>
+                                </div>
                               </div>
-                              <h5 class="card-title">{item.name}</h5>
+</Link>
+
+                            
                             </div>
                           </div>
-                        </div>
-                      </div>
-                    </div>
-               
-  
-                  );
-                })}
-                    </div>
+                        );
+                      })}
+                  </div>
+                </div>
+              </div>
             </div>
-      
-
-      <div>
-      </div>
-      </div>
+          </div>
+        </section>
+        
        
   
       </div>
-    </section>
+ 
     
-    </div>
+
 
   );
 }

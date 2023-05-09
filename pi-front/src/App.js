@@ -61,7 +61,6 @@ import { Navbar } from "reactstrap";
 import NavbarFront from "./components/NavbarFront";
 import Navbarback from "./components/Navbarback";
 
-
 function App() {
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
   let { id } = useParams();
@@ -100,7 +99,7 @@ function App() {
           path="/home"
           element={
             <PrivateRoute>
-           <Homebeforsignin></Homebeforsignin>
+              <Homebeforsignin></Homebeforsignin>
             </PrivateRoute>
           }
         ></Route>
@@ -108,21 +107,20 @@ function App() {
         <Route path="/allevent" element={<AllEvents></AllEvents>}></Route>
         <Route path="/map" element={<Map></Map>}></Route>
 
-
         <Route path="/eventdetails/:idevent" element={<EventDetails></EventDetails>}></Route>
         <Route path="/ShowAttendees" element={<ShowAttendees></ShowAttendees>}></Route>
         <Route path="/NewsLetter" element={<NewsLetter></NewsLetter>}></Route>
         <Route path="/takss" element={<Takss></Takss>}></Route>
 
-       
+        <Route
+          path="/Updateev/:id"
+          element={
+            <PrivateRoute>
+              <Updateev></Updateev>
+            </PrivateRoute>
+          }
+        />
 
-        
-        
-
-
-        <Route path="/Updateev/:id" element={<PrivateRoute><Updateev></Updateev></PrivateRoute>} />
-
-        
         <Route path="/addevent" element={<AddEvent />}></Route>
         <Route
           path="/Signin"
@@ -215,16 +213,27 @@ function App() {
 
         <Route path="/ShowEvent" element={<ShowEvent></ShowEvent>}></Route>
 
-        <Route path="/" element={<NotLoggedRoute><Homebeforsignin></Homebeforsignin></NotLoggedRoute>}></Route>
+        <Route
+          path="/"
+          element={
+            <NotLoggedRoute>
+              <Homebeforsignin></Homebeforsignin>
+            </NotLoggedRoute>
+          }
+        ></Route>
         <Route path="/getallcoach" element={<GetallCoach></GetallCoach>}></Route>
-        <Route path="/ajoutercoach"  element={ <PrivateRoute><AjouterCoach></AjouterCoach></PrivateRoute>}></Route>
+        <Route
+          path="/ajoutercoach"
+          element={
+            <PrivateRoute>
+              <AjouterCoach></AjouterCoach>
+            </PrivateRoute>
+          }
+        ></Route>
         <Route path="/getrdv" element={<GetRdv></GetRdv>}></Route>
-        <Route  path="/getrdvpatient" element={<GetrdvPatient></GetrdvPatient>}></Route>
-        
-        <Route  path="/chat" element={<Messenger></Messenger>}></Route>
-     
-     
-    
+        <Route path="/getrdvpatient" element={<GetrdvPatient></GetrdvPatient>}></Route>
+
+        <Route path="/chat" element={<Messenger></Messenger>}></Route>
 
         <Route
           path="/"
@@ -284,7 +293,6 @@ function App() {
           }
         ></Route>
         <Route path="/ShowCourseLessons/:courseId" element={<ShowLessons></ShowLessons>}></Route>
-
       </Routes>
       <ToastContainer />
     </div>
