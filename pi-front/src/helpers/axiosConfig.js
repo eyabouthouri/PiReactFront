@@ -3,5 +3,5 @@ axios.defaults.headers.common["Content-Type"] = "application/json";
 if (!process.env.NODE_ENV || process.env.NODE_ENV === "development") {
     // dev code
   } else {
-    axios.defaults.baseURL = "https://youthconn.onrender.com";
+    axios.defaults.baseURL = "https://youthcon.onrender.com";
   }
