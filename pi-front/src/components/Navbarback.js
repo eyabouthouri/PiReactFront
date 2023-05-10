@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 import ShowCoach from "../coach/views/ShowCoach";
 import { FaFacebookMessenger } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
 function Navbarback(props) {
   const dispatch = useDispatch();

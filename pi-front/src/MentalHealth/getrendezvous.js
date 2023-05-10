@@ -9,12 +9,13 @@ import SideBar from '../components/SideBar';
 import NavbarFront from '../components/NavbarFront';
 import Navbar from '../components/Navbar';
 import { confirmAlert } from "react-confirm-alert"; 
-import "react-confirm-alert/src/react-confirm-alert.css"; 
-const { userexisting } = useSelector((state) => state.session);
+import "react-confirm-alert/src/react-confirm-alert.css";
+import { useSelector } from "react-redux"; 
+
 axios.defaults.withCredentials = true;
 
 function GetRdv(props){
-   
+  const { userexisting } = useSelector((state) => state.session);
     const [rdv,setrdv]= useState([]);
     const [userco, setUserco] = useState([]);
     const [details, setdatails] = useState([]);

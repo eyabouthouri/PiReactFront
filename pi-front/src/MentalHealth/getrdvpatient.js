@@ -9,9 +9,11 @@ import "react-datepicker/dist/react-datepicker.css";
 import Navbar from '../components/Navbar';
 import { confirmAlert } from "react-confirm-alert"; 
 import "react-confirm-alert/src/react-confirm-alert.css"; 
+import { useSelector } from "react-redux";
 axios.defaults.withCredentials = true;
-const { userexisting } = useSelector((state) => state.session);
 function GetrdvPatient(){
+  
+const { userexisting } = useSelector((state) => state.session);
     const [rdvpatient,setrdvpatient]= useState([]);
     const [patientco, setpatientco] = useState([]);
     const[startdate,setstartdate]=useState();
@@ -21,6 +23,7 @@ function GetrdvPatient(){
   const[exclusedtimee,setexclusedtimee]=useState([])
   const[inputcoach,setinputcoach]=useState({datee:null});
   const[idd,setid]=useState();
+  
   axios.defaults.withCredentials = true;
     useEffect(() => {
        /* async function fetchData() {

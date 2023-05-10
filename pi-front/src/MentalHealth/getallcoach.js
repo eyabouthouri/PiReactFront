@@ -11,6 +11,7 @@ import ReactStars from "react-stars";
 import Navbar from "../components/Navbar";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
+
 import "./search.css";
 
 axios.defaults.withCredentials = true;
@@ -32,6 +33,7 @@ function GetallCoach() {
   const [rdvpatient, setrdvpatient] = useState([]);
   const [isdisabled, setisdisabled] = useState(true);
   const [validd, setValid] = useState(true);
+  
   const { userexisting } = useSelector((state) => state.session);
   const [msg, setmsg] = useState("");
 
@@ -51,7 +53,7 @@ function GetallCoach() {
       
     }*/
 
-    fetchData();
+  //  fetchData();
   }, []);
 
   useEffect(() => {
