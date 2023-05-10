@@ -13,14 +13,14 @@ function Navbar(props) {
 
   const { isLoggedIn, isAdmin, isUser, isCoach,userexisting } = useSelector((state) => state.session);
  
-  const [userconnecte, setUserconnecte] = useState([]);
+  const [userconnecte, setUserconnecte] = useState(userexisting);
 
   const [input, setinput] = useState([]);
 
   var history = useNavigate();
   useEffect(() => {
     
-      setUserconnecte(userexisting);
+     // setUserconnecte(userexisting);
     
   }, []);
   useEffect(() => {

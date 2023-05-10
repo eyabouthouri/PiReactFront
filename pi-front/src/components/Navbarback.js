@@ -12,7 +12,7 @@ function Navbarback(props) {
   const dispatch = useDispatch();
 
   const { isLoggedIn, isAdmin, isUser, isCoach,userexisting } = useSelector((state) => state.session);
-  const [userconnecte, setUserconnecte] = useState([]);
+  const [userconnecte, setUserconnecte] = useState(userexisting);
 
   var history = useNavigate;
   useEffect(() => {

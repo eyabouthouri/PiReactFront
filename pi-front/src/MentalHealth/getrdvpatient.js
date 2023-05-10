@@ -15,7 +15,7 @@ function GetrdvPatient(){
   
 const { userexisting } = useSelector((state) => state.session);
     const [rdvpatient,setrdvpatient]= useState([]);
-    const [patientco, setpatientco] = useState([]);
+    const [patientco, setpatientco] = useState(userexisting);
     const[startdate,setstartdate]=useState();
     const [holidays,setholidays] = useState([]);
     const[mintime,setmintime]=useState(new Date());
@@ -32,7 +32,7 @@ const { userexisting } = useSelector((state) => state.session);
           setstartdate(new Date())
         }*/
 
-      setpatientco(userexisting);
+     // setpatientco(userexisting);
        
       }, []);
     
