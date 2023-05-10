@@ -28,14 +28,14 @@ function GetRdv(props){
   
     useEffect(() => {
       async function fetchRdv() {
-        if (userco._id !== undefined) {
-          const rdvData = await getrdv(userco._id);
+        if (userco?._id !== undefined) {
+          const rdvData = await getrdv(userco?._id);
           setrdv(rdvData);
         }
       }
   
       fetchRdv();
-    }, [userco._id]);
+    }, [userco?._id]);
    
     
   
@@ -69,7 +69,7 @@ function GetRdv(props){
 
     const refresh = async(id)=>{
       deleterdv(id);
-      const rdvData = await getrdv(userco._id);
+      const rdvData = await getrdv(userco?._id);
       setrdv(rdvData);
     }
     const confirmDelete = (id) => {

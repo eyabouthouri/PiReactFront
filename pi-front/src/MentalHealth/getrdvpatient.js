@@ -46,7 +46,7 @@ const { userexisting } = useSelector((state) => state.session);
         }
     
         fetchRdv();
-      }, [patientco._id]);
+      }, [patientco?._id]);
       console.log(rdvpatient)
       const userconnecteee = async () => {
         const res = await axios.get("/users/userconnecte", {
@@ -77,7 +77,7 @@ const { userexisting } = useSelector((state) => state.session);
       
       const refresh = async(id)=>{
          annulerrdv(id);
-        const rdvData = await getrdv(patientco._id);
+        const rdvData = await getrdv(patientco?._id);
         console.log(rdvData)
         setrdvpatient(rdvData);
       }
@@ -165,7 +165,7 @@ const { userexisting } = useSelector((state) => state.session);
   
 
      addresndezvous();
-        const rdvData = await getrdv(patientco._id);
+        const rdvData = await getrdv(patientco?._id);
         setrdvpatient(rdvData);
      
   

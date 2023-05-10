@@ -25,12 +25,12 @@ function Navbar(props) {
   }, []);
   useEffect(() => {
     setinput({
-      name: userconnecte.name,
-      lastname: userconnecte.lastname,
-      email: userconnecte.email,
-      image: userconnecte.image,
+      name: userconnecte?.name,
+      lastname: userconnecte?.lastname,
+      email: userconnecte?.email,
+      image: userconnecte?.image,
     });
-  }, [userconnecte]);
+  }, []);
   const userconnectee = async () => {
     const res = await axios
       .get("/users/userconnecte", {
@@ -54,7 +54,7 @@ function Navbar(props) {
   const updateadmin = async () => {
     try {
       const resupdate = await axios.post(
-        `/users/updateuser/${userconnecte._id}`,
+        `/users/updateuser/${userconnecte?._id}`,
         {
           name: input.name,
           lastname: input.lastname,
@@ -145,12 +145,12 @@ function Navbar(props) {
                 )}
               </li>
               &nbsp;
-              <li class="scrollto active">{isLoggedIn && <img class="profile-pic" src={userconnecte.image} alt="profile-pic" height="40" width="40" />}</li>
+              <li class="scrollto active">{isLoggedIn && <img class="profile-pic" src={userconnecte?.image} alt="profile-pic" height="40" width="40" />}</li>
               &nbsp;
               <li class="scrollto active">
                 {isLoggedIn && (
                   <h6 class="text-white">
-                 {userconnecte.name} 
+                 {userconnecte?.name} 
                 </h6>
                   
                 )}

@@ -77,8 +77,9 @@ function GetallCoach() {
       try {
         if (usercon?._id !== undefined) {
           // 8. Vérifier si usercon existe avant d'accéder à _id
-          const rdv = await getrendezvousbypatient(usercon._id);
+          const rdv = await getrendezvousbypatient(usercon?._id);
           setrdvpatient(rdv);
+
         }
       } catch (error) {
         console.error(error);
