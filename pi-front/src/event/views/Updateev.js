@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
 axios.defaults.withCredentials = true;
-const initialState = { title: "", description: "", location: "", organizer: "", date: "", img: "" };
+const initialState = { title: "", description: "", location: "", organizer: "", date: ""};
 
 function Updateev(props) {
   const [state, setState] = useState(initialState);
@@ -130,17 +130,8 @@ function Updateev(props) {
                             </label>
                             <textarea type="text" className="form-control" name="location" placeholder="write your  location please..." value={state.location || ""} onChange={(e) => setState({ ...state, location: e.target.value })} />
                           </div>
-                          <div class="col-7">
-                            <h3 class="mb-4">
-                              <i class="bi bi-card-image"></i> Image Upload:
-                            </h3>
-                          </div>
-                          <div class="form-group">
-                            <label for="file-upload">
-                              <i class="bi bi-card-image"></i> Photo
-                            </label>
-                            <input type="file" name="img" value={state.img || ""} onChange={(e) => setState({ ...state, img: e.target.value })}></input>
-                          </div>
+                          
+                         
                         </div>
                         <input type="submit" value={id ? "Update" : "Add"}></input>
                         <button type="reset" className="btn iq-bg-danger">

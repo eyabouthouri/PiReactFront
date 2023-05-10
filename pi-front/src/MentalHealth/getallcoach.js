@@ -438,7 +438,7 @@ function GetallCoach() {
                 <div class="user-data-block">
                   <div class="form-group row align-items-center">
                     <div class="col-md-12">
-                      <img class="profile-pic" src={process.env.PUBLIC_URL + "/imagee/" + coach.image} alt="profile-pic" />
+                      <img class="profile-pic" src={coach.image} alt="profile-pic" />
 
                       <Rating onClick={(value) => handleRating(idd, value)} />
                     </div>
@@ -474,7 +474,7 @@ function GetallCoach() {
                   <div class="user-data-block">
                     <div class="form-group row align-items-center">
                       <div class="col-md-12">
-                        <img class="profile-pic" src={process.env.PUBLIC_URL + "/imagee/" + coach.image} alt="profile-pic" />
+                        <img class="profile-pic" src={coach.image} alt="profile-pic" />
 
                         <Rating
                           onClick={(value) => {
