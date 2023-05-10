@@ -19,7 +19,7 @@ function ShowAttendees(props) {
 
     const sednRequest = async () => {
       const res = await axios
-        .get("http://localhost:5000/participate/", {
+        .get("/participate/", {
           withCredentials: true,
         })
         .catch((err) => console.log(err));
@@ -29,7 +29,7 @@ function ShowAttendees(props) {
     };
     const delpart = async (id) => {
         const resdelete = await axios
-          .get(`http://localhost:5000/participate/delpart/${id}`, {
+          .get(`/participate/delpart/${id}`, {
             withCredentials: true,
           })
           .then(sednRequest())

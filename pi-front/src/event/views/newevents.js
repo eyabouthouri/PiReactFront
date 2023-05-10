@@ -17,9 +17,9 @@ function NewEv(props) {
     alanBtn({
       key: alanKey,
       onCommand: (commandData) => {
-        if (commandData.command === "navigateTo" && commandData.page === "http://localhost:3001/home") {
+        if (commandData.command === "navigateTo" && commandData.page === "/home") {
           // Navigate to the home page
-          window.location.href = "http://localhost:3001/home";
+          window.location.href = "/home";
         }
       },
     });
@@ -39,7 +39,7 @@ function NewEv(props) {
         if (!text) {
           listev();
         } else {
-          const response = await axios.get(`http://localhost:5000/events/rech/${text}`);
+          const response = await axios.get(`/events/rech/${text}`);
           setData(response.data);
         }
       } catch (e) {
@@ -48,7 +48,7 @@ function NewEv(props) {
     }, 100);
   };
   const listev = async () => {
-    const response = await axios.get("http://localhost:5000/events/getev");
+    const response = await axios.get("/events/getev");
     console.log(response)
    return  response.data
 

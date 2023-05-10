@@ -17,7 +17,7 @@ function AbonnementStat(props) {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/abonnement/stat/${Libraryid}`)
+      .get(`/abonnement/stat/${Libraryid}`)
       .then((response) => {
         setData(response.data);
         setError(null);

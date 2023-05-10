@@ -42,7 +42,7 @@ function DashboardAge() {
   
   useEffect(() => {
     axios
-      .get('http://localhost:5000/abonnement/age')
+      .get('/abonnement/age')
       .then((response) => {
         setAgeStats(response.data);
         setError(null);

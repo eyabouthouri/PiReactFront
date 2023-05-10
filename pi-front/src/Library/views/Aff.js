@@ -14,7 +14,7 @@ function Aff(props) {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/library/getOnel/${Libraryid}`)
+      .get(`/library/getOnel/${Libraryid}`)
       .then((response) => {
         // Mettre à jour le state avec les données de l'entité récupérée
         setEntity(response.data);

@@ -19,7 +19,7 @@ function Homebeforsignin(props) {
   }, []);
   console.log(user);
   const getcoachs = async (id) => {
-    const coach = await axios.get(`http://localhost:5000/coach/topcoach`, {
+    const coach = await axios.get(`/coach/topcoach`, {
       withCredentials: true,
     });
 

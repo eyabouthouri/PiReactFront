@@ -42,8 +42,8 @@ function ClientCourse(props) {
   return (
     <>
       <div>
-        {currentUrl === "http://localhost:3001/Course" && <Navbar className="navbar" />}
-        {currentUrl === "http://localhost:3001/Course" && (
+        <Navbar className="navbar" />
+       
           <div>
             <section id="hero">
               <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
@@ -63,7 +63,7 @@ function ClientCourse(props) {
             <br></br>
             <br></br>
           </div>
-        )}
+   
 
         <div className="content-page">
           <ThemeButton />
@@ -186,7 +186,7 @@ function ClientCourse(props) {
           </div>
         </div>
       </div>
-      {currentUrl === "http://localhost:3001/Course" && <Footer />}
+   <Footer />
     </>
   );
 }

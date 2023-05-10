@@ -15,7 +15,7 @@ function ShowLiabrary(props) {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await axios.get("http://localhost:5000/abonnementtri");
+        const response = await axios.get("/abonnementtri");
         setData(response.data);
       } catch (err) {
         console.error(err);
@@ -39,14 +39,14 @@ function ShowLiabrary(props) {
   }
 
   const listA = async () => {
-    const response = await axios.get("http://localhost:5000/abonnement/lista");
+    const response = await axios.get("/abonnement/lista");
     if (response.status == 200) {
       setData(response.data);
     }
   };
 
   const deleteA = async (id) => {
-    const response = await axios.delete(`http://localhost:5000/abonnement/deletea/${id}`);
+    const response = await axios.delete(`/abonnement/deletea/${id}`);
     toast.success("items deleteed");
 
     listA();

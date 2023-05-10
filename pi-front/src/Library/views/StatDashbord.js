@@ -16,7 +16,7 @@ function StatDashbord(props) {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/abonnement/total")
+      .get("/abonnement/total")
       .then((response) => {
         setData(response.data);
         setError(null);

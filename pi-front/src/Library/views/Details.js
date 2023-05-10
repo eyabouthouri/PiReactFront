@@ -36,7 +36,7 @@ function Details(props) {
   }, []);
   const userconnectee = async () => {
     const res = await axios
-      .get("http://localhost:5000/users/userconnecte", {
+      .get("/users/userconnecte", {
         withCredentials: true,
       })
       .catch((err) => console.log(err));
@@ -47,7 +47,7 @@ function Details(props) {
     return res.data;
   };
   const listC = async () => {
-    const response = await axios.get(`http://localhost:5000/commentaire/listc/${Libraryid}`);
+    const response = await axios.get(`/commentaire/listc/${Libraryid}`);
     if (response.status == 200) {
       const newData = await Promise.all(
         response.data.map(async (comment) => {
@@ -68,7 +68,7 @@ function Details(props) {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/commentaire/listc/${Libraryid}`)
+      .get(`/commentaire/listc/${Libraryid}`)
       .then((response) => {
         setComments(response.data);
       })
@@ -79,7 +79,7 @@ function Details(props) {
 
   var self = this;
   const getOneL = async (id) => {
-    const response = await axios.get(`http://localhost:5000/library/getOnel/${Libraryid}`);
+    const response = await axios.get(`/library/getOnel/${Libraryid}`);
     setState({ ...response.data[0] });
     console.log("matba", response.data);
   };
@@ -87,7 +87,7 @@ function Details(props) {
 
   const [showPage, setShowPage] = useState(false);
   const deleteC = async (id) => {
-      const response = await axios.delete(`http://localhost:5000/commentaire/deleteC/${id}`);
+      const response = await axios.delete(`/commentaire/deleteC/${id}`);
       toast.success("comment deleteed");
 
       listC();
@@ -95,7 +95,7 @@ function Details(props) {
   };
   const getuserbyid = async (id) => {
     const pa = await axios
-      .get(`http://localhost:5000/commentaire/getuserbyid/${id}`, {
+      .get(`/commentaire/getuserbyid/${id}`, {
         withCredentials: true,
       })
       .catch((err) => console.log(err));

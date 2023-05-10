@@ -25,7 +25,7 @@ function UpdateLibrary(props) {
 
   const updateL = async (data, id) => {
     try {
-      const response = await axios.put(`http://localhost:5000/library/updatel/${id}`, data);
+      const response = await axios.put(`/library/updatel/${id}`, data);
       history("/ShowLiabrary");
     } catch (err) {
       setValid(false);
@@ -34,7 +34,7 @@ function UpdateLibrary(props) {
   };
   const getOneL = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/library/getOnel/${id}`);
+      const response = await axios.get(`/library/getOnel/${id}`);
       setState(response.data);
       console.log(response.data);
     } catch (error) {

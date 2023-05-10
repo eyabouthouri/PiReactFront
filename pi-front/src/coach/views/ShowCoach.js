@@ -109,14 +109,14 @@ function ShowCoach(props) {
   */
   const refreshtoken = async () => {
     const res = await axios
-      .get("http://localhost:5000/users/refresh", {
+      .get("/users/refresh", {
         withCredentials: true,
       })
       .catch((err) => console.log(err));
   };
   const sednRequest = async () => {
     const res = await axios
-      .get("http://localhost:5000/users/listuser", {
+      .get("/users/listuser", {
         withCredentials: true,
       })
       .catch((err) => console.log(err));
@@ -127,7 +127,7 @@ function ShowCoach(props) {
 
   const deleteuser = async (id) => {
     const resdelete = await axios
-      .get(`http://localhost:5000/users/delete/${id}`, {
+      .get(`/users/delete/${id}`, {
         withCredentials: true,
       })
       .then(sednRequest())
@@ -139,7 +139,7 @@ function ShowCoach(props) {
   };
   const blockeduser = async (id) => {
     const resblock = await axios
-      .get(`http://localhost:5000/users/blockuser/${id}`, {
+      .get(`/users/blockuser/${id}`, {
         withCredentials: true,
       })
       .then(sednRequest())

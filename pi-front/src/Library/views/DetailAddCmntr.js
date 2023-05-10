@@ -26,7 +26,7 @@ function DetailAddCmntr(props) {
 
   const userconnectee = async () => {
     const res = await axios
-      .get("http://localhost:5000/users/userconnecte", {
+      .get("/users/userconnecte", {
         withCredentials: true,
       })
       .catch((err) => console.log(err));
@@ -47,7 +47,7 @@ function DetailAddCmntr(props) {
   const [valid, setValid] = useState(true);
   const [comments, setComments] = useState([]);
   const listC = async () => {
-    const response = await axios.get(`http://localhost:5000/commentaire/listc/${Libraryid}`);
+    const response = await axios.get(`/commentaire/listc/${Libraryid}`);
     if (response.status == 200) {
       console.log("aaaaaaaaaaa", response.data);
       setData(response.data);
@@ -55,7 +55,7 @@ function DetailAddCmntr(props) {
   };
   const addC = async (data) => {
     try {
-      const response = await axios.post("http://localhost:5000/commentaire/addc", {
+      const response = await axios.post("/commentaire/addc", {
         description: state.description,
         userid: userconnecte._id,
         Libraryid: state.Libraryid,
@@ -75,7 +75,7 @@ function DetailAddCmntr(props) {
 
   const getuserbyid = async (id) => {
     const pa = await axios
-      .get(`http://localhost:5000/commentaire/getuserbyid/${id}`, {
+      .get(`/commentaire/getuserbyid/${id}`, {
         withCredentials: true,
       })
       .catch((err) => console.log(err));
@@ -104,7 +104,7 @@ function DetailAddCmntr(props) {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/commentaire/listc/${Libraryid}`)
+      .get(`/commentaire/listc/${Libraryid}`)
       .then((response) => {
         setComments(response.data);
       })

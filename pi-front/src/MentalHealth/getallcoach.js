@@ -87,13 +87,13 @@ function GetallCoach() {
   console.log(rdvpatient);
   const refreshtoken = async () => {
     const res = await axios
-      .get("http://localhost:5000/users/refresh", {
+      .get("/users/refresh", {
         withCredentials: true,
       })
       .catch((err) => console.log(err));
   };
   const userconnecte = async () => {
-    const res = await axios.get("http://localhost:5000/users/userconnecte", {
+    const res = await axios.get("/users/userconnecte", {
       withCredentials: true,
     });
     return res.data;
@@ -101,7 +101,7 @@ function GetallCoach() {
   console.log(usercon);
 
   const getrendezvousbypatient = async (id) => {
-    const rendezvous = await axios.get(`http://localhost:5000/coach/getrendezvousbypatient/${id}`, {
+    const rendezvous = await axios.get(`/coach/getrendezvousbypatient/${id}`, {
       withCredentials: true,
     });
     console.log(rendezvous.data);
@@ -142,7 +142,7 @@ function GetallCoach() {
   const addresndezvous = async (id) => {
     try {
       const ress = await axios.post(
-        `http://localhost:5000/coach/addrendezvous/${id}`,
+        `/coach/addrendezvous/${id}`,
         {
           date: inputcoach.datee,
           userid: id,
@@ -167,7 +167,7 @@ function GetallCoach() {
   };
 
   const getrendezvous = async (id) => {
-    const rendezvous = await axios.get(`http://localhost:5000/coach/getrdvbycoach/${id}`, {
+    const rendezvous = await axios.get(`/coach/getrdvbycoach/${id}`, {
       withCredentials: true,
     });
     console.log(rendezvous.data);
@@ -178,7 +178,7 @@ function GetallCoach() {
     return rendezvous.data;
   };
   const getcoachdetails = async (id) => {
-    const coach = await axios.get(`http://localhost:5000/coach/getuserbyid/${id}`, {
+    const coach = await axios.get(`/coach/getuserbyid/${id}`, {
       withCredentials: true,
     });
     console.log(coach.data);
@@ -239,7 +239,7 @@ function GetallCoach() {
     console.log(coach);
   };
   const addavis = async (id, rating) => {
-    const ress = await axios.post(`http://localhost:5000/coach/addavis`, {
+    const ress = await axios.post(`/coach/addavis`, {
       nbravis: rating,
       idcoch: id,
       idpa: usercon._id,
@@ -247,7 +247,7 @@ function GetallCoach() {
   };
   const updateavis = async (value) => {
     const ress = await axios
-      .put(`http://localhost:5000/coach/updateavis/${idd}/${usercon._id}`, {
+      .put(`/coach/updateavis/${idd}/${usercon._id}`, {
         nbravis: value,
       })
       .catch((err) => console.log(err));

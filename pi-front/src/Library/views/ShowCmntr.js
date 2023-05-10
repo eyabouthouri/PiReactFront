@@ -25,7 +25,7 @@ function ShowCmntr(props) {
   }, []);
   const userconnectee = async () => {
     const res = await axios
-      .get("http://localhost:5000/users/userconnecte", {
+      .get("/users/userconnecte", {
         withCredentials: true,
       })
       .catch((err) => console.log(err));
@@ -44,7 +44,7 @@ function ShowCmntr(props) {
   const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
   const sednRequest = async () => {
     const res = await axios
-      .get("http://localhost:5000/users/listuser", {
+      .get("/users/listuser", {
         withCredentials: true,
       })
       .catch((err) => console.log(err));
@@ -64,13 +64,13 @@ function ShowCmntr(props) {
   }, []);
   const refreshtoken = async () => {
     const res = await axios
-      .get("http://localhost:5000/users/refresh", {
+      .get("/users/refresh", {
         withCredentials: true,
       })
       .catch((err) => console.log(err));
   };
   const listc = async () => {
-    const response = await axios.get("http://localhost:5000/commentaire/listc");
+    const response = await axios.get("/commentaire/listc");
     if (response.status == 200) {
       const newData = await Promise.all(
         response.data.map(async (comment) => {
@@ -83,14 +83,14 @@ function ShowCmntr(props) {
   };
 
   const deleteC = async (id) => {
-    const response = await axios.delete(`http://localhost:5000/commentaire/deleteC/${id}`);
+    const response = await axios.delete(`/commentaire/deleteC/${id}`);
     toast.success("comment deleteed");
 
     listc();
   };
   const getuserbyid = async (id) => {
     const pa = await axios
-      .get(`http://localhost:5000/commentaire/getuserbyid/${id}`, {
+      .get(`/commentaire/getuserbyid/${id}`, {
         withCredentials: true,
       })
       .catch((err) => console.log(err));

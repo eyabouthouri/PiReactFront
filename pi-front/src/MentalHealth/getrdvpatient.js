@@ -44,7 +44,7 @@ function GetrdvPatient(){
       }, [patientco._id]);
       console.log(rdvpatient)
       const userconnecteee = async () => {
-        const res = await axios.get("http://localhost:5000/users/userconnecte", {
+        const res = await axios.get("/users/userconnecte", {
           withCredentials: true,
         }).catch((err) => console.log(err));
         return res.data;
@@ -53,14 +53,14 @@ function GetrdvPatient(){
     
 
     const getrdv = async (idcon) => {
-        const res = await axios.get(`http://localhost:5000/coach/getrendezvousbypatient/${idcon}`, {
+        const res = await axios.get(`/coach/getrendezvousbypatient/${idcon}`, {
           withCredentials: true,
         }).catch((err) => console.log(err));
         return res.data;
       };
       const annulerrdv = async (id)=>{
         try {
-            const res= await axios.put(`http://localhost:5000/coach/annulerrdv/${id}`, {
+            const res= await axios.put(`/coach/annulerrdv/${id}`, {
               withCredentials: true,
             });
            // console.log(patientco._id)
@@ -94,7 +94,7 @@ function GetrdvPatient(){
       };
       const addresndezvous = async()=>{
         
-        await axios.put(`http://localhost:5000/coach/updaterdv/${idavis}`,{
+        await axios.put(`/coach/updaterdv/${idavis}`,{
      
        date:inputcoach.datee,
        
@@ -105,7 +105,7 @@ function GetrdvPatient(){
     )
       }
       const getrendezvous = async(id)=>{
-        const rendezvous=await axios.get(`http://localhost:5000/coach/getrdvbycoach/${id}`,{
+        const rendezvous=await axios.get(`/coach/getrdvbycoach/${id}`,{
           withCredentials: true,
         })
         console.log(rendezvous.data)

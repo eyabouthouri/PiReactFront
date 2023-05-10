@@ -34,7 +34,7 @@ function UpdateUser() {
 
   const userconnectee = async () => {
     const res = await axios
-      .get("http://localhost:5000/users/userconnecte", {
+      .get("/users/userconnecte", {
         withCredentials: true,
       })
       .catch((err) => console.log(err));
@@ -47,7 +47,7 @@ function UpdateUser() {
     const resupdate = await axios
 
       .post(
-        `http://localhost:5000/users/updateuser/${userconnecte._id}`,
+        `/users/updateuser/${userconnecte._id}`,
         {
           name: input.name,
           lastname: input.lastname,
@@ -65,7 +65,7 @@ function UpdateUser() {
   const updatepwd = async () => {
     try {
       const resupdate = await axios.post(
-        `http://localhost:5000/users/changerpwd/${userconnecte.username}`,
+        `/users/changerpwd/${userconnecte.username}`,
         {
           pwd: inputt.pwd,
           pwdd: inputt.pwdd,

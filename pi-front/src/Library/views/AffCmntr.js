@@ -22,13 +22,13 @@ useEffect(()=>{
 const [state, setState] = useState(initialState);
 const {description}=initialState;
 const listL = async()=>{
-   const response = await axios.get("http://localhost:5000/library/listL");
+   const response = await axios.get("/library/listL");
    if(response.status ==200){
       setData(response.data);
    }
    }
 const listC = async()=>{
-   const response = await axios.get("http://localhost:5000/commentaire/listc");
+   const response = await axios.get("/commentaire/listc");
    if(response.status ==200){
       setData(response.data);
    }
@@ -36,7 +36,7 @@ const listC = async()=>{
  
    const deleteC = async (id)=> {
       
-         const response = await axios.delete(`http://localhost:5000/commentaire/deleteC/${id}`,
+         const response = await axios.delete(`/commentaire/deleteC/${id}`,
          {withCredentials: true}).then(
             listC()
    

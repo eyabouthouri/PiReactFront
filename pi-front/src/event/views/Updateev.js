@@ -19,7 +19,7 @@ function Updateev(props) {
 
   const updateev = async (data, id) => {
     try {
-      const response = await axios.put(`http://localhost:5000/events/updateev/${id}`, data);
+      const response = await axios.put(`/events/updateev/${id}`, data);
       history("/ShowEvent");
     } catch (err) {
       setValid(false);
@@ -28,7 +28,7 @@ function Updateev(props) {
   };
   const listoneev = async () => {
     const one = await axios
-      .get(`http://localhost:5000/events/one/${id}`, {
+      .get(`/events/one/${id}`, {
         withCredentials: true,
       })
 

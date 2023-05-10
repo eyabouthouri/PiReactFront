@@ -23,7 +23,7 @@ function DetailAddCmntr(props) {
   const [comments, setComments] = useState([]);
 
   const addC = async (data) => {
-    const response = await axios.post("http://localhost:5000/commentaire/addc", data, { withCredentials: true });
+    const response = await axios.post("/commentaire/addc", data, { withCredentials: true });
 
     return response.data;
   };
@@ -43,7 +43,7 @@ function DetailAddCmntr(props) {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/commentaire/getc")
+      .get("/commentaire/getc")
       .then((response) => {
         setComments(response.data);
       })

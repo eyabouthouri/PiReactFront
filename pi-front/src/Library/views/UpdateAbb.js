@@ -32,7 +32,7 @@ function UpdateAbb(props) {
 
   const updateA = async (data, id) => {
     try {
-      const response = await axios.put(`http://localhost:5000/abonnement/updatea/${id}`, data);
+      const response = await axios.put(`/abonnement/updatea/${id}`, data);
       history("/showabb");
     } catch (err) {
       setValid(false);
@@ -46,7 +46,7 @@ function UpdateAbb(props) {
     if (id) {
       const getOneA = async () => {
         try {
-          const response = await axios.get(`http://localhost:5000/abonnement/getOneA/${id}`);
+          const response = await axios.get(`/abonnement/getOneA/${id}`);
           setState({ ...response.data });
           console.log(response.data);
         } catch (error) {

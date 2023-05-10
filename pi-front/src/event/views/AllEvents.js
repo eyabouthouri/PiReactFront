@@ -16,9 +16,9 @@ function AllEvents(props) {
     alanBtn({
       key: alanKey,
       onCommand: (commandData) => {
-        if (commandData.command === "navigateTo" && commandData.page === "http://localhost:3001/home") {
+        if (commandData.command === "navigateTo" && commandData.page === "/home") {
           // Navigate to the home page
-          window.location.href = "http://localhost:3001/home";
+          window.location.href = "/home";
         }
       },
     });
@@ -36,7 +36,7 @@ function AllEvents(props) {
         if (!text) {
           listev();
         } else {
-          const response = await axios.get(`http://localhost:5000/events/rech/${text}`);
+          const response = await axios.get(`/events/rech/${text}`);
           setData(response.data);
         }
       } catch (e) {
@@ -45,7 +45,7 @@ function AllEvents(props) {
     }, 100);
   };
   const listev = async () => {
-    const response = await axios.get("http://localhost:5000/events/listev");
+    const response = await axios.get("/events/listev");
     if (response.status == 200) {
       setData(response.data);
     }
@@ -53,10 +53,10 @@ function AllEvents(props) {
 
   return (
     <div>
-      {currentUrl === "http://localhost:3001/allevent" && <Navbar></Navbar>}
+   <Navbar></Navbar>
 
       <div class="header-for-bg" style={{ marginTop: 0 }}>
-        {currentUrl === "http://localhost:3001/allevent" && (
+    
           <section id="hero">
             <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
               <div class="carousel-inner" role="listbox">
@@ -75,7 +75,7 @@ function AllEvents(props) {
               </div>
             </div>
           </section>
-        )}{" "}
+       {" "}
         <div id="content-page" className="content-page">
           <div className="container">
             <div className="row">
@@ -155,7 +155,7 @@ function AllEvents(props) {
       <br></br>
 
       <div>
-        {currentUrl === "http://localhost:3001/allevent" && (
+      
           <footer class="footer py-4">
             <div class="container">
               <div class="row align-items-center">
@@ -182,7 +182,7 @@ function AllEvents(props) {
               </div>
             </div>
           </footer>
-        )}
+  
       </div>
     </div>
   );

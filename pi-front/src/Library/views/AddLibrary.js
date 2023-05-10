@@ -28,7 +28,7 @@ function AddLibrary(props) {
 
   const updateL = async (data, id) => {
     try {
-      const response = await axios.put(`http://localhost:5000/library/updatel/${id}`, data);
+      const response = await axios.put(`/library/updatel/${id}`, data);
       history("/ShowLiabrary");
     } catch (err) {
       setValid(false);
@@ -38,7 +38,7 @@ function AddLibrary(props) {
 
   const addL = async (data) => {
     try {
-      const response = await axios.post("http://localhost:5000/library/addl", data);
+      const response = await axios.post("/library/addl", data);
       toast.success("abonement added Successfully");
       history("/ShowLiabrary");
     } catch (err) {

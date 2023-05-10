@@ -25,7 +25,7 @@ function Lib(props) {
 
   const userconnectee = async () => {
     const res = await axios
-      .get("http://localhost:5000/users/userconnecte", {
+      .get("/users/userconnecte", {
         withCredentials: true,
       })
       .catch((err) => console.log(err));
@@ -59,7 +59,7 @@ function Lib(props) {
         if (!text) {
           listL();
         } else {
-          const response = await axios.get(`http://localhost:5000/library/getbynom/${text}`);
+          const response = await axios.get(`/library/getbynom/${text}`);
           setData(response.data);
         }
       } catch (e) {
@@ -68,7 +68,7 @@ function Lib(props) {
     }, 100);
   };
   const listL = async () => {
-    const response = await axios.get("http://localhost:5000/library/listL2");
+    const response = await axios.get("/library/listL2");
     if (response.status == 200) {
       setData(response.data);
     }

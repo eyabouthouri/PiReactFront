@@ -39,7 +39,7 @@ console.log(user)
   useEffect(()=>{
     const fetchFriends = async () => {
         try {
-          const res = await axios.get("http://localhost:5000/users/listuser", {
+          const res = await axios.get("/users/listuser", {
             withCredentials: true,
           });
           setuserr(res.data);

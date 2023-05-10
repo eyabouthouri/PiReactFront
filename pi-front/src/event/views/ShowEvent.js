@@ -19,7 +19,7 @@ function ShowEvent(props) {
 
     const sednRequest = async () => {
       const res = await axios
-        .get("http://localhost:5000/events/listev", {
+        .get("/events/listev", {
           withCredentials: true,
         })
         .catch((err) => console.log(err));
@@ -29,7 +29,7 @@ function ShowEvent(props) {
     };
     const deleteev = async (id) => {
       const resdelete = await axios
-        .get(`http://localhost:5000/events/deleteev/${id}`, {
+        .get(`/events/deleteev/${id}`, {
           withCredentials: true,
         })
         .then(sednRequest())

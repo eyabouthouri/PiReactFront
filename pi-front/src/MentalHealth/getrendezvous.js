@@ -45,27 +45,27 @@ function GetRdv(props){
    
   
     const userconnecteee = async () => {
-      const res = await axios.get("http://localhost:5000/users/userconnecte", {
+      const res = await axios.get("/users/userconnecte", {
         withCredentials: true,
       }).catch((err) => console.log(err));
       return res.data;
     };
   
     const getrdv = async (idcon) => {
-      const res = await axios.get(`http://localhost:5000/coach/getallrdvbycoach/${idcon}`, {
+      const res = await axios.get(`/coach/getallrdvbycoach/${idcon}`, {
         withCredentials: true,
       }).catch((err) => console.log(err));
       return res.data;
     };
     const getuserbyid = async(id)=>{
-       const pa = await axios.get(`http://localhost:5000/coach/getuserbyid/${id}`, {
+       const pa = await axios.get(`/coach/getuserbyid/${id}`, {
         withCredentials: true,
       }).catch((err) => console.log(err));
     //  setpatient(res.data)
       return pa.data;
     }
     const deleterdv = async(id)=>{
-      const pa = await axios.get(`http://localhost:5000/coach/deleterdv/${id}`, {
+      const pa = await axios.get(`/coach/deleterdv/${id}`, {
         withCredentials: true,
       }).catch((err) => console.log(err));
     }

@@ -60,7 +60,7 @@ function EventDetails(props) {
     fetchData();
   }, []);
   const userconnecte = async () => {
-    const res = await axios.get("http://localhost:5000/users/userconnecte", {
+    const res = await axios.get("/users/userconnecte", {
       withCredentials: true,
     });
     return res.data;
@@ -87,7 +87,7 @@ function EventDetails(props) {
   console.log(likeee);
 
   const getlikeeventuser = async (id) => {
-    const res = await axios.get(`http://localhost:5000/likeEvent/getlikeeventuser/${idevent}/${id}`, {
+    const res = await axios.get(`/likeEvent/getlikeeventuser/${idevent}/${id}`, {
       withCredentials: true,
     });
     return res.data;
@@ -103,7 +103,7 @@ function EventDetails(props) {
   const likeevent = async () => {
     try {
       if (usercon) {
-        await axios.post(`http://localhost:5000/events/likeeventt/${idevent}/${usercon._id}`, {}, { withCredentials: true });
+        await axios.post(`/events/likeeventt/${idevent}/${usercon._id}`, {}, { withCredentials: true });
 
         const likee = await getlikeeventuser(usercon._id);
         setlikeee(likee);
@@ -117,7 +117,7 @@ function EventDetails(props) {
   const dislike = async () => {
     try {
       if (usercon) {
-        await axios.get(`http://localhost:5000/events/dislikeev/${idevent}/${usercon._id}`, {}, { withCredentials: true });
+        await axios.get(`/events/dislikeev/${idevent}/${usercon._id}`, {}, { withCredentials: true });
         const likee = await getlikeeventuser(usercon._id);
         setlikeee(likee);
       }
@@ -129,7 +129,7 @@ function EventDetails(props) {
   };
   const listoneev = async () => {
     const one = await axios
-      .get(`http://localhost:5000/events/one/${idevent}`, {
+      .get(`/events/one/${idevent}`, {
         withCredentials: true,
       })
 
@@ -143,7 +143,7 @@ function EventDetails(props) {
   const addpart = async () => {
     try {
       const res = await axios.post(
-        `http://localhost:5000/participate/aad/${idevent}`,
+        `/participate/aad/${idevent}`,
         {
           userId: user._id,
           //eventName: input.eventName,

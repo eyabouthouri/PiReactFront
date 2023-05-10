@@ -30,7 +30,7 @@ function ShowLiabrary(props) {
         if (!text) {
           listL();
         } else {
-          const response = await axios.get(`http://localhost:5000/library/getbynom/${text}`);
+          const response = await axios.get(`/library/getbynom/${text}`);
           setData(response.data);
         }
       } catch (e) {
@@ -42,14 +42,14 @@ function ShowLiabrary(props) {
   const [results, setResults] = useState([]);
 
   const listL = async () => {
-    const response = await axios.get("http://localhost:5000/library/listL");
+    const response = await axios.get("/library/listL");
     if (response.status == 200) {
       setData(response.data);
     }
   };
 
   const deleteL = async (id) => {
-    const response = await axios.delete(`http://localhost:5000/library/deleteL/${id}`);
+    const response = await axios.delete(`/library/deleteL/${id}`);
     if (response.status == 200) {
       toast.success("library deleteed");
 

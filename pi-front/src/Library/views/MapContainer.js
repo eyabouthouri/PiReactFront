@@ -12,7 +12,7 @@ const MapContainer = (props) => {
   
     useEffect(() => {
       const fetchLibraries = async () => {
-        const response = await axios.get("http://localhost:5000/library/listL");
+        const response = await axios.get("/library/listL");
         if (response.status === 200) {
           const librariesWithLocation = await Promise.all(
             response.data.map(async (library) => {

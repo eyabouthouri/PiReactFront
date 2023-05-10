@@ -33,7 +33,7 @@ function Addabonnement() {
   }, []);
   const userconnectee = async () => {
     const res = await axios
-      .get("http://localhost:5000/users/userconnecte", {
+      .get("/users/userconnecte", {
         withCredentials: true,
       })
       .catch((err) => console.log(err));
@@ -45,7 +45,7 @@ function Addabonnement() {
   };
   const addA = async (data) => {
     try {
-      const response = await axios.post("http://localhost:5000/abonnement/adda", {
+      const response = await axios.post("/abonnement/adda", {
         nom: state.nom,
         prenom: state.prenom,
         age: state.age,
@@ -113,7 +113,7 @@ function Addabonnement() {
   };
   const getuserbyid = async (id) => {
     const pa = await axios
-      .get(`http://localhost:5000/commentaire/getuserbyid/${id}`, {
+      .get(`/commentaire/getuserbyid/${id}`, {
         withCredentials: true,
       })
       .catch((err) => console.log(err));

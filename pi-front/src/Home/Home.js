@@ -31,7 +31,7 @@ function Home(props) {
   }, [userconnecte]);
   const userconnectee = async () => {
     const res = await axios
-      .get("http://localhost:5000/users/userconnecte", {
+      .get("/users/userconnecte", {
         withCredentials: true,
       })
       .catch((err) => console.log(err));
@@ -54,7 +54,7 @@ function Home(props) {
   const updateadmin = async () => {
     try {
       const resupdate = await axios.post(
-        `http://localhost:5000/users/updateuser/${userconnecte._id}`,
+        `/users/updateuser/${userconnecte._id}`,
         {
           name: input.name,
           lastname: input.lastname,
@@ -79,7 +79,7 @@ function Home(props) {
 
   const refreshtoken = async () => {
     const res = await axios
-      .get("http://localhost:5000/users/refresh", {
+      .get("/users/refresh", {
         withCredentials: true,
       })
       .catch((err) => console.log(err));
