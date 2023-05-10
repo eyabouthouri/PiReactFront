@@ -191,7 +191,7 @@ function Navbar(props) {
                 <div class="form-group row align-items-center">
                   <div class="col-md-12">
                     <div class="profile-img-edit">
-                      <img class="profile-pic" src={userconnecte.image} alt="profile-pic" style={{ width: 150, height: 150 }} />
+                      <img class="profile-pic" src={userconnecte?.image} alt="profile-pic" style={{ width: 150, height: 150 }} />
                       <div class="p-image">
                         <i></i>
                       </div>
