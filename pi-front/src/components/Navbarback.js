@@ -6,17 +6,19 @@ import { useDispatch } from "react-redux";
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 import ShowCoach from "../coach/views/ShowCoach";
 import { FaFacebookMessenger } from "react-icons/fa";
+
 function Navbarback(props) {
   const dispatch = useDispatch();
 
+  const { isLoggedIn, isAdmin, isUser, isCoach,userexisting } = useSelector((state) => state.session);
   const [userconnecte, setUserconnecte] = useState([]);
 
   var history = useNavigate;
   useEffect(() => {
-    userconnectee().then((d) => {
-      setUserconnecte(d);
-      console.log(userconnecte);
-    });
+    
+      setUserconnecte(userexisting);
+    
+
   }, []);
 
   const userconnectee = async () => {

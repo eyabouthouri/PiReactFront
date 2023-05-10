@@ -16,6 +16,7 @@ import "./search.css";
 axios.defaults.withCredentials = true;
 
 function GetallCoach() {
+ 
   const [user, setUser] = useState([]);
   const [startdate, setstartdate] = useState();
   const [inputcoach, setinputcoach] = useState({ datee: null, userid: null, patientid: null, tel: null });
@@ -31,14 +32,15 @@ function GetallCoach() {
   const [rdvpatient, setrdvpatient] = useState([]);
   const [isdisabled, setisdisabled] = useState(true);
   const [validd, setValid] = useState(true);
-
+  const { userexisting } = useSelector((state) => state.session);
   const [msg, setmsg] = useState("");
 
   const [value, setValue] = useState(new Date());
   var history = useNavigate();
   useEffect(() => {
+    setUsercon(userexisting)
     // 1. Appeler fetchData dans useEffect
-    async function fetchData() {
+   /* async function fetchData() {
       try {
         // 2. Appeler userconnecte avec await pour attendre la réponse
         const user = await userconnecte();
@@ -46,8 +48,8 @@ function GetallCoach() {
       } catch (error) {
         // 3. Gérer les erreurs s'il y en a
         console.error(error);
-      }
-    }
+      
+    }*/
 
     fetchData();
   }, []);

@@ -10,6 +10,7 @@ import Navbar from '../components/Navbar';
 import { confirmAlert } from "react-confirm-alert"; 
 import "react-confirm-alert/src/react-confirm-alert.css"; 
 axios.defaults.withCredentials = true;
+const { userexisting } = useSelector((state) => state.session);
 function GetrdvPatient(){
     const [rdvpatient,setrdvpatient]= useState([]);
     const [patientco, setpatientco] = useState([]);
@@ -22,13 +23,14 @@ function GetrdvPatient(){
   const[idd,setid]=useState();
   axios.defaults.withCredentials = true;
     useEffect(() => {
-        async function fetchData() {
+       /* async function fetchData() {
           const user = await userconnecteee();
           setpatientco(user);
           setstartdate(new Date())
-        }
-    
-        fetchData();
+        }*/
+
+      setpatientco(userexisting);
+       
       }, []);
     
       useEffect(() => {

@@ -10,6 +10,7 @@ import NavbarFront from '../components/NavbarFront';
 import Navbar from '../components/Navbar';
 import { confirmAlert } from "react-confirm-alert"; 
 import "react-confirm-alert/src/react-confirm-alert.css"; 
+const { userexisting } = useSelector((state) => state.session);
 axios.defaults.withCredentials = true;
 
 function GetRdv(props){
@@ -21,12 +22,7 @@ function GetRdv(props){
     
  
     useEffect(() => {
-      async function fetchData() {
-        const user = await userconnecteee();
-        setUserco(user);
-      }
-  
-      fetchData();
+      setUserco(userexisting);
     }, []);
   
     useEffect(() => {

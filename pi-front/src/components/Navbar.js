@@ -10,17 +10,17 @@ import "./navbarr.css";
 function Navbar(props) {
   const dispatch = useDispatch();
 
-  const { isLoggedIn, isAdmin, isUser, isCoach } = useSelector((state) => state.session);
+  const { isLoggedIn, isAdmin, isUser, isCoach,userexisting } = useSelector((state) => state.session);
+ 
   const [userconnecte, setUserconnecte] = useState([]);
 
   const [input, setinput] = useState([]);
 
   var history = useNavigate();
   useEffect(() => {
-    userconnectee().then((d) => {
-      setUserconnecte(d);
-      console.log(userconnecte);
-    });
+    
+      setUserconnecte(userexisting);
+    
   }, []);
   useEffect(() => {
     setinput({
