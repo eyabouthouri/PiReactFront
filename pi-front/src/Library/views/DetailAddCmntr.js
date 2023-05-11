@@ -6,7 +6,7 @@ import SideBar from "../../components/SideBar";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import AffCmntr from "./AffCmntr";
-
+import { useDispatch, useSelector } from "react-redux";
 axios.defaults.withCredentials = true;
 
 function DetailAddCmntr(props) {
