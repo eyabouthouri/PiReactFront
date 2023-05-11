@@ -39,7 +39,7 @@ const { userexisting } = useSelector((state) => state.session);
     
       useEffect(() => {
         async function fetchRdv() {
-          if (patientco._id !== undefined) {
+          if (patientco?._id !== undefined) {
             const rdvData = await getrdv(patientco._id);
             console.log(rdvData)
             setrdvpatient(rdvData);

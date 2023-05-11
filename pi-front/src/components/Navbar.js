@@ -152,6 +152,7 @@ function Navbar(props) {
                   <h6 class="text-white">
                  {userconnecte?.name} 
                 </h6>
+                
                   
                 )}
               </li>

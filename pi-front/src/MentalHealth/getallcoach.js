@@ -22,8 +22,7 @@ function GetallCoach() {
   const [startdate, setstartdate] = useState();
   const [inputcoach, setinputcoach] = useState({ datee: null, userid: null, patientid: null, tel: null });
   const u = JSON.parse(userexisting);
-  const { userexisting } = useSelector((state) => state.session);
-  const [usercon, setUsercon] = useState(JSON.parse(userexisting));
+ 
   const [idd, setid] = useState();
   const [holidays, setholidays] = useState([]);
   const [mintime, setmintime] = useState(new Date());
@@ -31,18 +30,22 @@ function GetallCoach() {
   const [rating, setRating] = useState();
   const [coach, setcoach] = useState();
   const [userco, setUserco] = useState();
-  const { isLoggedIn, isAdmin, isUser, isCoach } = useSelector((state) => state.session);
+  const { isLoggedIn, isAdmin, isUser, userexisting } = useSelector((state) => state.session);
   const [rdvpatient, setrdvpatient] = useState([]);
   const [isdisabled, setisdisabled] = useState(true);
   const [validd, setValid] = useState(true);
   
-  
+  const [usercon, setUsercon] = useState(null);
   const [msg, setmsg] = useState("");
 
   const [value, setValue] = useState(new Date());
   var history = useNavigate();
   useEffect(() => {
-    //setUsercon(userexisting)
+    if(userexisting){
+      setUsercon(JSON.parse(userexisting))
+    }
+
+    
     // 1. Appeler fetchData dans useEffect
    /* async function fetchData() {
       try {
@@ -57,6 +60,7 @@ function GetallCoach() {
 
   //  fetchData();
   }, []);
+  console.log(usercon?._id)
 
   useEffect(() => {
     // 4. Utiliser la fonction de rappel pour mettre à jour l'état de l'utilisateur
@@ -389,7 +393,7 @@ function GetallCoach() {
 
                                     item.avis.map((value, index) => {
                                       if (usercon) {
-                                        id = usercon._id;
+                                        id = usercon?._id;
                                       }
                                       if (value.idpatientavis === id) {
                                         etatavis = false;
