@@ -21,7 +21,6 @@ function GetallCoach() {
   const [user, setUser] = useState([]);
   const [startdate, setstartdate] = useState();
   const [inputcoach, setinputcoach] = useState({ datee: null, userid: null, patientid: null, tel: null });
-  const u = JSON.parse(userexisting);
  
   const [idd, setid] = useState();
   const [holidays, setholidays] = useState([]);
