@@ -11,16 +11,16 @@ axios.defaults.withCredentials = true;
 
 function DetailAddCmntr(props) {
   const { Libraryid, id } = useParams();
-
-  const [userconnecte, setUserconnecte] = useState([]);
+  const { isLoggedIn, isAdmin, isUser, userexisting } = useSelector((state) => state.session);
+  const [userconnecte, setUserconnecte] = useState(JSON.parse(userexisting));
 
   const [data, setData] = useState([]);
   var history = useNavigate;
   useEffect(() => {
-    userconnectee().then((d) => {
+   /* userconnectee().then((d) => {
       setUserconnecte(d);
       console.log(userconnecte);
-    });
+    });*/
   }, []);
   const [usercon, setUsercon] = useState();
 
@@ -39,7 +39,7 @@ function DetailAddCmntr(props) {
   const [state, setState] = useState({
     description: "",
     Libraryid,
-    userid: userconnecte._id,
+    userid: userconnecte?._id,
     dateEnvoi: "",
   });
   const [user, setUser] = useState([]);
@@ -57,7 +57,7 @@ function DetailAddCmntr(props) {
     try {
       const response = await axios.post("/commentaire/addc", {
         description: state.description,
-        userid: userconnecte._id,
+        userid: userconnecte?._id,
         Libraryid: state.Libraryid,
         dateEnvoi: state.dateEnvoi,
       });

@@ -19,7 +19,7 @@ function Navbarback(props) {
   var history = useNavigate;
   useEffect(() => {
     
-      setUserconnecte(userexisting);
+    //  setUserconnecte(userexisting);
     
 
   }, []);
@@ -83,11 +83,11 @@ function Navbarback(props) {
               </li>
               <li>
                 <a href="#" class="iq-waves-effect d-flex align-items-center">
-                  <img src={userconnecte.image} class="img-fluid rounded-circle mr-3" alt="user" />
+                  <img src={userconnecte?.image} class="img-fluid rounded-circle mr-3" alt="user" />
 
                   <div class="caption">
                     <h6 class="mb-0 line-height">
-                      {userconnecte.name} {userconnecte.lastname}
+                      {userconnecte?.name} {userconnecte?.lastname}
                     </h6>
                   </div>
                 </a>

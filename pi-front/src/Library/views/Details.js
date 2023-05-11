@@ -15,7 +15,7 @@ axios.defaults.withCredentials = true;
 function Details(props) {
   const { Libraryid, id } = useParams();
   const [state, setState] = useState({ description: "", Libraryid });
-
+  const { isLoggedIn, isAdmin, isUser, userexisting } = useSelector((state) => state.session);
   const initialState = {
     name: "",
     adresse: "",
@@ -24,15 +24,19 @@ function Details(props) {
     tel: "",
     Image: "",
   };
-  const [userconnecte, setUserconnecte] = useState([]);
+  const [userconnecte, setUserconnecte] = useState(userexisting);
 
   const [data, setData] = useState([]);
   var history = useNavigate;
   useEffect(() => {
-    userconnectee().then((d) => {
+    if(userexisting){
+      setUserconnecte(JSON.parse(userexisting))
+    }
+
+   /* userconnectee().then((d) => {
       setUserconnecte(d);
       console.log(userconnecte);
-    });
+    });*/
   }, []);
   const userconnectee = async () => {
     const res = await axios
