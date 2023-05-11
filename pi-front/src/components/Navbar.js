@@ -13,7 +13,7 @@ function Navbar(props) {
 
   const { isLoggedIn, isAdmin, isUser, isCoach,userexisting } = useSelector((state) => state.session);
   const u = JSON.parse(userexisting);
-  const [userconnecte, setUserconnecte] = useState(u);
+  const [userconnecte, setUserconnecte] = useState(JSON.parse(userexisting));
 
   const [input, setinput] = useState([]);
 
@@ -157,9 +157,9 @@ function Navbar(props) {
               </li>
               <li class="scrollto active">
                 {isLoggedIn && (
-                  <a href="/chat">
+                  <Link to="/chat">
                     <FaFacebookMessenger style={{ color: "#00BFFF" }} size={30} />
-                  </a>
+                  </Link>
                 )}
               </li>
               <li class="scrollto active">

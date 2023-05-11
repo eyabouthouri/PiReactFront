@@ -17,12 +17,13 @@ import "./search.css";
 axios.defaults.withCredentials = true;
 
 function GetallCoach() {
-  const { userexisting } = useSelector((state) => state.session);
+  
   const [user, setUser] = useState([]);
   const [startdate, setstartdate] = useState();
   const [inputcoach, setinputcoach] = useState({ datee: null, userid: null, patientid: null, tel: null });
   const u = JSON.parse(userexisting);
-  const [usercon, setUsercon] = useState(u);
+  const { userexisting } = useSelector((state) => state.session);
+  const [usercon, setUsercon] = useState(JSON.parse(userexisting));
   const [idd, setid] = useState();
   const [holidays, setholidays] = useState([]);
   const [mintime, setmintime] = useState(new Date());

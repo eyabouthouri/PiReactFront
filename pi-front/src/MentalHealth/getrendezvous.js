@@ -18,7 +18,7 @@ function GetRdv(props){
   const { userexisting } = useSelector((state) => state.session);
     const [rdv,setrdv]= useState([]);
     const u = JSON.parse(userexisting);
-    const [userco, setUserco] = useState(u);
+    const [userco, setUserco] = useState(JSON.parse(userexisting));
     const [details, setdatails] = useState([]);
     const [patient,setpatient] = useState([])
     

@@ -112,9 +112,9 @@ if(user){
     };
     getMessages();
   }, [currentChat]);
-  console.log(user._id)
+ 
   const handleSubmit = async (e) => {
-    console.log(user._id)
+ 
     e.preventDefault();
     const message = {
       sender: user?._id,

@@ -14,7 +14,7 @@ function Navbarback(props) {
 
   const { isLoggedIn, isAdmin, isUser, isCoach,userexisting } = useSelector((state) => state.session);
   const u = JSON.parse(userexisting);
-  const [userconnecte, setUserconnecte] = useState(u);
+  const [userconnecte, setUserconnecte] = useState(JSON.parse(userexisting));
 
   var history = useNavigate;
   useEffect(() => {
