@@ -6,9 +6,12 @@ import StepDeux from "../../components/StepDeux";
 import axios from "axios";
 import { NavLink, useNavigate, Link } from "react-router-dom";
 import ShowCoach from "./ShowCoach";
+import { useSelector } from "react-redux";
 axios.defaults.withCredentials = true;
 function UpdateUser() {
-  const [userconnecte, setUserconnecte] = useState([]);
+  const { isLoggedIn, isAdmin, isUser, userexisting } = useSelector((state) => state.session);
+ 
+  const [userconnecte, setUserconnecte] = useState(JSON.parse(userexisting));
   const initialState = { name: "", lastname: "", email: "", pwd: "", image: "" };
 
   const [input, setinput] = useState([]);
@@ -25,12 +28,12 @@ function UpdateUser() {
   }, []);
   useEffect(() => {
     setinput({
-      name: userconnecte.name,
-      lastname: userconnecte.lastname,
-      email: userconnecte.email,
-      image: userconnecte.image,
+      name: userconnecte?.name,
+      lastname: userconnecte?.lastname,
+      email: userconnecte?.email,
+      image: userconnecte?.image,
     });
-  }, [userconnecte]);
+  }, []);
 
   const userconnectee = async () => {
     const res = await axios
@@ -47,7 +50,7 @@ function UpdateUser() {
     const resupdate = await axios
 
       .post(
-        `/users/updateuser/${userconnecte._id}`,
+        `/users/updateuser/${userconnecte?._id}`,
         {
           name: input.name,
           lastname: input.lastname,
@@ -65,7 +68,7 @@ function UpdateUser() {
   const updatepwd = async () => {
     try {
       const resupdate = await axios.post(
-        `/users/changerpwd/${userconnecte.username}`,
+        `/users/changerpwd/${userconnecte?.username}`,
         {
           pwd: inputt.pwd,
           pwdd: inputt.pwdd,
@@ -150,7 +153,7 @@ function UpdateUser() {
                         <div class="form-group row align-items-center">
                           <div class="col-md-12">
                             <div class="profile-img-edit">
-                              <img class="profile-pic" src={process.env.PUBLIC_URL + "/imagee/" + userconnecte.image} alt="profile-pic" />
+                              <img class="profile-pic" src={process.env.PUBLIC_URL + "/imagee/" + userconnecte?.image} alt="profile-pic" />
                               <div class="p-image">
                                 <i></i>
                               </div>

@@ -75,9 +75,11 @@ function Navbarback(props) {
               <li>
                 <a class="iq-waves-effect d-flex align-items-center">
                   <div class="caption">
-                    <a class="nav-link" href="/chat">
-                      <FaFacebookMessenger style={{ color: "#00BFFF" }} size={35} />
-                    </a>
+                  {isLoggedIn && (
+                  <Link to="/chat">
+                    <FaFacebookMessenger style={{ color: "#00BFFF" }} size={30} />
+                  </Link>
+                )}
                   </div>
                 </a>
               </li>

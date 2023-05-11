@@ -24,14 +24,12 @@ function Details(props) {
     tel: "",
     Image: "",
   };
-  const [userconnecte, setUserconnecte] = useState(userexisting);
+  const [userconnecte, setUserconnecte] = useState(JSON.parse(userexisting));
 
   const [data, setData] = useState([]);
   var history = useNavigate;
   useEffect(() => {
-    if(userexisting){
-      setUserconnecte(JSON.parse(userexisting))
-    }
+  
 
    /* userconnectee().then((d) => {
       setUserconnecte(d);
