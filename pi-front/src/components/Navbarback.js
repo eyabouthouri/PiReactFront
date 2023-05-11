@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { setIsLoggedin } from "../redux/session";
+
 import { useDispatch } from "react-redux";
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 import ShowCoach from "../coach/views/ShowCoach";
@@ -12,7 +13,8 @@ function Navbarback(props) {
   const dispatch = useDispatch();
 
   const { isLoggedIn, isAdmin, isUser, isCoach,userexisting } = useSelector((state) => state.session);
-  const [userconnecte, setUserconnecte] = useState(userexisting);
+  const u = JSON.parse(userexisting);
+  const [userconnecte, setUserconnecte] = useState(u);
 
   var history = useNavigate;
   useEffect(() => {

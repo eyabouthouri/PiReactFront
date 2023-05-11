@@ -17,7 +17,8 @@ axios.defaults.withCredentials = true;
 function GetRdv(props){
   const { userexisting } = useSelector((state) => state.session);
     const [rdv,setrdv]= useState([]);
-    const [userco, setUserco] = useState(userexisting);
+    const u = JSON.parse(userexisting);
+    const [userco, setUserco] = useState(u);
     const [details, setdatails] = useState([]);
     const [patient,setpatient] = useState([])
     

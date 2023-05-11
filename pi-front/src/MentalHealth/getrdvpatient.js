@@ -15,7 +15,8 @@ function GetrdvPatient(){
   
 const { userexisting } = useSelector((state) => state.session);
     const [rdvpatient,setrdvpatient]= useState([]);
-    const [patientco, setpatientco] = useState(userexisting);
+    const u = JSON.parse(userexisting);
+    const [patientco, setpatientco] = useState(u);
     const[startdate,setstartdate]=useState();
     const [holidays,setholidays] = useState([]);
     const[mintime,setmintime]=useState(new Date());

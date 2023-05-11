@@ -12,8 +12,8 @@ function Navbar(props) {
   const dispatch = useDispatch();
 
   const { isLoggedIn, isAdmin, isUser, isCoach,userexisting } = useSelector((state) => state.session);
- 
-  const [userconnecte, setUserconnecte] = useState(userexisting);
+  const u = JSON.parse(userexisting);
+  const [userconnecte, setUserconnecte] = useState(u);
 
   const [input, setinput] = useState([]);
 
